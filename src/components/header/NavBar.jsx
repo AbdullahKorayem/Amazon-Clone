@@ -1,10 +1,12 @@
-import React from "react";
-import { FaLocationDot } from "react-icons/fa6";
-import { FaSearch } from "react-icons/fa";
-import { FaShoppingCart } from "react-icons/fa";
-import { FaBars } from "react-icons/fa";
+import React, { useContext } from 'react';
+import { FaLocationDot } from 'react-icons/fa6';
+import { FaSearch } from 'react-icons/fa';
+import { FaShoppingCart } from 'react-icons/fa';
+import { FaBars } from 'react-icons/fa';
+import { langContext } from '../../contexts/lang';
 
 const NavBar = () => {
+  const { lang, setLang } = useContext(langContext);
   return (
     <>
       <nav className="bg-[#131921] h-auto justify-evenly flex items-center text-white">
@@ -44,12 +46,24 @@ const NavBar = () => {
         {/* Language */}
         <div className="flex items-center border border-transparent p-1 hover:border-white">
           <img
-            src="./src/assets/images/us_flag.png"
+            src={
+              lang === 'en'
+                ? '/public/amazon-icon/us_flag.png'
+                : '/public/amazon-icon/eg_flag.png'
+            }
             className="w-5 h-5"
             alt="US Flag"
           />
-          <select className="bg-transparent font-bold">
-            <option>EN</option>
+          <select
+            className="bg-transparent font-bold"
+            onChange={e => setLang(e.target.value)}
+          >
+            <option className=" text-black" value="en">
+              EN
+            </option>
+            <option className=" text-black" value="ar">
+              AR
+            </option>
           </select>
         </div>
 
