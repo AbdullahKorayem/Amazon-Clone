@@ -1,0 +1,30 @@
+const {
+  images,
+  title,
+  availability,
+  brand,
+  rating,
+  ratingQuantity,
+  productName,
+  prePrice,
+  price,
+  discountPercentage,
+  quantityInStock,
+} = {
+  images: product.images.map(img => {
+    return {
+      original: img,
+      thumbnail: img,
+    };
+  }),
+  title: product[lang].description,
+  availability: product.quantityInStock > 0,
+  brand: product[lang].brand,
+  rating: product.rating,
+  ratingQuantity: product.ratingQuantity,
+  productName: product[lang].title,
+  prePrice: product.price,
+  price: product.price - (product.price * product.discountPercentage) / 100,
+  discountPercentage: product.discountPercentage,
+  quantityInStock: product.quantityInStock,
+};

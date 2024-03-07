@@ -4,73 +4,38 @@ import 'react-rater/lib/react-rater.css';
 import StarRating from '../../components/StarRating/StarRating';
 import HandlePrice from '../../components/HandlePrice/HandlePrice';
 import Available from '../../components/Available/Available';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { langContext } from '../../contexts/lang';
-
-const pro = {
-  proId: '656b1df907b2d1b07cb2c992',
-  en: {
-    title: 'Casio Dress Watch for Men',
-    description:
-      'Casio Dress Watch for Men, Quartz Movement, Analog Display, Brown Leather Strap (W-218HC-4AVDF)\n',
-    brand: 'Casio',
-  },
-  ar: {
-    title: 'ساعة رسمية للرجال',
-    description:
-      'ساعة رسمية للرجال، حركة كوارتز، عرض انالوج من كاسيو، سوار جلد بني MTP-VD02L-7EUDF\n',
-    brand: 'كاسيو',
-  },
-  thumbnail: 'https://m.media-amazon.com/images/I/61neoeSVdBL._AC_SX679_.jpg',
-  images: [
-    'https://m.media-amazon.com/images/I/51OCGrb4nZL._AC_SX679_.jpg',
-    'https://m.media-amazon.com/images/I/51KzYHAxV7L._AC_SX679_.jpg',
-    'https://m.media-amazon.com/images/I/51KzYHAxV7L._AC_SX679_.jpg',
-    'https://m.media-amazon.com/images/I/41TRHcxnqRL._AC_SX679_.jpg',
-  ],
-  categoryId: '65527ac3376a52ea210d9706',
-  subCategoryId: '655bb731c29668369f9748f7',
-  sku: 'cs1',
-  quantityInStock: 120,
-  price: 1130,
-  discountPercentage: 1,
-  rating: 4,
-  ratingQuantity: 1,
-  sold: 0,
-};
+import { getProductById } from '../../firestore/firestore';
 
 const ProductDetail = () => {
+  const [product, setProduct] = useState(null); // Initialize product state to null
   const { lang } = useContext(langContext);
-  const {
-    images,
-    title,
-    availability,
-    brand,
-    rating,
-    ratingQuantity,
-    productName,
-    prePrice,
-    price,
-    discountPercentage,
-    quantityInStock,
-  } = {
-    images: pro.images.map(img => {
-      return {
-        original: img,
-        thumbnail: img,
-      };
-    }),
-    title: pro[lang].description,
-    availability: pro.quantityInStock > 0,
-    brand: pro[lang].brand,
-    rating: pro.rating,
-    ratingQuantity: pro.ratingQuantity,
-    productName: pro[lang].title,
-    prePrice: pro.price,
-    price: pro.price - (pro.price * pro.discountPercentage) / 100,
-    discountPercentage: pro.discountPercentage,
-    quantityInStock: pro.quantityInStock,
-  };
+  let price;
+  let availability;
+  let images = [];
+
+  useEffect(() => {
+    async function fetchData() {
+      const pro = await getProductById('655d1d05f752cc400495d713');
+      setProduct(pro);
+    }
+
+    fetchData();
+  }, []);
+
+  if (!product) {
+    return <div>Loading...</div>;
+  }
+
+  price = product.price - (product.price * product.discountPercentage) / 100;
+  availability = product.quantityInStock > 0;
+  images = product.images.map(img => {
+    return {
+      original: img,
+      thumbnail: img,
+    };
+  });
 
   return (
     <section className="container flex-grow mx-0 max-w-[1200px] border-b py-5 lg:grid lg:grid-cols-2 lg:py-10">
@@ -83,21 +48,21 @@ const ProductDetail = () => {
         />
       </div>
       <div className="mx-auto px-5 lg:px-5">
-        <h3 className="pt-3 text-2xl  lg:pt-0">{title}</h3>
+        <h3 className="pt-3 text-2xl  lg:pt-0">{product[lang].description}</h3>
         <div className="flex items-center mt-2">
-          <StarRating rate={rating} />
-          <span className="mb-3">({ratingQuantity})</span>
+          <StarRating rate={product.rating} />
+          <span className="mb-3">({product.ratingQuantity})</span>
         </div>
         <HandlePrice
-          prePrice={prePrice}
+          prePrice={product.price}
           price={price}
-          discountPercentage={discountPercentage}
+          discountPercentage={product.discountPercentage}
         />
         <div className=" w-full h-0.5 bg-gray-200 my-4"></div>
         <Available availability={availability} />
-        <ProductData name="Brand Name" description={brand} />
-        <ProductData name="Model Name" description={productName} />
-        <HandleQuantity quantityInStock={quantityInStock} />
+        <ProductData name="Brand Name" description={product[lang].brand} />
+        <ProductData name="Model Name" description={product[lang].title} />
+        <HandleQuantity quantityInStock={product.quantityInStock} />
         <div className="mt-7 flex flex-row items-center gap-6">
           <button
             className="flex h-12 w-1/3 items-center justify-center text-black duration-100 border-none "
