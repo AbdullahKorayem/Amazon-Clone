@@ -9,7 +9,7 @@ const Slider = () => {
     <div className="bg-white m-3">
       <div className="text-2xl font-semibold p-3">Shop by Category</div>
       <Swiper
-        slidesPerView={5}
+        slidesPerView={6}
         modules={[Navigation]}
         spaceBetween={10}
         navigation={true}

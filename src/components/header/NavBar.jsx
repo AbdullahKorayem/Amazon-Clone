@@ -3,10 +3,11 @@ import { FaLocationDot } from 'react-icons/fa6';
 import { FaSearch } from 'react-icons/fa';
 import { FaShoppingCart } from 'react-icons/fa';
 import { FaBars } from 'react-icons/fa';
-import { langContext } from '../../contexts/lang';
+import { langContext } from './../../contexts/lang';
 
 const NavBar = () => {
   const { lang, setLang } = useContext(langContext);
+
   return (
     <>
       <nav className="bg-[#131921] h-auto justify-evenly flex items-center text-white">
@@ -48,8 +49,8 @@ const NavBar = () => {
           <img
             src={
               lang === 'en'
-                ? '/public/amazon-icon/us_flag.png'
-                : '/public/amazon-icon/eg_flag.png'
+                ? 'amazon-icon/us_flag.png'
+                : 'amazon-icon/eg_flag.png'
             }
             className="w-5 h-5"
             alt="US Flag"
@@ -58,10 +59,10 @@ const NavBar = () => {
             className="bg-transparent font-bold"
             onChange={e => setLang(e.target.value)}
           >
-            <option className=" text-black" value="en">
+            <option className=" bg-slate-900" value="en">
               EN
             </option>
-            <option className=" text-black" value="ar">
+            <option className=" bg-slate-900" value="ar">
               AR
             </option>
           </select>
@@ -92,23 +93,25 @@ const NavBar = () => {
       <div className="bg-[#222F3D] flex items-center text-white text-sm pl-4">
         <div className="flex items-center gap-1 border border-transparent p-2 hover:border-white">
           <FaBars className="font-bold" />
-          <p>All</p>
+          <p className=" cursor-pointer" onClick={() => {}}>
+            All
+          </p>
         </div>
 
         <ul className="flex items-center">
-          <li className="gap-1 border border-transparent p-1 hover:border-white">
+          <li className="cursor-pointer gap-1 border border-transparent p-1 hover:border-white">
             Today's Deals
           </li>
-          <li className="gap-1 border border-transparent p-1 hover:border-white">
+          <li className=" cursor-pointer gap-1 border border-transparent p-1 hover:border-white">
             Customer Services
           </li>
-          <li className="gap-1 border border-transparent p-1 hover:border-white">
+          <li className=" cursor-pointer gap-1 border border-transparent p-1 hover:border-white">
             Registry
           </li>
-          <li className="gap-1 border border-transparent p-1 hover:border-white">
+          <li className=" cursor-pointer gap-1 border border-transparent p-1 hover:border-white">
             Gift Cards
           </li>
-          <li className="gap-1 border border-transparent p-1 hover:border-white hidden lg:block">
+          <li className=" cursor-pointer gap-1 border border-transparent p-1 hover:border-white hidden lg:block">
             Sell
           </li>
         </ul>

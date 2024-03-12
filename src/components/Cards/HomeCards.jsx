@@ -1,8 +1,8 @@
-'use client';
-import { Card } from 'flowbite-react';
+"use client";
+import { Card } from "flowbite-react";
 export const HomeCardFourImage = ({ children, title, link }) => {
   return (
-    <Card className="mt-6 w-96">
+    <Card className="mt-6  h-96">
       <div>
         <div color="blue-gray" className="mb-2 font-bold">
           <h1>{title}</h1>
@@ -17,13 +17,15 @@ export const HomeCardFourImage = ({ children, title, link }) => {
 export function HomeCardOneImage({ children, title, link }) {
   return (
     <>
-      <Card className="mt-6 w-96">
-        <div className=" pt-6 pb-6">
-          <div color="blue-gray" className="mb-2 font-bold">
-            <h1 className=" px-8">{title}</h1>
+      <Card className="mt-6 h-96">
+        <div className=" ">
+          <div color="blue-gray" className=" font-bold">
+            <h1 className=" ">{title}</h1>
           </div>
           <div>{children}</div>
-          <div className="  px-8 text-blue-700">{link}</div>
+          <div className="   text-blue-700">
+            <a href="#">{link}</a>
+          </div>
         </div>
       </Card>
     </>
