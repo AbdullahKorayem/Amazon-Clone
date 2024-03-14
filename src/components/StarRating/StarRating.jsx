@@ -2,11 +2,11 @@ function StarRating({ rate }) {
   return (
     <div className="mb-5 mt-2.5 flex items-center">
       {Array.from({ length: rate }, (_, i) => (
-        <FillStar />
+        <FillStar key={`FillStar ${i}`} />
       ))}
       {Array.from({ length: 5 - rate }, (_, i) => (
         <>
-          <Star />
+          <Star key={`Star ${i}`} />
         </>
       ))}
       <span className="ml-3 mr-2 rounded bg-cyan-100 px-2.5 py-0.5 text-xs font-semibold text-cyan-800 dark:bg-cyan-200 dark:text-cyan-800">

@@ -4,15 +4,18 @@ import {
   CardBody,
   CardFooter,
   Typography,
-  Button,
 } from '@material-tailwind/react';
 import StarRating from '../StarRating/StarRating';
 
-export function ProductCard({ name, price, image, description }) {
+export function ProductCard({ name, price, image, description, rate }) {
   return (
-    <Card className="w-96">
-      <CardHeader shadow={false} floated={false} className="h-96">
-        <img src={image} alt={name} className="h-full w-full object-cover" />
+    <Card className="w-72">
+      <CardHeader
+        shadow={false}
+        floated={false}
+        className=" h-[327px] flex justify-center"
+      >
+        <img src={image} alt={name} className="h-auto  object-contain" />
       </CardHeader>
       <CardBody>
         <div className="mb-2 flex items-center justify-between">
@@ -23,7 +26,7 @@ export function ProductCard({ name, price, image, description }) {
             ${price}
           </Typography>
         </div>
-        <StarRating rate={1} />
+        <StarRating rate={rate} />
         <Typography
           variant="small"
           color="gray"

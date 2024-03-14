@@ -70,23 +70,25 @@ export const addNewProduct = async product => {
 };
 
 export const getAllProducts = async () => {
+  let products = [];
   onSnapshot(collection(firestore, 'Products'), snapshot => {
-    let products = [];
     for (const doc of snapshot.docs) {
       products.push({ id: doc.id, ...doc.data() });
     }
     console.log(products);
   });
+  return products;
 };
 export const getAllCategories = async () => {
+  let categories = [];
   onSnapshot(collection(firestore, 'Categories'), snapshot => {
-    let categories = [];
     for (const doc of snapshot.docs) {
       categories.push({ id: doc.id, ...doc.data() });
       console.log(doc.id);
     }
     console.log(categories);
   });
+  return categories;
 };
 
 export const getCategoryByName = async name => {
@@ -99,7 +101,7 @@ export const getCategoryByName = async name => {
   respose.docs.forEach(cat => {
     category = { id: cat.id, ...cat.data() };
   });
-  console.log(category);
+
   return category;
 };
 
@@ -113,7 +115,7 @@ export const getProductsByCategoryId = async id => {
   respose.docs.forEach(cat => {
     products.push({ id: cat.id, ...cat.data() });
   });
-  console.log(products);
+  return products;
 };
 
 export const getProductById = async id => {

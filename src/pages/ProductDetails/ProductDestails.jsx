@@ -4,28 +4,22 @@ import 'react-rater/lib/react-rater.css';
 import StarRating from '../../components/StarRating/StarRating';
 import HandlePrice from '../../components/HandlePrice/HandlePrice';
 import Available from '../../components/Available/Available';
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { langContext } from '../../contexts/lang';
 import { getProductById } from '../../firestore/firestore';
+import HandleQuantity from '../../components/HandleQuantity/HandleQuantity';
+import ProductData from '../../components/ProductData/ProductData';
+import { useLoaderData } from 'react-router-dom';
 
 const ProductDetail = () => {
-  const [product, setProduct] = useState(null); // Initialize product state to null
+  const product = useLoaderData();
   const { lang } = useContext(langContext);
   let price;
   let availability;
   let images = [];
 
-  useEffect(() => {
-    async function fetchData() {
-      const pro = await getProductById('655d1d05f752cc400495d713');
-      setProduct(pro);
-    }
-
-    fetchData();
-  }, []);
-
   if (!product) {
-    return <div>Loading...</div>;
+    return <div className="min-h-screen">Loading...</div>;
   }
 
   price = product.price - (product.price * product.discountPercentage) / 100;
@@ -38,7 +32,7 @@ const ProductDetail = () => {
   });
 
   return (
-    <section className="container flex-grow mx-0 max-w-[1200px] border-b py-5 lg:grid lg:grid-cols-2 lg:py-10">
+    <section className="container flex-grow mx-0 max-w-[1200px]  border-b py-5 lg:grid lg:grid-cols-2 lg:py-10">
       <div className="container mx-auto px-4">
         <ReactImageGallery
           showBullets={false}
@@ -64,10 +58,7 @@ const ProductDetail = () => {
         <ProductData name="Model Name" description={product[lang].title} />
         <HandleQuantity quantityInStock={product.quantityInStock} />
         <div className="mt-7 flex flex-row items-center gap-6">
-          <button
-            className="flex h-12 w-1/3 items-center justify-center text-black duration-100 border-none "
-            style={{ backgroundColor: '#ffa41c' }}
-          >
+          <button className=" bg-[#ffd814] hover:bg-[#ffc300]  flex h-12 w-1/3 items-center justify-center text-black duration-100 border-none ">
             <BiShoppingBag className="mx-2" />
             Add to cart
           </button>
@@ -79,39 +70,7 @@ const ProductDetail = () => {
 
 export default ProductDetail;
 
-function ProductData({ name, description }) {
-  return (
-    <p className="font-bold">
-      {name}: <span className="font-normal">{description}</span>
-    </p>
-  );
-}
-
-function HandleQuantity({ quantityInStock }) {
-  const [quantity, setQuantity] = useState(0);
-  function handlePlus() {
-    if (quantity < quantityInStock) setQuantity(quantity => quantity + 1);
-  }
-  function handleMins() {
-    if (quantity > 0) setQuantity(quantity => quantity - 1);
-  }
-  const plusMinuceButton =
-    'flex h-8 w-8 cursor-pointer items-center justify-center border duration-100 hover:bg-neutral-100 focus:ring-2 focus:ring-gray-500 active:ring-2 active:ring-gray-500';
-  return (
-    <div className="mt-6">
-      <p className="pb-2 text-xs text-gray-500">Quantity</p>
-      <div className="flex">
-        <button onClick={handleMins} className={`${plusMinuceButton}`}>
-          −
-        </button>
-        <div className="flex h-8 w-8 cursor-text items-center justify-center border-t border-b active:ring-gray-500">
-          {quantity}
-        </div>
-        <button onClick={handlePlus} className={`${plusMinuceButton}`}>
-          {' '}
-          +
-        </button>
-      </div>
-    </div>
-  );
+export async function loader() {
+  const product = await getProductById('655d1d05f752cc400495d713');
+  return product;
 }
