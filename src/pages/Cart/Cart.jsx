@@ -1,6 +1,8 @@
+import { useNavigate } from 'react-router-dom';
 import CartCard from '../../components/Cards/CartCard';
 
 const Cart = () => {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#EAEDED' }}>
       <div className="container m-auto pt-8 pb-5">
@@ -34,7 +36,12 @@ const Cart = () => {
               Subtotal(<span className="px-1">1</span>Items):
               <span className="font-bold"> $20.00</span>
             </div>
-            <button className=" my-5 border-none bg-[#ffd814]   hover:bg-[#ffc300] px-20">
+            <button
+              onClick={() => {
+                navigate('/checkout');
+              }}
+              className=" my-5 border-none bg-[#ffd814]   hover:bg-[#ffc300] px-20"
+            >
               Proceed to Buy
             </button>
           </div>

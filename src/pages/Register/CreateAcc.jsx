@@ -39,7 +39,7 @@ export default function Register() {
         <section className="flex flex-col items-center ">
           {/* Amazon Logo */}
           <img
-            src="/Amazon_logo.svg.webp"
+            src="amazon-icon/Amazon_logo_dark.webp"
             className="w-28 mt-5"
             alt="Amazon Logo"
           />
@@ -160,7 +160,13 @@ export default function Register() {
                 </p>
               )}
 
-            <button className="btn">Continue</button>
+            <button
+              className="bg-[#ffd814]   hover:bg-[#ffc300] px-20
+            border-none mb-4
+            "
+            >
+              Continue
+            </button>
 
             {/* Additional Options */}
             <div className="text-xs">

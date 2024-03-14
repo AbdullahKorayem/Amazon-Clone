@@ -3,8 +3,10 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Toaster, toast } from 'sonner';
 import NeedHelp from './NeedHelp';
+import { useNavigate } from 'react-router-dom';
 
 export default function SignIn() {
+  const navigate = useNavigate();
   const [working, setWorking] = useState(false);
   const {
     register,
@@ -29,7 +31,7 @@ export default function SignIn() {
         <section className="flex flex-col items-center ">
           {/* Amazon Logo */}
           <img
-            src="/Amazon_logo.svg.webp"
+            src="amazon-icon/Amazon_logo_dark.webp"
             className="w-28 mt-5"
             alt="Amazon Logo"
           />
@@ -59,7 +61,9 @@ export default function SignIn() {
             />
             <Toaster position="top-center" richColors />
             {/* Continue Button */}
-            <button className="btn">Continue</button>
+            <button className="bg-[#ffd814]   hover:bg-[#ffc300] px-20 border-none mb-4">
+              Continue
+            </button>
 
             {/* Additional Options */}
             <div className="text-xs">
@@ -108,8 +112,12 @@ export default function SignIn() {
         <section className="flex flex-col items-center mt-5">
           <p className=" text-[#767676] text-sm mb-2">New to Amazon ?</p>
           <button
+            onClick={() => {
+              navigate('/register');
+            }}
             type="button"
-            className=" p-1 shadow-lg w-64 bg-white text-sm hover:bg-[#f7fafa] rounded-md duration-300"
+            className=" p-1 shadow-lg w-64 bg-white text-sm hover:bg-[#f7fafa] rounded-md duration-300
+            "
           >
             Create Your Amazon Account
           </button>

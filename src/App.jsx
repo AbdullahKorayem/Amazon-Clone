@@ -22,6 +22,7 @@ import Coffee, { loader as coffeeLoader } from './pages/Categories/Coffee';
 import Watches, { loader as watchesLoader } from './pages/Categories/Watches';
 import SignIn from './pages/SignIn/SignIn';
 import Register from './pages/Register/CreateAcc';
+import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
@@ -55,6 +56,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/checkout',
+    element: <CheckoutPage />,
   },
   ,
   {
