@@ -8,7 +8,7 @@ import {
   HomeCardFourImage,
   HomeCardOneImage,
 } from '../../components/Cards/HomeCards';
-import Slider from '../../components/Slider/Slider';
+import Slider from '../../components/Slider/slider';
 import ProductSlider from '../../components/productSlider/ProductSlider';
 
 const Home = () => {
