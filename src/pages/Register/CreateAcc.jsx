@@ -20,6 +20,8 @@ export default function Register() {
     setWorking(!working);
   };
 
+  // this is only a test try again mr:abdo
+
 
   const onSubmit = async (data) => {
     if (data !== 0) {
@@ -90,7 +92,7 @@ export default function Register() {
                 required: true,
                 pattern: /([a-zA-Z]+\s*)+/,
                 minLength: {
-                  value: 5,
+                  value: 5,  
                 },
               })}
               id="UserName"
