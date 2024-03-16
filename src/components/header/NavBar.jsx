@@ -6,6 +6,7 @@ import { FaBars } from 'react-icons/fa';
 import { langContext } from './../../contexts/lang';
 import { Badge } from '@material-tailwind/react';
 import { Link, NavLink } from 'react-router-dom';
+import CustomDrawer from './../Drawer/CustomDrawer';
 
 const NavBar = () => {
   const { lang, setLang } = useContext(langContext);
@@ -118,7 +119,7 @@ const NavBar = () => {
         <div className="flex items-center gap-1 border border-transparent p-2 hover:border-white">
           <FaBars className="font-bold" />
           <p className=" cursor-pointer" onClick={() => {}}>
-            All
+          <CustomDrawer />
           </p>
         </div>
 
