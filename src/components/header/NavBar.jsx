@@ -117,7 +117,6 @@ const NavBar = () => {
       {/* Secondary Navigation */}
       <div className="bg-[#222F3D] min-w-full w-[1000px] flex items-center text-white text-sm pl-4">
         <div className="flex items-center gap-1 border border-transparent p-2 hover:border-white">
-          <FaBars className="font-bold" />
           <p className=" cursor-pointer" onClick={() => {}}>
           <CustomDrawer />
           </p>
