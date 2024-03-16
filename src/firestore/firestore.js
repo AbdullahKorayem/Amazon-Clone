@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
+import { getAuth , createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import {
   getFirestore,
   doc,
@@ -126,5 +126,22 @@ export const getProductById = async id => {
     return respose.data();
   } else {
     console.log('No such document!');
+  }
+};
+
+
+export const createUSer = async (email, password) => {
+  return createUserWithEmailAndPassword(auth, email, password)
+}
+
+export const signInWithE_PW = async (email, password) => {
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+    console.log(user);
+
+    return user;
+  } catch (error) {
+    throw error;
   }
 };
