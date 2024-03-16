@@ -5,6 +5,9 @@ import { Toaster, toast } from 'sonner';
 import NeedHelp from './NeedHelp';
 import { useNavigate } from 'react-router-dom';
 
+import { signInWithE_PW } from '../../firestore/firestore';
+
+
 export default function SignIn() {
   const navigate = useNavigate();
   const [working, setWorking] = useState(false);
@@ -18,12 +21,19 @@ export default function SignIn() {
     setWorking(!working);
   };
 
+
+
+
   const onSubmit = data => {
     if (data.emailOrPhone != 0) {
+      const userCredential = signInWithE_PW(data.emailOrPhone, data.Password);
       toast.success('Sign In Successful');
-      console.log(data);
+      // console.log(data);
+      navigate('/');
+      console.log(userCredential);
     }
   };
+
 
   return (
     <>
@@ -32,13 +42,13 @@ export default function SignIn() {
           {/* Amazon Logo */}
           <img
             src="amazon-icon/Amazon_logo_dark.webp"
-            className="w-28 mt-5"
+            className="mt-5 w-28"
             alt="Amazon Logo"
           />
 
           {/* Form Container */}
           <div className="flex flex-col border border-slate border-0.5 rounded-md p-10 max-w-xs mt-8 w-full ">
-            <h1 className="font-semibold  text-2xl  mb-5">Sign In</h1>
+            <h1 className="mb-5 text-2xl font-semibold">Sign In</h1>
             {/* Email or Phone Input */}
             <label htmlFor="emailOrPhone" className="mb-2">
               Email or mobile phone number
@@ -56,10 +66,41 @@ export default function SignIn() {
               id="emailOrPhone"
               name="emailOrPhone"
               type="text"
-              className="border border-slate-500 rounded-md outline-none focus:ring-blue-700 focus:ring-1 px-2 py-1 mb-4 w-full"
+              className="w-full px-2 py-1 mb-4 border rounded-md outline-none border-slate-500 focus:ring-blue-700 focus:ring-1"
               placeholder="Email or mobile phone number"
             />
             <Toaster position="top-center" richColors />
+            {/* Password */}
+
+            <label htmlFor="Password" className="mb-2">
+              Password
+            </label>
+            <input
+              {...register('Password', {
+                required: true,
+                pattern: /^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*$/,
+              })}
+              id="Password"
+              name="Password"
+              type="password"
+              className="w-full px-2 py-1 mb-4 border rounded-md outline-none border-slate-500 focus:ring-blue-700 focus:ring-1"
+              placeholder="Password"
+            />
+            {errors.Password && errors.Password.type === 'required' && (
+              <p className="text-xs italic text-red-500">
+                Please fill out this field.
+              </p>
+            )}
+            {errors.Password && errors.Password.type === 'validate' && (
+              <p className="text-xs italic text-red-500">
+                Password Must Match Contains 8 Characters And One Special
+                Character
+              </p>
+            )}
+
+
+
+
             {/* Continue Button */}
             <button className="bg-[#ffd814]   hover:bg-[#ffc300] px-20 border-none mb-4">
               Continue
@@ -67,7 +108,7 @@ export default function SignIn() {
 
             {/* Additional Options */}
             <div className="text-xs">
-              <p className="font-200 text-xs">
+              <p className="text-xs font-200">
                 By continuing, you agree to Amazon's{' '}
                 <a
                   href="https://www.amazon.com/conditions"
@@ -94,7 +135,7 @@ export default function SignIn() {
 
               {/* Buying for Work Section */}
               <div>
-                <h5 className=" font-semibold">Buying for work?</h5>
+                <h5 className="font-semibold ">Buying for work?</h5>
                 <p>
                   <a
                     href="https://www.amazon.com/business"

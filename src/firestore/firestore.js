@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth , createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import {
   getFirestore,
   doc,
@@ -25,6 +25,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const firestore = getFirestore(app);
 export const db = getFirestore();
+export const auth = getAuth(app);
 
 export const addNewProduct = async product => {
   const productDocRef = doc(db, 'Products', product.proId);
