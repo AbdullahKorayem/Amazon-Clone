@@ -117,9 +117,8 @@ const NavBar = () => {
       {/* Secondary Navigation */}
       <div className="bg-[#222F3D] min-w-full w-[1000px] flex items-center text-white text-sm pl-4">
         <div className="flex items-center gap-1 p-2 border border-transparent hover:border-white">
-
-          <p className="cursor-pointer " onClick={() => { }}>
-            <CustomDrawer />
+          <p className="cursor-pointer " onClick={() => {}}>
+          <CustomDrawer />
           </p>
         </div>
 
