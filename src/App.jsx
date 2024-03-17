@@ -23,6 +23,7 @@ import Watches, { loader as watchesLoader } from './pages/Categories/Watches';
 import SignIn from './pages/SignIn/SignIn';
 import Register from './pages/Register/CreateAcc';
 import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
+import { CartItemsCountProvider } from './contexts/cartItemsCount';
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
@@ -72,9 +73,12 @@ const router = createBrowserRouter([
 
 function App() {
   const [lang, setLang] = useState('en');
+  const [nums, setNums] = useState(0);
   return (
     <LangProvider value={{ lang, setLang }}>
-      <RouterProvider router={router} />
+      <CartItemsCountProvider value={{ nums, setNums }}>
+        <RouterProvider router={router} />
+      </CartItemsCountProvider>
     </LangProvider>
   );
 }

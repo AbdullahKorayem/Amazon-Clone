@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 
 import { signInWithE_PW } from '../../firestore/firestore';
 
-
 export default function SignIn() {
   const navigate = useNavigate();
   const [working, setWorking] = useState(false);
@@ -21,9 +20,6 @@ export default function SignIn() {
     setWorking(!working);
   };
 
-
-
-
   const onSubmit = data => {
     if (data.emailOrPhone != 0) {
       const userCredential = signInWithE_PW(data.emailOrPhone, data.Password);
@@ -33,7 +29,6 @@ export default function SignIn() {
       console.log(userCredential);
     }
   };
-
 
   return (
     <>
@@ -97,9 +92,6 @@ export default function SignIn() {
                 Character
               </p>
             )}
-
-
-
 
             {/* Continue Button */}
             <button className="bg-[#ffd814]   hover:bg-[#ffc300] px-20 border-none mb-4">

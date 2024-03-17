@@ -7,9 +7,11 @@ import { langContext } from './../../contexts/lang';
 import { Badge } from '@material-tailwind/react';
 import { Link, NavLink } from 'react-router-dom';
 import CustomDrawer from './../Drawer/CustomDrawer';
+import { cartItemsCountContext } from '../../contexts/cartItemsCount';
 
 const NavBar = () => {
   const { lang, setLang } = useContext(langContext);
+  const { nums } = useContext(cartItemsCountContext);
 
   return (
     <>
@@ -104,7 +106,7 @@ const NavBar = () => {
         </div>
 
         {/* Cart */}
-        <Badge content="10" className=" text-yellow-400 text-lg ms-5">
+        <Badge content={nums} className=" text-yellow-400 text-lg ms-5">
           <Link to="/cart">
             <div className="border border-transparent p-1 hover:border-white flex items-center">
               <BiCart className="text-5xl mt-2" />
@@ -118,7 +120,7 @@ const NavBar = () => {
       <div className="bg-[#222F3D] min-w-full w-[1000px] flex items-center text-white text-sm pl-4">
         <div className="flex items-center gap-1 border border-transparent p-2 hover:border-white">
           <p className=" cursor-pointer" onClick={() => {}}>
-          <CustomDrawer />
+            <CustomDrawer />
           </p>
         </div>
 

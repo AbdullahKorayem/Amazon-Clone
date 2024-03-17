@@ -1,13 +1,11 @@
-function Available({ availability }) {
+function Available({ availability, size }) {
   return (
     <div>
-      <p className="my-3 font-bold">
-        {availability ? (
-          <span className="text-green-600 text-xl">In Stock </span>
-        ) : (
-          <span className="text-red-600 text-xl">Out of Stock</span>
-        )}
-      </p>
+      {availability ? (
+        <span className={`text-green-600 text-${size}`}>In Stock</span>
+      ) : (
+        <span className={`text-red-600 text-${size}`}>Out of Stock</span>
+      )}
     </div>
   );
 }
