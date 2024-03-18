@@ -226,7 +226,7 @@ export const deleteItemFromCart = async (fieldValue) => {
   }
 };
 
-export const search = async (searchChar = "") => {
+export const search = async (searchChar = "", Ctgid = "") => {
   try {
     let products = [];
     const productsRef = collection(firestore, "Products");
@@ -237,13 +237,21 @@ export const search = async (searchChar = "") => {
       const data = doc.data();
 
       if (
-        data &&
-        data.en &&
+        (data &&
+          data.ar &&
+          data.en &&
+          Object.values(data.ar).some((value) =>
+            value.toLowerCase().includes(searchChar.toLowerCase())
+          )) ||
         Object.values(data.en).some((value) =>
           value.toLowerCase().includes(searchChar.toLowerCase())
         )
       ) {
-        products.push({ id: doc.id, ...data.en });
+        if (data.categoryId === Ctgid) {
+          products.push({ id: doc.id, ...data });
+        } else {
+          products.push({ id: doc.id, ...data });
+        }
       }
     });
 
@@ -253,5 +261,5 @@ export const search = async (searchChar = "") => {
     return [];
   }
 };
-const searchResults = await search("apple");
+const searchResults = await search("dell","");
 console.log("Search results:", searchResults);
