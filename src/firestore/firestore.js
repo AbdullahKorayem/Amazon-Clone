@@ -1,9 +1,9 @@
-import { initializeApp } from "firebase/app";
+import { initializeApp } from 'firebase/app';
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-} from "firebase/auth";
+} from 'firebase/auth';
 import {
   getFirestore,
   doc,
@@ -18,15 +18,15 @@ import {
   increment,
   query,
   deleteDoc,
-} from "firebase/firestore";
+} from 'firebase/firestore';
 const firebaseConfig = {
-  apiKey: "AIzaSyCfFoS46NFqfG7i1fDIPhVcqBWrU92CbIs",
-  authDomain: "clone-7bd55.firebaseapp.com",
-  projectId: "clone-7bd55",
-  storageBucket: "clone-7bd55.appspot.com",
-  messagingSenderId: "1015754634145",
-  appId: "1:1015754634145:web:4319844916d1b64beb51e0",
-  measurementId: "G-GPG1Z8WNL0",
+  apiKey: 'AIzaSyCfFoS46NFqfG7i1fDIPhVcqBWrU92CbIs',
+  authDomain: 'clone-7bd55.firebaseapp.com',
+  projectId: 'clone-7bd55',
+  storageBucket: 'clone-7bd55.appspot.com',
+  messagingSenderId: '1015754634145',
+  appId: '1:1015754634145:web:4319844916d1b64beb51e0',
+  measurementId: 'G-GPG1Z8WNL0',
 };
 
 const app = initializeApp(firebaseConfig);
@@ -34,8 +34,8 @@ const firestore = getFirestore(app);
 export const db = getFirestore();
 export const auth = getAuth(app);
 
-export const addNewProduct = async (product) => {
-  const productDocRef = doc(db, "Products", product.proId);
+export const addNewProduct = async product => {
+  const productDocRef = doc(db, 'Products', product.proId);
   const productSnapshot = await getDoc(productDocRef);
   if (!productSnapshot.exists()) {
     const {
@@ -70,7 +70,7 @@ export const addNewProduct = async (product) => {
         sold,
       });
     } catch (err) {
-      console.log("err creating", err.message);
+      console.log('err creating', err.message);
     }
   }
 
@@ -79,7 +79,7 @@ export const addNewProduct = async (product) => {
 
 export const getAllProducts = async () => {
   let products = [];
-  onSnapshot(collection(firestore, "Products"), (snapshot) => {
+  onSnapshot(collection(firestore, 'Products'), snapshot => {
     for (const doc of snapshot.docs) {
       products.push({ id: doc.id, ...doc.data() });
     }
@@ -88,7 +88,7 @@ export const getAllProducts = async () => {
 };
 export const getAllCategories = async () => {
   let categories = [];
-  onSnapshot(collection(firestore, "Categories"), (snapshot) => {
+  onSnapshot(collection(firestore, 'Categories'), snapshot => {
     for (const doc of snapshot.docs) {
       categories.push({ id: doc.id, ...doc.data() });
       console.log(doc.id);
@@ -97,40 +97,40 @@ export const getAllCategories = async () => {
   return categories;
 };
 
-export const getCategoryByName = async (name) => {
+export const getCategoryByName = async name => {
   let querys1 = query(
-    collection(firestore, "Categories"),
-    where("name", "==", name)
+    collection(firestore, 'Categories'),
+    where('name', '==', name)
   );
   let respose = await getDocs(querys1);
   let category = {};
-  respose.docs.forEach((cat) => {
+  respose.docs.forEach(cat => {
     category = { id: cat.id, ...cat.data() };
   });
 
   return category;
 };
 
-export const getProductsByCategoryId = async (id) => {
+export const getProductsByCategoryId = async id => {
   let querys1 = query(
-    collection(firestore, "Products"),
-    where("categoryId", "==", id)
+    collection(firestore, 'Products'),
+    where('categoryId', '==', id)
   );
   let respose = await getDocs(querys1);
   let products = [];
-  respose.docs.forEach((cat) => {
+  respose.docs.forEach(cat => {
     products.push({ id: cat.id, ...cat.data() });
   });
   return products;
 };
 
-export const getProductById = async (id) => {
-  let productRef = doc(firestore, "Products", id);
+export const getProductById = async id => {
+  let productRef = doc(firestore, 'Products', id);
   let respose = await getDoc(productRef);
   if (respose.exists()) {
     return respose.data();
   } else {
-    console.log("No such document!");
+    console.log('No such document!');
   }
 };
 
@@ -162,11 +162,11 @@ export const addProductToCart = async (
   quantityInStock,
   quantity
 ) => {
-  const cartRef = collection(firestore, "Cart");
+  const cartRef = collection(firestore, 'Cart');
   const queryRef = query(
     cartRef,
-    where("userId", "==", userId),
-    where("productId", "==", productId)
+    where('userId', '==', userId),
+    where('productId', '==', productId)
   );
   const snapshot = await getDocs(queryRef);
 
@@ -182,40 +182,40 @@ export const addProductToCart = async (
       quantity,
     };
     await addDoc(cartRef, newCartItem);
-    console.log("Product added to cart successfully");
+    console.log('Product added to cart successfully');
   } else {
     // If the product is already in the cart, update the quantity
-    snapshot.forEach(async (cartDoc) => {
-      const cartItemRef = doc(firestore, "Cart", cartDoc.id);
+    snapshot.forEach(async cartDoc => {
+      const cartItemRef = doc(firestore, 'Cart', cartDoc.id);
       await updateDoc(cartItemRef, {
         quantity: quantity,
       });
-      console.log("Product quantity updated in cart successfully");
+      console.log('Product quantity updated in cart successfully');
     });
   }
 };
 
-export const getCartItems = async (userId) => {
+export const getCartItems = async userId => {
   let querys1 = query(
-    collection(firestore, "Cart"),
-    where("userId", "==", userId)
+    collection(firestore, 'Cart'),
+    where('userId', '==', userId)
   );
   let respose = await getDocs(querys1);
   let Items = [];
-  respose.docs.forEach((pro) => {
+  respose.docs.forEach(pro => {
     Items.push({ id: pro.id, ...pro.data() });
   });
   return Items;
 };
 
-export const deleteItemFromCart = async (fieldValue) => {
+export const deleteItemFromCart = async fieldValue => {
   const queryRef = query(
-    collection(firestore, "Cart"),
-    where("productId", "==", fieldValue)
+    collection(firestore, 'Cart'),
+    where('productId', '==', fieldValue)
   );
   const snapshot = await getDocs(queryRef);
   if (!snapshot.empty) {
-    snapshot.forEach(async (doc) => {
+    snapshot.forEach(async doc => {
       await deleteDoc(doc.ref);
       console.log(
         `Document with ID =${fieldValue} successfully deleted from Cart.`
@@ -226,24 +226,24 @@ export const deleteItemFromCart = async (fieldValue) => {
   }
 };
 
-export const search = async (searchChar = "", Ctgid = "") => {
+export const searchForProduct = async (searchChar = '', Ctgid = '') => {
   try {
     let products = [];
-    const productsRef = collection(firestore, "Products");
+    const productsRef = collection(firestore, 'Products');
 
     const querySnapshot = await getDocs(productsRef);
 
-    querySnapshot.forEach((doc) => {
+    querySnapshot.forEach(doc => {
       const data = doc.data();
 
       if (
         (data &&
           data.ar &&
           data.en &&
-          Object.values(data.ar).some((value) =>
+          Object.values(data.ar).some(value =>
             value.toLowerCase().includes(searchChar.toLowerCase())
           )) ||
-        Object.values(data.en).some((value) =>
+        Object.values(data.en).some(value =>
           value.toLowerCase().includes(searchChar.toLowerCase())
         )
       ) {
@@ -261,5 +261,5 @@ export const search = async (searchChar = "", Ctgid = "") => {
     return [];
   }
 };
-const searchResults = await search("dell","");
-console.log("Search results:", searchResults);
+// const searchResults = await search('dell', '');
+// console.log('Search results:', searchResults);

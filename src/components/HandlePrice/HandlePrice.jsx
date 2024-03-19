@@ -27,19 +27,31 @@ function HandlePrice({ discountPercentage, price, prePrice }) {
       </p>
       <div className=" container mx-4 flex flex-row mt-3">
         <div className="w-20">
-          <img src="amazon-icon/cash-icon.png"></img>
+          <img
+            src="amazon-icon/cash-icon.png"
+            srcSet="../amazon-icon/cash-icon.png"
+          ></img>
           <span className="text-xs flex flex-wrap">Cash on Delivery</span>
         </div>
         <div className="w-20">
-          <img src="amazon-icon/returnable-icon.png"></img>
+          <img
+            src="amazon-icon/returnable-icon.png"
+            srcSet="../amazon-icon/returnable-icon.png"
+          ></img>
           <span className="text-xs flex flex-wrap">15 days Returnable</span>
         </div>
         <div className="w-20">
-          <img src="amazon-icon/deliverd-icon.png"></img>
+          <img
+            src="amazon-icon/deliverd-icon.png"
+            srcSet="../amazon-icon/deliverd-icon.png"
+          ></img>
           <span className="text-xs flex flex-wrap">Delivered by Amazon</span>
         </div>
         <div className="w-20">
-          <img src="amazon-icon/secure-icon.png"></img>
+          <img
+            src="amazon-icon/secure-icon.png"
+            srcSet="../amazon-icon/secure-icon.png"
+          ></img>
           <span className="text-xs flex flex-wrap">Secure transaction</span>
         </div>
       </div>

@@ -35,7 +35,6 @@ export function ProductCard({ name, price, image, description, rate }) {
           {description}
         </Typography>
       </CardBody>
-      <CardFooter className="pt-0"></CardFooter>
     </Card>
   );
 }

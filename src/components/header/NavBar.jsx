@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { FaLocationDot } from 'react-icons/fa6';
 import { FaSearch } from 'react-icons/fa';
 import { BiCart } from 'react-icons/bi';
@@ -8,11 +8,24 @@ import { Badge } from '@material-tailwind/react';
 import { Link, NavLink } from 'react-router-dom';
 import CustomDrawer from './../Drawer/CustomDrawer';
 import { cartItemsCountContext } from '../../contexts/cartItemsCount';
+import { searchForProduct } from '../../firestore/firestore';
 
 const NavBar = () => {
   const { lang, setLang } = useContext(langContext);
   const { nums } = useContext(cartItemsCountContext);
+  const [search, setSearch] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
 
+  function handleSearch(e) {
+    setSearch(e.target.value);
+  }
+  async function handleClick() {
+    console.log(search);
+    const res = await searchForProduct(search);
+    // console.log(res);
+    setSearchResults(res);
+  }
+  console.log(searchResults);
   return (
     <>
       <nav className="bg-[#131921] min-w-full w-[1000px] h-auto justify-evenly flex items-center text-white px-4 ">
@@ -46,8 +59,13 @@ const NavBar = () => {
             type="text"
             placeholder="Search Amazon"
             className="w-full pl-2 text-base"
+            value={search}
+            onChange={e => handleSearch(e)}
           />
-          <div className="bg-orange-300 flex rounded-lg rounded-l-none items-center p-2">
+          <div
+            onClick={handleClick}
+            className="bg-orange-300 flex rounded-lg rounded-l-none items-center p-2 cursor-pointer"
+          >
             <FaSearch />
           </div>
         </div>
