@@ -23,6 +23,9 @@ import Watches, { loader as watchesLoader } from './pages/Categories/Watches';
 import SignIn from './pages/SignIn/SignIn';
 import Register from './pages/Register/CreateAcc';
 import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
+import { Provider } from 'react-redux';
+import store from './redux/store';
+
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
@@ -73,9 +76,11 @@ const router = createBrowserRouter([
 function App() {
   const [lang, setLang] = useState('en');
   return (
-    <LangProvider value={{ lang, setLang }}>
-      <RouterProvider router={router} />
-    </LangProvider>
+    <Provider store={store}>
+      <LangProvider value={{ lang, setLang }}>
+        <RouterProvider router={router} />
+      </LangProvider>
+    </Provider>
   );
 }
 export default App;

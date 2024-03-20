@@ -7,8 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import {
     doc,
     setDoc,
-    collection,
-    Firestore,
+
 } from 'firebase/firestore';
 
 export default function Register() {
@@ -29,15 +28,15 @@ export default function Register() {
     const onSubmit = async (data) => {
         try {
             const userCredential = await createUSer(data.emailOrPhone, data.ConfirmPassword);
-            toast.success('Sign Up Successful'); // Changed from 'Sign In' to 'Sign Up'
-            console.log('UID:', userCredential.user.uid);
+            toast.success('Sign Up Successful');
+
 
             await setDoc(doc(db, 'Users', userCredential.user.uid), {
                 uid: userCredential.user.uid,
                 UserName: data.UserName,
             });
-            navigate('/login');
 
+            navigate('/login');
         } catch (error) {
             if (error.code) {
                 const errorMessage = handleFirebaseError(error.code);

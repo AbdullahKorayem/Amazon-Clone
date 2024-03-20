@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { FaLocationDot } from 'react-icons/fa6';
 import { FaSearch } from 'react-icons/fa';
 import { BiCart } from 'react-icons/bi';
@@ -7,8 +7,22 @@ import { langContext } from './../../contexts/lang';
 import { Badge } from '@material-tailwind/react';
 import { Link, NavLink } from 'react-router-dom';
 import CustomDrawer from './../Drawer/CustomDrawer';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchUser } from '../../redux/slices/User';
+import DropDownNav from '../DropDownNav/DropDownNav';
 
 const NavBar = () => {
+	const User = sessionStorage.getItem('UserUid')
+
+	const dispatch = useDispatch()
+
+	const stateUser = useSelector((state) => state.User?.user?.UserName);
+
+
+	useEffect(() => {
+		dispatch(fetchUser(User))
+
+	}, [])
 	const { lang, setLang } = useContext(langContext);
 
 	return (
@@ -88,14 +102,22 @@ const NavBar = () => {
             </option>
           </select>
         </div> */}
-				<div className="p-1 mx-2 border border-transparent hover:border-white">
+
+				{stateUser != null ? (<div className="p-1 mx-2 border border-transparent hover:border-white">
+					<p className="text-sm">Hello, {stateUser}</p>
+					<div className="py-0 text-base font-bold bg-transparent border-none ">
+						<div className="font-bold bg-slate-900 ">
+							<DropDownNav />
+						</div>
+					</div>
+				</div>) : (<div className="p-1 mx-2 border border-transparent hover:border-white">
 					<p className="text-sm">Hello, sign in</p>
 					<div className="py-0 text-base font-bold bg-transparent border-none ">
 						<div className=" bg-slate-900">
 							<Link to="/login">Sign in</Link>
 						</div>
 					</div>
-				</div>
+				</div>)}
 
 				{/* Returns & Order */}
 				<div className="hidden p-1 border border-transparent hover:border-white lg:block">

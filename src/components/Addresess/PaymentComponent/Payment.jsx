@@ -1,8 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PaymentCards from './PaymentCards/PaymentCards';
+import { toGetUserData } from '../../../firestore/firestore';
 
 export default function Payment() {
   const [paymentCards, setPaymentCards] = useState([]);
+
+  const userUid = sessionStorage.getItem('UserUid')
+
+
+
+  // async function gettingData() {
+
+  //   const userData = await toGetUserData(userUid)
+  //   setPaymentCards([...paymentCards, userData.PaymentCards])
+  // }
+
+
+  useEffect(() => {
+    // gettingData()
+  }, [])
+
 
   return (
     <div className="w-2/4">
@@ -27,8 +44,10 @@ export default function Payment() {
 
           {/* Loop through cards and display aligned content */}
           {paymentCards.map((card, index) => (
+
+
             <label htmlFor={`card-${index}`} key={index}>
-              <section className=" w-full mb-4 border-2 p-2 border-yellow-100 rounded-md bg-[#fcf5ee]">
+              <section className="  w-full mb-4 border-2 p-2 border-yellow-100 rounded-md bg-[#fcf5ee]">
                 <input
                   type="radio"
                   name="card"
@@ -39,7 +58,7 @@ export default function Payment() {
                 <div className="flex flex-wrap justify-between">
                   <h1 className="inline-block text-lg font-semibold">
                     {' '}
-                    Vist ending in: {card.CreditCard.slice(-4)}
+                    💳 Visa ending in: {card.CreditCard.slice(-4)}
                   </h1>
                   <p>{card.fullName} </p>
                   <h1 className="inline-block text-lg font-semibold">

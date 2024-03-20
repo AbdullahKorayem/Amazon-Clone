@@ -3,8 +3,18 @@ import { Button, Modal } from 'flowbite-react';
 import { useForm } from 'react-hook-form';
 import { Toaster, toast } from 'sonner';
 import axios from 'axios';
+import { doc, setDoc } from 'firebase/firestore';
+import { AddUserData } from './../../../firestore/firestore';
+import { useNavigate } from 'react-router-dom';
+
+
 
 export default function AddAddressModal({ setAddresses }) {
+
+  
+
+const navigate =useNavigate()
+  
   const [country, setCountry] = useState([]);
   const [openModal, setOpenModal] = useState(false);
 
@@ -27,12 +37,43 @@ export default function AddAddressModal({ setAddresses }) {
     formState: { errors },
   } = useForm();
 
+  
+  const userUid = sessionStorage.getItem('UserUid')
+  // console.log(userUid)
   const onSubmit = data => {
-    toast.success('Ur Address Added Successfully');
-    // console.log(data);
-    setAddresses(prevAddresses => [...prevAddresses, data]);
-    setOpenModal(false);
+    console.log(data);
+
+    if(!userUid){
+      toast.error('Please Login First');
+      setTimeout(() => {
+        
+        toast.error('You will be redirected to login page in 2 seconds');
+      }, 1000);
+      setTimeout(() => {
+        navigate('/login')
+      }, 2000);
+      return
+    }
+
+    AddUserData(userUid, 'Addresses', ...data)
+      .then(result => {
+        if (result.success) {
+          toast.success('Your Address Added Successfully');
+         
+          setOpenModal(false);
+        } else {
+          toast.error(`Failed to add address: ${result.error}`);
+        }
+      })
+      .catch(error => {
+        console.error("Error adding address:", error);
+        toast.error("An error occurred while adding the address");
+      });
   };
+
+
+
+  
 
   useEffect(() => {
     toGetAllCountries();

@@ -16,6 +16,10 @@
   @apply rounded-md bg-yellow-400 text-black my-4 hover:bg-yellow-500 duration-200 w-full;
 }
 
+.ModalInput {
+  @apply shadow-md bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600  dark:text-white ;
+}
+
 @layer base {
   button {
     @apply border border-black rounded-xl px-5 py-1;

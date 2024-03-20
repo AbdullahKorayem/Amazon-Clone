@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button, Modal } from 'flowbite-react';
 import { useForm } from 'react-hook-form';
 import { Toaster, toast } from 'sonner';
+import { AddUserData } from '../../../../firestore/firestore';
 
 function PaymentCards({ setPaymentCards }) {
   const [openModal, setOpenModal] = useState(false);
@@ -11,11 +12,42 @@ function PaymentCards({ setPaymentCards }) {
     formState: { errors },
   } = useForm();
 
+  const userUid = sessionStorage.getItem('UserUid')
+  // console.log(userUid)
   const onSubmit = data => {
-    toast.success('Your Card Added Successfully');
-    setPaymentCards(prevCards => [...prevCards, data]);
-    setOpenModal(false);
+    // console.log(data);
+
+    if (!userUid) {
+      toast.error('Please Login First');
+      setTimeout(() => {
+
+        toast.error('You will be redirected to login page in 2 seconds');
+      }, 1000);
+      setTimeout(() => {
+        navigate('/login')
+      }, 2000);
+      return
+    }
+
+    AddUserData(userUid, 'PaymentCards', data)
+      .then(result => {
+        if (result.success) {
+          toast.success('Your Card Added Successfully');
+          // setPaymentCards(prevCards => [...prevCards, data]);
+          setOpenModal(false);
+        } else {
+          toast.error(`Failed to add Credit Card: ${result.error}`);
+        }
+      })
+      .catch(error => {
+        console.error("Error adding Payment Card:", error);
+        toast.error("An Error Occurred While Adding The Payment Card");
+      });
   };
+
+  
+
+  
 
   function generateYearOptions() {
     const currentYear = new Date().getFullYear();

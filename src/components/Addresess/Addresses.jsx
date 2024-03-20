@@ -1,9 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import AddAddressModal from './AddAddressModel/AddAddressModal';
+import { toGetUserData } from '../../firestore/firestore';
+import { useSelector } from 'react-redux';
 
 export default function Addresses() {
   const [addresses, setAddresses] = useState([]);
   console.log(addresses);
+
+
+ const Addresses= useSelector((state)=>state.User)
+ 
+ console.log(Addresses)
+ 
+
+  // const userUid = sessionStorage.getItem('UserUid')
+
+  
+
+
+  // async function gettingData() {
+
+  //   const userData = await toGetUserData(userUid)
+  //   console.log(userData)
+  //   setAddresses([...addresses, userData])
+  // }
+
+
+  useEffect(() => {
+    // gettingData()
+  }, [])
+
+
+  
 
   return (
     <>
@@ -21,7 +49,7 @@ export default function Addresses() {
           </div>
           <div>
             {addresses.map((address, index) => (
-              <label htmlFor={`address-${index}`}>
+              <label htmlFor={`address-${index}`} key={index}>
                 <div
                   key={index}
                   className="flex items-center mb-4 border-2 p-2 border-yellow-100 rounded-md bg-[#fcf5ee]"
