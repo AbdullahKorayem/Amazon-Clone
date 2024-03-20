@@ -91,7 +91,10 @@ const ProductDetail = () => {
 
 export default ProductDetail;
 
-export async function loader() {
-  const product = await getProductById('655fc03b2e434d3693900bad');
+export async function loader({ params }) {
+  console.log(params);
+  const { id } = params;
+  console.log(id);
+  const product = await getProductById(id);
   return product;
 }

@@ -11,6 +11,7 @@ function ProductsList({ title, products }) {
           return (
             <ProductCard
               key={product.id}
+              id={product.id}
               name={product[lang].title}
               image={product.thumbnail}
               description={product[lang].description}

@@ -8,7 +8,6 @@ import ProductsList from '../../components/ProductsList/ProductsList';
 
 function Electronics() {
   const products = useLoaderData();
-  console.log(products);
   return <ProductsList products={products} title="Electronics" />;
 }
 

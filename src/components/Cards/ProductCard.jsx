@@ -6,10 +6,15 @@ import {
   Typography,
 } from '@material-tailwind/react';
 import StarRating from '../StarRating/StarRating';
+import { useNavigate } from 'react-router-dom';
 
-export function ProductCard({ name, price, image, description, rate }) {
+export function ProductCard({ id, name, price, image, description, rate }) {
+  const navigate = useNavigate();
+  function showDetails() {
+    navigate(`/product/${id}`);
+  }
   return (
-    <Card className="w-72">
+    <Card className="w-72 cursor-pointer" onClick={showDetails}>
       <CardHeader
         shadow={false}
         floated={false}
