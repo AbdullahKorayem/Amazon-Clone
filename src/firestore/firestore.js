@@ -123,6 +123,18 @@ export const getProductsByCategoryId = async id => {
   });
   return products;
 };
+export const getProductsBySubCategoryId = async id => {
+  let querys1 = query(
+    collection(firestore, 'Products'),
+    where('subCategoryId', '==', id)
+  );
+  let respose = await getDocs(querys1);
+  let products = [];
+  respose.docs.forEach(cat => {
+    products.push({ id: cat.id, ...cat.data() });
+  });
+  return products;
+};
 
 export const getProductById = async id => {
   let productRef = doc(firestore, 'Products', id);
@@ -226,40 +238,34 @@ export const deleteItemFromCart = async fieldValue => {
   }
 };
 
-export const searchForProduct = async (searchChar = '', Ctgid = '') => {
-  try {
-    let products = [];
-    const productsRef = collection(firestore, 'Products');
+// export const searchForProduct = async (searchChar = '', Ctgid = '') => {
+//   try {
+//     let products = [];
+//     const productsRef = collection(firestore, 'Products');
 
-    const querySnapshot = await getDocs(productsRef);
+//     const querySnapshot = await getDocs(productsRef);
 
-    querySnapshot.forEach(doc => {
-      const data = doc.data();
+//     querySnapshot.forEach(doc => {
+//       const data = doc.data();
 
-      if (
-        (data &&
-          data.ar &&
-          data.en &&
-          Object.values(data.ar).some(value =>
-            value.toLowerCase().includes(searchChar.toLowerCase())
-          )) ||
-        Object.values(data.en).some(value =>
-          value.toLowerCase().includes(searchChar.toLowerCase())
-        )
-      ) {
-        if (data.categoryId === Ctgid) {
-          products.push({ id: doc.id, ...data });
-        } else {
-          products.push({ id: doc.id, ...data });
-        }
-      }
-    });
+//       if (
+//         data &&
+//         data.en &&
+//         Object.values(data.en).some(value =>
+//           value.toLowerCase().includes(searchChar.toLowerCase())
+//         )
+//       ) {
+//         if (data.categoryId === Ctgid) {
+//           products.push({ id: doc.id, ...data });
+//         } else {
+//           products.push({ id: doc.id, ...data });
+//         }
+//       }
+//     });
 
-    return products;
-  } catch (err) {
-    console.log(err);
-    return [];
-  }
-};
-// const searchResults = await search('dell', '');
-// console.log('Search results:', searchResults);
+//     return products;
+//   } catch (err) {
+//     console.log(err);
+//     return [];
+//   }
+// };

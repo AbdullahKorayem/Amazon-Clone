@@ -24,6 +24,7 @@ import SignIn from './pages/SignIn/SignIn';
 import Register from './pages/Register/CreateAcc';
 import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
 import { CartItemsCountProvider } from './contexts/cartItemsCount';
+import SearchResults from './pages/SearchResults/SearchResults';
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
@@ -53,6 +54,7 @@ const router = createBrowserRouter([
         loader: personalCareLoader,
       },
       { path: '/watches', element: <Watches />, loader: watchesLoader },
+      { path: '/search', element: <SearchResults /> },
     ],
   },
   {

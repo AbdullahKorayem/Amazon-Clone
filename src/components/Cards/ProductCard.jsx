@@ -15,7 +15,7 @@ export function ProductCard({ name, price, image, description, rate }) {
         floated={false}
         className=" h-[327px] flex justify-center"
       >
-        <img src={image} alt={name} className="h-auto  object-contain" />
+        <img src={image} alt={name} className="h-auto object-contain" />
       </CardHeader>
       <CardBody>
         <div className="mb-2 flex items-center justify-between">
