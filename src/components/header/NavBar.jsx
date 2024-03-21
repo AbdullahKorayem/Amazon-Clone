@@ -163,6 +163,7 @@ const NavBar = () => {
 					<li className="hidden gap-1 p-1 border border-transparent cursor-pointer hover:border-white lg:block">
 						<NavLink to="watches">Watches</NavLink>
 					</li>
+				
 				</ul>
 			</div>
 		</>

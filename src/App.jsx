@@ -73,7 +73,7 @@ const router = createBrowserRouter([
   },
 ]);
 
-function App() {
+export default function App() {
   const [lang, setLang] = useState('en');
   return (
     <Provider store={store}>
@@ -81,6 +81,7 @@ function App() {
         <RouterProvider router={router} />
       </LangProvider>
     </Provider>
+
   );
 }
-export default App;
+

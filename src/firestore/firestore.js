@@ -11,6 +11,9 @@ import {
   onSnapshot,
   where,
   query,
+  FieldValue,
+  arrayUnion,
+
 } from 'firebase/firestore';
 const firebaseConfig = {
   apiKey: 'AIzaSyCfFoS46NFqfG7i1fDIPhVcqBWrU92CbIs',

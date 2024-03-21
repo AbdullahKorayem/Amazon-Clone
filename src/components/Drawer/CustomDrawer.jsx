@@ -10,9 +10,13 @@ import 'rsuite/Accordion/styles/index.css'
 
 import 'rsuite/Animation/styles/index.css'
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 
 export default function CustomDrawer() {
+
+ const UserName =   useSelector((state) => state.User.user?.UserName);
+ console.log(UserName);
 
     const [size, setSize] = useState();
     const [open, setOpen] = useState(false);
@@ -89,7 +93,7 @@ export default function CustomDrawer() {
             >
                 <Drawer.Header className="bg-[#232f3e]">
                     <Drawer.Title className="text-white">
-                        (name of the user) Hello User
+                        Hello {UserName}
                     </Drawer.Title>
                 </Drawer.Header>
 

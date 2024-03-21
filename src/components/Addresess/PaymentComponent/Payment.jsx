@@ -1,24 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import PaymentCards from './PaymentCards/PaymentCards';
-import { toGetUserData } from '../../../firestore/firestore';
 
+import { useSelector  } from 'react-redux';
 export default function Payment() {
-  const [paymentCards, setPaymentCards] = useState([]);
 
   const userUid = sessionStorage.getItem('UserUid')
 
 
-
-  // async function gettingData() {
-
-  //   const userData = await toGetUserData(userUid)
-  //   setPaymentCards([...paymentCards, userData.PaymentCards])
-  // }
-
-
-  useEffect(() => {
-    // gettingData()
-  }, [])
+  const UserPaymentArray = useSelector((state) => state.User.user?.PaymentCards);
 
 
   return (
@@ -43,7 +32,7 @@ export default function Payment() {
           </article>
 
           {/* Loop through cards and display aligned content */}
-          {paymentCards.map((card, index) => (
+          {UserPaymentArray.length !== 0 ?  UserPaymentArray.map((card, index) => (
 
 
             <label htmlFor={`card-${index}`} key={index}>
@@ -58,16 +47,16 @@ export default function Payment() {
                 <div className="flex flex-wrap justify-between">
                   <h1 className="inline-block text-lg font-semibold">
                     {' '}
-                    💳 Visa ending in: {card.CreditCard.slice(-4)}
+                    💳 Visa ending in: {card.cardNumber.slice(-4)}
                   </h1>
-                  <p>{card.fullName} </p>
+                  <p>{card.cardName} </p>
                   <h1 className="inline-block text-lg font-semibold">
-                    {card.ExpireDate.month} / {card.ExpireDate.year}
+                    {card.expiryDate.month} / {card.expiryDate.year}
                   </h1>
                 </div>
               </section>
             </label>
-          ))}
+          )) : <h1 className="text-lg font-semibold text-center">No Cards</h1> }
           <hr className="mb-5" />
           <h1 className="mb-5 text-xl font-medium text-gray-900 dark:text-white">
             {' '}
@@ -80,7 +69,7 @@ export default function Payment() {
           </h1>
           <hr className="mb-5" />
           <div>
-            <PaymentCards setPaymentCards={setPaymentCards} />
+            <PaymentCards />
           </div>
         </div>
       </section>
