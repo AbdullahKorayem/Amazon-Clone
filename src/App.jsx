@@ -80,11 +80,14 @@ export default function App() {
   const [lang, setLang] = useState('en');
   const [nums, setNums] = useState(0);
   return (
-    <LangProvider value={{ lang, setLang }}>
-      <CartItemsCountProvider value={{ nums, setNums }}>
-        <RouterProvider router={router} />
-      </CartItemsCountProvider>
-    </LangProvider>
+    <Provider store={store}>
+      <LangProvider value={{ lang, setLang }}>
+        <CartItemsCountProvider value={{ nums, setNums }}>
+          <RouterProvider router={router} />
+        </CartItemsCountProvider>
+      </LangProvider>
+    </Provider>
+
   );
 }
 
