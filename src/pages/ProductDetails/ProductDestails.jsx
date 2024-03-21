@@ -8,11 +8,13 @@ import { langContext } from '../../contexts/lang';
 import { addProductToCart, getProductById } from '../../firestore/firestore';
 import HandleQuantity from '../../components/HandleQuantity/HandleQuantity';
 import ProductData from '../../components/ProductData/ProductData';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useParams } from 'react-router-dom';
 import { cartItemsCountContext } from '../../contexts/cartItemsCount';
 
 const ProductDetail = () => {
   const product = useLoaderData();
+  const { productId } = useParams();
+
   const { lang } = useContext(langContext);
   const [quantity, setQuantity] = useState(1);
   const { nums, setNums } = useContext(cartItemsCountContext);
@@ -70,7 +72,7 @@ const ProductDetail = () => {
             onClick={() => {
               addProductToCart(
                 '4kS2ASb6kLlaTn7Bos8Nr',
-                '655fc03b2e434d3693900bad',
+                'productId',
                 product.thumbnail,
                 product[lang].description,
                 price,
@@ -92,9 +94,7 @@ const ProductDetail = () => {
 export default ProductDetail;
 
 export async function loader({ params }) {
-  console.log(params);
   const { id } = params;
-  console.log(id);
   const product = await getProductById(id);
   return product;
 }

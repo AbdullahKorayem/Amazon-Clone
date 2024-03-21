@@ -24,8 +24,6 @@ const ProductSlider = () => {
       setData(res);
     }
     fetch();
-
-    console.log(data);
   }, []);
   return (
     <>
@@ -38,9 +36,9 @@ const ProductSlider = () => {
         >
           {data.map(slide => {
             return (
-              <SwiperSlide className="cursor-pointer">
+              <SwiperSlide className="cursor-pointer" key={slide.id}>
                 <ProductCard
-                  key={slide.id}
+                  id={slide.id}
                   name={slide[lang].title}
                   image={slide.thumbnail}
                   description={slide[lang].description}

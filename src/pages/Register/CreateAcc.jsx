@@ -3,10 +3,9 @@ import NeedHelp from '../SignIn/NeedHelp';
 import { useForm } from 'react-hook-form';
 import { Toaster, toast } from 'sonner';
 import { createUSer } from '../../firestore/firestore';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Register() {
-
   const navigate = useNavigate();
   const [working, setWorking] = useState(false);
   const {
@@ -22,21 +21,21 @@ export default function Register() {
 
   // this is only a test try again mr:abdo
 
-
-  const onSubmit = async (data) => {
+  const onSubmit = async data => {
     if (data !== 0) {
       try {
-        const userCredential = await createUSer(data.emailOrPhone, data.ConfirmPassword); 
+        const userCredential = await createUSer(
+          data.emailOrPhone,
+          data.ConfirmPassword
+        );
         toast.success('Sign In Successful');
         navigate('/login');
         console.log(userCredential);
       } catch (error) {
-
         if (error.code) {
           const errorMessage = handleFirebaseError(error.code);
           toast.error(errorMessage);
         } else {
-
           toast.error('An error occurred. Please try again later.');
         }
       }
@@ -49,12 +48,11 @@ export default function Register() {
         return 'Password is too weak. Please choose a stronger password.';
       case 'auth/email-already-in-use':
         return 'The email address is already in use by another account.';
-     
+
       default:
         return 'An unknown error occurred.';
     }
   }
-
 
   const PasswordValidation = ConfirmPassword => {
     console.log(ConfirmPassword);
@@ -73,11 +71,13 @@ export default function Register() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <section className="flex flex-col items-center ">
           {/* Amazon Logo */}
-          <img
-            src="amazon-icon/Amazon_logo_dark.webp"
-            className="mt-5 w-28"
-            alt="Amazon Logo"
-          />
+          <Link to="/">
+            <img
+              src="amazon-icon/Amazon_logo_dark.webp"
+              className="mt-5 w-28"
+              alt="Amazon Logo"
+            />
+          </Link>
 
           {/* Form Container */}
 
@@ -92,7 +92,7 @@ export default function Register() {
                 required: true,
                 pattern: /([a-zA-Z]+\s*)+/,
                 minLength: {
-                  value: 5,  
+                  value: 5,
                 },
               })}
               id="UserName"

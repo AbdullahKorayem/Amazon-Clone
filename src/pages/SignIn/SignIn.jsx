@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Toaster, toast } from 'sonner';
 import NeedHelp from './NeedHelp';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { signInWithE_PW } from '../../firestore/firestore';
 
@@ -35,11 +35,13 @@ export default function SignIn() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <section className="flex flex-col items-center ">
           {/* Amazon Logo */}
-          <img
-            src="amazon-icon/Amazon_logo_dark.webp"
-            className="mt-5 w-28"
-            alt="Amazon Logo"
-          />
+          <Link to="/">
+            <img
+              src="amazon-icon/Amazon_logo_dark.webp"
+              className="mt-5 w-28"
+              alt="Amazon Logo"
+            />
+          </Link>
 
           {/* Form Container */}
           <div className="flex flex-col border border-slate border-0.5 rounded-md p-10 max-w-xs mt-8 w-full ">

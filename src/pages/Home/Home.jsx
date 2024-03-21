@@ -150,22 +150,19 @@ const Home = () => {
               <img src={'amazon-icon/category_0.jpg'} alt="Deal category" />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
+              <img src={'amazon-icon/category_0.jpg'} alt="Deal category" />
+            </SwiperSlide>
+            <SwiperSlide className="cursor-pointer">
+              <img src={'amazon-icon/category_0.jpg'} alt="Deal category" />
+            </SwiperSlide>
+            <SwiperSlide className="cursor-pointer">
               <img src={'amazon-icon/category_1.jpg'} alt="Amazon category" />
-            </SwiperSlide>
-            <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_2.jpg'} alt="Fashion category" />
-            </SwiperSlide>
-            <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_2.jpg'} alt="Fashion category" />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
               <img
                 src={'amazon-icon/category_3.jpg'}
                 alt="Computers category"
               />
-            </SwiperSlide>
-            <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_4.jpg'} alt="Home category" />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
               <img src={'amazon-icon/category_5.jpg'} alt="Mobiles category" />
@@ -179,6 +176,12 @@ const Home = () => {
             spaceBetween={0}
             navigation={true}
           >
+            <SwiperSlide className="cursor-pointer">
+              <img src={'amazon-icon/category_0.jpg'} alt="Deal category" />
+            </SwiperSlide>
+            <SwiperSlide className="cursor-pointer">
+              <img src={'amazon-icon/category_0.jpg'} alt="Deal category" />
+            </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
               <img src={'amazon-icon/category_0.jpg'} alt="Deal category" />
             </SwiperSlide>

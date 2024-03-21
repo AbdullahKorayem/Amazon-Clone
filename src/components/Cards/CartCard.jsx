@@ -66,10 +66,7 @@ function CartCard({ item }) {
               >
                 Delete
               </button>
-              <div className="border-r border-gray-400 mx-1 h-4"></div>
-              <button className="border-none text-sky-800 text-sm  cursor-pointer">
-                Save for Later
-              </button>
+
               <div className="border-r  border-gray-400 mx-1 h-4"></div>
               <button className="border-none text-sm text-sky-800  cursor-pointer">
                 Share
@@ -77,7 +74,7 @@ function CartCard({ item }) {
             </div>
           </div>
         </div>
-        <div className=" font-semibold">{productPrice}</div>
+        <div className=" font-semibold">${productPrice}</div>
       </div>
     </>
   );

@@ -25,6 +25,7 @@ import Register from './pages/Register/CreateAcc';
 import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
 import { CartItemsCountProvider } from './contexts/cartItemsCount';
 import SearchResults from './pages/SearchResults/SearchResults';
+import NotFound from './pages/Not-Found/NotFound';
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
@@ -70,6 +71,10 @@ const router = createBrowserRouter([
   {
     path: '/register',
     element: <Register />,
+  },
+  {
+    path: '*',
+    element: <NotFound />,
   },
 ]);
 
