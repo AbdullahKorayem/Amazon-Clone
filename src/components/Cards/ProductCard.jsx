@@ -30,7 +30,7 @@ export function ProductCard({ id, name, price, image, description, rate }) {
             ${price}
           </Typography>
         </div>
-        <StarRating rate={rate} />
+        <StarRating rate={rate} id={id} />
         <Typography
           variant="small"
           color="gray"

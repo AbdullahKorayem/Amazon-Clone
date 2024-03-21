@@ -31,6 +31,8 @@ export default function Register() {
       await setDoc(doc(db, 'Users', userCredential.user.uid), {
         uid: userCredential.user.uid,
         UserName: data.UserName,
+        UserInformation:[],
+        PaymentCards:[]
       });
 
       navigate('/login');

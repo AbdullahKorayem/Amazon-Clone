@@ -32,7 +32,7 @@ export default function Payment() {
           </article>
 
           {/* Loop through cards and display aligned content */}
-          {UserPaymentArray.length !== 0 ?  UserPaymentArray.map((card, index) => (
+          {  UserPaymentArray !== 0 ?  UserPaymentArray.map((card, index) => (
 
 
             <label htmlFor={`card-${index}`} key={index}>

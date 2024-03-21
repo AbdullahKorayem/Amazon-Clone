@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Toaster, toast } from 'sonner';
 import NeedHelp from './NeedHelp';
-import { useNavigate,Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { signInWithE_PW } from '../../firestore/firestore';
 import { useDispatch, useSelector } from 'react-redux';
 // import { ChangeUser } from '../../redux/slices/User';
@@ -11,7 +11,7 @@ export default function SignIn() {
   const navigate = useNavigate();
   const [working, setWorking] = useState(false);
 
-
+  
   const stateUser = useSelector((state) => state.User.User);
   const {
     register,
@@ -29,8 +29,8 @@ export default function SignIn() {
         const userCredential = await signInWithE_PW(data.emailOrPhone, data.Password);
         toast.success('Sign In Successful');
         navigate('/');
-        console.log(userCredential.user.uid);
-
+        // console.log(userCredential.user.uid);
+   
         sessionStorage.setItem('UserUid', userCredential.user.uid);
       } catch (error) {
         if (error.code) {
@@ -48,13 +48,8 @@ export default function SignIn() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <section className="flex flex-col items-center">
           {/* Amazon Logo */}
-          <Link to="/">
-            <img
-              src="amazon-icon/Amazon_logo_dark.webp"
-              className="mt-5 w-28"
-              alt="Amazon Logo"
-            />
-          </Link>
+          <img src="amazon-icon/Amazon_logo_dark.webp" className="mt-5 w-28" alt="Amazon Logo" />
+
           {/* Form Container */}
           <div className="flex flex-col border border-slate border-0.5 rounded-md p-10 max-w-xs mt-8 w-full ">
             <h1 className="mb-5 text-2xl font-semibold">Sign In</h1>
@@ -71,8 +66,7 @@ export default function SignIn() {
                 },
                 minLength: {
                   value: 5,
-                  message:
-                    'Email or mobile phone number must be at least 5 characters',
+                  message: 'Email or mobile phone number must be at least 5 characters',
                 },
               })}
               id="emailOrPhone"
@@ -82,11 +76,7 @@ export default function SignIn() {
               placeholder="Email or mobile phone number"
             />
             <Toaster position="top-center" richColors />
-            {errors.emailOrPhone && (
-              <p className="text-xs italic text-red-500">
-                {errors.emailOrPhone.message}
-              </p>
-            )}
+            {errors.emailOrPhone && <p className="text-xs italic text-red-500">{errors.emailOrPhone.message}</p>}
 
             {/* Password */}
             <label htmlFor="Password" className="mb-2">
@@ -97,8 +87,7 @@ export default function SignIn() {
                 required: 'Password is required',
                 pattern: {
                   value: /^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*$/,
-                  message:
-                    'Password must contain 8 characters and one special character',
+                  message: 'Password must contain 8 characters and one special character',
                 },
               })}
               id="Password"
@@ -107,40 +96,20 @@ export default function SignIn() {
               className="w-full px-2 py-1 mb-4 border rounded-md outline-none border-slate-500 focus:ring-blue-700 focus:ring-1"
               placeholder="Password"
             />
-            {errors.Password && errors.Password.type === 'required' && (
-              <p className="text-xs italic text-red-500">
-                Please fill out this field.
-              </p>
-            )}
-            {errors.Password && errors.Password.type === 'validate' && (
-              <p className="text-xs italic text-red-500">
-                Password Must Match Contains 8 Characters And One Special
-                Character
-              </p>
-            )}
+            {errors.Password && <p className="text-xs italic text-red-500">{errors.Password.message}</p>}
 
             {/* Continue Button */}
-            <button className="bg-[#ffd814] hover:bg-[#ffc300] px-20 border-none mb-4">
-              Continue
-            </button>
+            <button className="bg-[#ffd814] hover:bg-[#ffc300] px-20 border-none mb-4">Continue</button>
 
             {/* Additional Options */}
             <div className="text-xs">
               <p className="text-xs font-200">
                 By continuing, you agree to Amazon's{' '}
-                <a
-                  href="https://www.amazon.com/conditions"
-                  target="_blank"
-                  className="Links"
-                >
+                <a href="https://www.amazon.com/conditions" target="_blank" className="Links">
                   Conditions of Use
                 </a>{' '}
                 and{' '}
-                <a
-                  href="https://www.amazon.com/privacy"
-                  target="_blank"
-                  className="Links"
-                >
+                <a href="https://www.amazon.com/privacy" target="_blank" className="Links">
                   Privacy Notice
                 </a>
                 .
@@ -155,11 +124,7 @@ export default function SignIn() {
               <div>
                 <h5 className="font-semibold ">Buying for work?</h5>
                 <p>
-                  <a
-                    href="https://www.amazon.com/business"
-                    target="_blank"
-                    className="Links"
-                  >
+                  <a href="https://www.amazon.com/business" target="_blank" className="Links">
                     Shop on Amazon Business
                   </a>
                 </p>

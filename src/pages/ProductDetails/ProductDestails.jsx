@@ -10,8 +10,11 @@ import HandleQuantity from '../../components/HandleQuantity/HandleQuantity';
 import ProductData from '../../components/ProductData/ProductData';
 import { useLoaderData, useParams } from 'react-router-dom';
 import { cartItemsCountContext } from '../../contexts/cartItemsCount';
+import { useSelector } from 'react-redux';
 
 const ProductDetail = () => {
+  const userUid = useSelector((state) => state.User.user?.uid);
+
   const product = useLoaderData();
   const { productId } = useParams();
 
@@ -71,7 +74,7 @@ const ProductDetail = () => {
           <button
             onClick={() => {
               addProductToCart(
-                '4kS2ASb6kLlaTn7Bos8Nr',
+                userUid,
                 'productId',
                 product.thumbnail,
                 product[lang].description,

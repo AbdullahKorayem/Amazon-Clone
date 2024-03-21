@@ -3,16 +3,18 @@ import CartCard from '../../components/Cards/CartCard';
 import { getCartItems } from '../../firestore/firestore';
 import { useContext, useEffect, useState } from 'react';
 import { cartItemsCountContext } from '../../contexts/cartItemsCount';
+import { useSelector } from 'react-redux';
 
 const Cart = () => {
-  // const items = useLoaderData();
+  const userUid = useSelector((state) => state.User.user?.uid);
+
   const [items, setItems] = useState([]);
   const navigate = useNavigate();
   const [subtotal, setSubtotal] = useState(0);
   const { nums, setNums } = useContext(cartItemsCountContext);
   useEffect(() => {
     const fetchItems = async () => {
-      const data = await getCartItems('4kS2ASb6kLlaTn7Bos8Nr');
+      const data = await getCartItems(userUid);
       setItems(data);
       const Subtotal = items.reduce((acc, item) => {
         return acc + item.productPrice * item.quantity;
