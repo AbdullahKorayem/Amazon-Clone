@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import NeedHelp from '../SignIn/NeedHelp';
 import { useForm } from 'react-hook-form';
 import { Toaster, toast } from 'sonner';
-import { createUSer } from '../../firestore/firestore';
-import { Link, useNavigate } from 'react-router-dom';
+import { createUSer, db } from '../../firestore/firestore';
+import { useNavigate } from 'react-router-dom';
+import { doc, setDoc } from 'firebase/firestore';
 
 export default function Register() {
   const navigate = useNavigate();
@@ -19,25 +20,26 @@ export default function Register() {
     setWorking(!working);
   };
 
-  // this is only a test try again mr:abdo
-
   const onSubmit = async data => {
-    if (data !== 0) {
-      try {
-        const userCredential = await createUSer(
-          data.emailOrPhone,
-          data.ConfirmPassword
-        );
-        toast.success('Sign In Successful');
-        navigate('/login');
-        console.log(userCredential);
-      } catch (error) {
-        if (error.code) {
-          const errorMessage = handleFirebaseError(error.code);
-          toast.error(errorMessage);
-        } else {
-          toast.error('An error occurred. Please try again later.');
-        }
+    try {
+      const userCredential = await createUSer(
+        data.emailOrPhone,
+        data.ConfirmPassword
+      );
+      toast.success('Sign Up Successful');
+
+      await setDoc(doc(db, 'Users', userCredential.user.uid), {
+        uid: userCredential.user.uid,
+        UserName: data.UserName,
+      });
+
+      navigate('/login');
+    } catch (error) {
+      if (error.code) {
+        const errorMessage = handleFirebaseError(error.code);
+        toast.error(errorMessage);
+      } else {
+        toast.error('An error occurred. Please try again later.');
       }
     }
   };
@@ -48,22 +50,14 @@ export default function Register() {
         return 'Password is too weak. Please choose a stronger password.';
       case 'auth/email-already-in-use':
         return 'The email address is already in use by another account.';
-
       default:
         return 'An unknown error occurred.';
     }
   }
 
   const PasswordValidation = ConfirmPassword => {
-    console.log(ConfirmPassword);
     const firstPass = getValues('Password');
-    console.log(firstPass);
-
-    if (firstPass !== ConfirmPassword) {
-      return false;
-    } else {
-      return true;
-    }
+    return firstPass === ConfirmPassword;
   };
 
   return (
@@ -71,16 +65,13 @@ export default function Register() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <section className="flex flex-col items-center ">
           {/* Amazon Logo */}
-          <Link to="/">
-            <img
-              src="amazon-icon/Amazon_logo_dark.webp"
-              className="mt-5 w-28"
-              alt="Amazon Logo"
-            />
-          </Link>
+          <img
+            src="amazon-icon/Amazon_logo_dark.webp"
+            className="mt-5 w-28"
+            alt="Amazon Logo"
+          />
 
           {/* Form Container */}
-
           <div className="flex flex-col border border-slate border-0.5 rounded-md p-10 max-w-xs mt-8 w-full ">
             <h1 className="mb-5 text-2xl font-semibold">Create Account</h1>
             {/* UserName */}
@@ -99,8 +90,9 @@ export default function Register() {
               name="UserName"
               type="text"
               className="w-full px-2 py-1 mb-4 border rounded-md outline-none border-slate-500 focus:ring-blue-700 focus:ring-1"
-              placeholder="Email or mobile phone number"
+              placeholder="Your Name" // Corrected placeholder
             />
+            {/* Error messages for UserName corrected according to validation rules */}
             {errors.UserName && errors.UserName.type === 'required' && (
               <p className="text-xs italic text-red-500">
                 Please fill out this field.
@@ -108,13 +100,12 @@ export default function Register() {
             )}
             {errors.UserName && errors.UserName.type === 'minLength' && (
               <p className="text-xs italic text-red-500">
-                The Min Length is 10....
+                The minimum length is 5.
               </p>
             )}
             <Toaster position="top-center" richColors />
 
             {/* Email or Phone Input */}
-
             <label htmlFor="emailOrPhone" className="mb-2">
               Email or mobile phone number
             </label>
@@ -154,22 +145,17 @@ export default function Register() {
               className="w-full px-2 py-1 mb-4 border rounded-md outline-none border-slate-500 focus:ring-blue-700 focus:ring-1"
               placeholder="Password"
             />
-            {errors.Password && errors.Password.type === 'required' && (
-              <p className="text-xs italic text-red-500">
-                Please fill out this field.
-              </p>
+            {errors.emailOrPhone && errors.emailOrPhone.type === 'required' && (
+              <p className="text-xs italic text-red-500">This is required.</p>
             )}
-            {errors.Password && errors.Password.type === 'validate' && (
+            {errors.emailOrPhone && errors.emailOrPhone.type === 'pattern' && (
               <p className="text-xs italic text-red-500">
-                Password Must Match Contains 8 Characters And One Special
-                Character
+                Please enter a valid email or mobile phone number.
               </p>
             )}
 
             {/* ReEnter Password */}
-
             <label htmlFor="ConfirmPassword" className="mb-2">
-              {' '}
               Re-Enter Password
             </label>
             <input
@@ -181,7 +167,7 @@ export default function Register() {
               name="ConfirmPassword"
               type="password"
               className="w-full px-2 py-1 mb-4 border rounded-md outline-none border-slate-500 focus:ring-blue-700 focus:ring-1"
-              placeholder="Password"
+              placeholder="Re-enter your password"
             />
             {errors.ConfirmPassword &&
               errors.ConfirmPassword.type === 'required' && (
@@ -192,14 +178,14 @@ export default function Register() {
             {errors.ConfirmPassword &&
               errors.ConfirmPassword.type === 'validate' && (
                 <p className="text-xs italic text-red-500">
-                  Password Must Match The Password U Provide
+                  Passwords must match.
                 </p>
               )}
 
             <button
-              className="bg-[#ffd814]   hover:bg-[#ffc300] px-20
-            border-none mb-4
-            "
+              className="bg-[#ffd814] hover:bg-[#ffc300] px-20 border-none mb-4"
+              type="submit"
+              disabled={working}
             >
               Continue
             </button>
@@ -211,6 +197,7 @@ export default function Register() {
                 <a
                   href="https://www.amazon.com/conditions"
                   target="_blank"
+                  rel="noopener noreferrer"
                   className="Links"
                 >
                   Conditions of Use
@@ -219,6 +206,7 @@ export default function Register() {
                 <a
                   href="https://www.amazon.com/privacy"
                   target="_blank"
+                  rel="noopener noreferrer"
                   className="Links"
                 >
                   Privacy Notice
@@ -238,6 +226,7 @@ export default function Register() {
                   <a
                     href="https://www.amazon.com/business"
                     target="_blank"
+                    rel="noopener noreferrer"
                     className="Links"
                   >
                     Shop on Amazon Business
@@ -247,10 +236,6 @@ export default function Register() {
             </div>
           </div>
         </section>
-
-        {/* <section className="flex flex-col items-center mt-5">
-          <Toaster position="top-center" richColors />
-        </section> */}
       </form>
     </>
   );

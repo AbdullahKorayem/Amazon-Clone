@@ -23,6 +23,9 @@ import Watches, { loader as watchesLoader } from './pages/Categories/Watches';
 import SignIn from './pages/SignIn/SignIn';
 import Register from './pages/Register/CreateAcc';
 import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
+import { Provider } from 'react-redux';
+import store from './redux/store';
+
 import { CartItemsCountProvider } from './contexts/cartItemsCount';
 import SearchResults from './pages/SearchResults/SearchResults';
 import NotFound from './pages/Not-Found/NotFound';
@@ -78,15 +81,18 @@ const router = createBrowserRouter([
   },
 ]);
 
-function App() {
+export default function App() {
   const [lang, setLang] = useState('en');
   const [nums, setNums] = useState(0);
   return (
-    <LangProvider value={{ lang, setLang }}>
-      <CartItemsCountProvider value={{ nums, setNums }}>
-        <RouterProvider router={router} />
-      </CartItemsCountProvider>
-    </LangProvider>
+    <Provider store={store}>
+      <LangProvider value={{ lang, setLang }}>
+        <CartItemsCountProvider value={{ nums, setNums }}>
+          <RouterProvider router={router} />
+        </CartItemsCountProvider>
+      </LangProvider>
+    </Provider>
+
   );
 }
-export default App;
+

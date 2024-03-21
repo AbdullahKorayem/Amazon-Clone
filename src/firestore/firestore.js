@@ -17,6 +17,8 @@ import {
   updateDoc,
   increment,
   query,
+  FieldValue,
+  arrayUnion,
   deleteDoc,
 } from 'firebase/firestore';
 const firebaseConfig = {
@@ -160,9 +162,47 @@ export const signInWithE_PW = async (email, password) => {
     );
     const user = userCredential.user;
     console.log(user);
-
-    return user;
   } catch (error) {
+    console.error('Error signing in:', error);
+    throw error;
+  }
+};
+
+export const AddUserData = async (Uid, fieldToUpdate, valueToUpdate) => {
+  try {
+    const userRef = doc(db, 'Users', Uid);
+
+    const userDoc = await getDoc(userRef);
+    if (!userDoc.exists()) {
+      throw new Error('User document does not exist');
+    }
+
+    const userData = userDoc.data();
+
+    const updatedData = { ...userData, [fieldToUpdate]: valueToUpdate };
+
+    await setDoc(userRef, updatedData);
+
+    return { success: true };
+  } catch (error) {
+    console.error('Error updating user data:', error);
+    return { success: false, error: error.message };
+  }
+};
+
+export const toGetUserData = async uid => {
+  try {
+    const userRef = doc(firestore, 'Users', uid);
+    const userDoc = await getDoc(userRef);
+
+    if (userDoc.exists()) {
+      return userDoc.data();
+    } else {
+      console.log('No such document!');
+      return null;
+    }
+  } catch (error) {
+    console.log('Error getting user data:', error);
     throw error;
   }
 };
@@ -243,9 +283,7 @@ export const searchForProduct = async (searchChar = '', Ctgid = '') => {
   try {
     let products = [];
     const productsRef = collection(firestore, 'Products');
-
     const querySnapshot = await getDocs(productsRef);
-
     querySnapshot.forEach(doc => {
       const data = doc.data();
 

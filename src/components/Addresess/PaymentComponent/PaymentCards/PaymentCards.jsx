@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import { Button, Modal } from 'flowbite-react';
 import { useForm } from 'react-hook-form';
 import { Toaster, toast } from 'sonner';
+import { AddUserData } from '../../../../firestore/firestore';
+import { useSelector } from 'react-redux';
 
-function PaymentCards({ setPaymentCards }) {
+
+function PaymentCards() {
   const [openModal, setOpenModal] = useState(false);
   const {
     handleSubmit,
@@ -11,11 +14,51 @@ function PaymentCards({ setPaymentCards }) {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = data => {
-    toast.success('Your Card Added Successfully');
-    setPaymentCards(prevCards => [...prevCards, data]);
-    setOpenModal(false);
+  const userUid = sessionStorage.getItem('UserUid')
+
+  const UserPaymentArray = useSelector((state) => state.User.user?.PaymentCards);
+
+
+
+  const onSubmit = async (data) => {
+    if (!userUid) {
+      toast.error('Please Login First');
+      setTimeout(() => {
+        toast.error('You will be redirected to the login page in 2 seconds');
+      }, 1000);
+      setTimeout(() => {
+        navigate('/login');
+      }, 2000);
+      return;
+    }
+
+    console.log("Form Data:", data);
+
+    const thePaymentCard = {
+      cardName: data.fullName,
+      cardNumber: data.CreditCard,
+      expiryDate: data.ExpireDate,
+    };
+
+    const updatedUserPaymentArray = Array.isArray(UserPaymentArray) ? [...UserPaymentArray] : [];
+
+    updatedUserPaymentArray.push(thePaymentCard);
+
+    try {
+      const result = await AddUserData(userUid, 'PaymentCards', updatedUserPaymentArray);
+      console.log("AddUserData Result:", result);
+      if (result.success) {
+        toast.success('Your Card Added Successfully');
+        setOpenModal(false);
+      } else {
+        toast.error(`Failed to add Credit Card: ${result.error}`);
+      }
+    } catch (error) {
+      console.error("Error adding Payment Card:", error);
+      toast.error("An Error Occurred While Adding The Payment Card");
+    }
   };
+
 
   function generateYearOptions() {
     const currentYear = new Date().getFullYear();

@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
-
 import { useForm } from 'react-hook-form';
 import { Toaster, toast } from 'sonner';
 import NeedHelp from './NeedHelp';
 import { Link, useNavigate } from 'react-router-dom';
-
 import { signInWithE_PW } from '../../firestore/firestore';
-
+import { useDispatch, useSelector } from 'react-redux';
+// import { ChangeUser } from '../../redux/slices/User';
 export default function SignIn() {
+  // const dispatch = useDispatch();
   const navigate = useNavigate();
   const [working, setWorking] = useState(false);
+
+  const stateUser = useSelector(state => state.User.User);
   const {
     register,
     handleSubmit,
@@ -33,7 +35,7 @@ export default function SignIn() {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <section className="flex flex-col items-center ">
+        <section className="flex flex-col items-center">
           {/* Amazon Logo */}
           <Link to="/">
             <img
@@ -42,6 +44,11 @@ export default function SignIn() {
               alt="Amazon Logo"
             />
           </Link>
+          <img
+            src="amazon-icon/Amazon_logo_dark.webp"
+            className="mt-5 w-28"
+            alt="Amazon Logo"
+          />
 
           {/* Form Container */}
           <div className="flex flex-col border border-slate border-0.5 rounded-md p-10 max-w-xs mt-8 w-full ">
@@ -52,8 +59,11 @@ export default function SignIn() {
             </label>
             <input
               {...register('emailOrPhone', {
-                required: true,
-                pattern: /^\S+@\S+$/i,
+                required: 'Email or mobile phone number is required',
+                pattern: {
+                  value: /^\S+@\S+$/i,
+                  message: 'Invalid email address',
+                },
                 minLength: {
                   value: 5,
                   message:
@@ -67,15 +77,24 @@ export default function SignIn() {
               placeholder="Email or mobile phone number"
             />
             <Toaster position="top-center" richColors />
-            {/* Password */}
+            {errors.emailOrPhone && (
+              <p className="text-xs italic text-red-500">
+                {errors.emailOrPhone.message}
+              </p>
+            )}
 
+            {/* Password */}
             <label htmlFor="Password" className="mb-2">
               Password
             </label>
             <input
               {...register('Password', {
-                required: true,
-                pattern: /^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*$/,
+                required: 'Password is required',
+                pattern: {
+                  value: /^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*$/,
+                  message:
+                    'Password must contain 8 characters and one special character',
+                },
               })}
               id="Password"
               name="Password"
@@ -96,7 +115,7 @@ export default function SignIn() {
             )}
 
             {/* Continue Button */}
-            <button className="bg-[#ffd814]   hover:bg-[#ffc300] px-20 border-none mb-4">
+            <button className="bg-[#ffd814] hover:bg-[#ffc300] px-20 border-none mb-4">
               Continue
             </button>
 
@@ -145,14 +164,13 @@ export default function SignIn() {
         </section>
 
         <section className="flex flex-col items-center mt-5">
-          <p className=" text-[#767676] text-sm mb-2">New to Amazon ?</p>
+          <p className="text-[#767676] text-sm mb-2">New to Amazon ?</p>
           <button
             onClick={() => {
               navigate('/register');
             }}
             type="button"
-            className=" p-1 shadow-lg w-64 bg-white text-sm hover:bg-[#f7fafa] rounded-md duration-300
-            "
+            className="p-1 shadow-lg w-64 bg-white text-sm hover:bg-[#f7fafa] rounded-md duration-300"
           >
             Create Your Amazon Account
           </button>

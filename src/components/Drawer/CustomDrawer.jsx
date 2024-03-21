@@ -8,8 +8,12 @@ import 'rsuite/Accordion/styles/index.css';
 
 import 'rsuite/Animation/styles/index.css';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export default function CustomDrawer() {
+  const UserName = useSelector(state => state.User.user?.UserName);
+  console.log(UserName);
+
   const [size, setSize] = useState();
   const [open, setOpen] = useState(false);
   const [placement, setPlacement] = useState('left');
@@ -67,7 +71,7 @@ export default function CustomDrawer() {
     <>
       <ButtonToolbar>
         <Button
-          className="p-1 text-base bg-transparent border-none outline-none focus:outline-none focus:bg-transparent hover:bg-transparent text-white"
+          className="p-1 text-base bg-transparent border-none outline-none focus:outline-none focus:bg-transparent hover:bg-transparent"
           size="xs"
           onClick={() => handleOpen('xs')}
         >
@@ -83,9 +87,7 @@ export default function CustomDrawer() {
         onClose={() => setOpen(false)}
       >
         <Drawer.Header className="bg-[#232f3e]">
-          <Drawer.Title className="text-white">
-            (name of the user) Hello User
-          </Drawer.Title>
+          <Drawer.Title className="text-white">Hello {UserName}</Drawer.Title>
         </Drawer.Header>
 
         <Drawer.Body>
