@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Toaster, toast } from 'sonner';
 import NeedHelp from './NeedHelp';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 import { signInWithE_PW } from '../../firestore/firestore';
 import { useDispatch, useSelector } from 'react-redux';
 // import { ChangeUser } from '../../redux/slices/User';
@@ -11,7 +11,8 @@ export default function SignIn() {
   const navigate = useNavigate();
   const [working, setWorking] = useState(false);
 
-  const stateUser = useSelector(state => state.User.User);
+
+  const stateUser = useSelector((state) => state.User.User);
   const {
     register,
     handleSubmit,
@@ -22,13 +23,23 @@ export default function SignIn() {
     setWorking(!working);
   };
 
-  const onSubmit = data => {
-    if (data.emailOrPhone != 0) {
-      const userCredential = signInWithE_PW(data.emailOrPhone, data.Password);
-      toast.success('Sign In Successful');
-      // console.log(data);
-      navigate('/');
-      console.log(userCredential);
+  const onSubmit = async (data) => {
+    if (data.emailOrPhone) {
+      try {
+        const userCredential = await signInWithE_PW(data.emailOrPhone, data.Password);
+        toast.success('Sign In Successful');
+        navigate('/');
+        console.log(userCredential.user.uid);
+
+        sessionStorage.setItem('UserUid', userCredential.user.uid);
+      } catch (error) {
+        if (error.code) {
+          const errorMessage = handleFirebaseError(error.code);
+          toast.error(errorMessage);
+        } else {
+          toast.error('An error occurred. Please try again later.');
+        }
+      }
     }
   };
 
@@ -44,12 +55,6 @@ export default function SignIn() {
               alt="Amazon Logo"
             />
           </Link>
-          <img
-            src="amazon-icon/Amazon_logo_dark.webp"
-            className="mt-5 w-28"
-            alt="Amazon Logo"
-          />
-
           {/* Form Container */}
           <div className="flex flex-col border border-slate border-0.5 rounded-md p-10 max-w-xs mt-8 w-full ">
             <h1 className="mb-5 text-2xl font-semibold">Sign In</h1>

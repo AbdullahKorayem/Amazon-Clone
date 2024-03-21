@@ -154,18 +154,9 @@ export const createUSer = async (email, password) => {
 };
 
 export const signInWithE_PW = async (email, password) => {
-  try {
-    const userCredential = await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    const user = userCredential.user;
-    console.log(user);
-  } catch (error) {
-    console.error('Error signing in:', error);
-    throw error;
-  }
+
+  return signInWithEmailAndPassword(auth, email, password);
+
 };
 
 export const AddUserData = async (Uid, fieldToUpdate, valueToUpdate) => {
