@@ -1,19 +1,21 @@
-import { BiShoppingBag } from 'react-icons/bi';
 import ReactImageGallery from 'react-image-gallery';
 import 'react-rater/lib/react-rater.css';
 import StarRating from '../../components/StarRating/StarRating';
 import HandlePrice from '../../components/HandlePrice/HandlePrice';
 import Available from '../../components/Available/Available';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { langContext } from '../../contexts/lang';
-import { getProductById } from '../../firestore/firestore';
+import { addProductToCart, getProductById } from '../../firestore/firestore';
 import HandleQuantity from '../../components/HandleQuantity/HandleQuantity';
 import ProductData from '../../components/ProductData/ProductData';
 import { useLoaderData } from 'react-router-dom';
+import { cartItemsCountContext } from '../../contexts/cartItemsCount';
 
 const ProductDetail = () => {
   const product = useLoaderData();
   const { lang } = useContext(langContext);
+  const [quantity, setQuantity] = useState(1);
+  const { nums, setNums } = useContext(cartItemsCountContext);
   let price;
   let availability;
   let images = [];
@@ -53,13 +55,32 @@ const ProductDetail = () => {
           discountPercentage={product.discountPercentage}
         />
         <div className=" w-full h-0.5 bg-gray-200 my-4"></div>
-        <Available availability={availability} />
+        <div className="my-3 font-bold">
+          <Available availability={availability} size="xl" />
+        </div>
         <ProductData name="Brand Name" description={product[lang].brand} />
         <ProductData name="Model Name" description={product[lang].title} />
-        <HandleQuantity quantityInStock={product.quantityInStock} />
+        <HandleQuantity
+          quantity={quantity}
+          setQuantity={setQuantity}
+          quantityInStock={product.quantityInStock}
+        />
         <div className="mt-7 flex flex-row items-center gap-6">
-          <button className=" bg-[#ffd814] hover:bg-[#ffc300]  flex h-12 w-1/3 items-center justify-center text-black duration-100 border-none ">
-            <BiShoppingBag className="mx-2" />
+          <button
+            onClick={() => {
+              addProductToCart(
+                '4kS2ASb6kLlaTn7Bos8Nr',
+                '655fc03b2e434d3693900bad',
+                product.thumbnail,
+                product[lang].description,
+                price,
+                product.quantityInStock,
+                quantity
+              );
+              setNums(nums => nums + quantity);
+            }}
+            className=" bg-[#ffd814] hover:bg-[#ffc300]  flex h-12 w-1/3 items-center justify-center text-black duration-100 border-none "
+          >
             Add to cart
           </button>
         </div>
@@ -70,7 +91,10 @@ const ProductDetail = () => {
 
 export default ProductDetail;
 
-export async function loader() {
-  const product = await getProductById('655d1d05f752cc400495d713');
+export async function loader({ params }) {
+  console.log(params);
+  const { id } = params;
+  console.log(id);
+  const product = await getProductById(id);
   return product;
 }

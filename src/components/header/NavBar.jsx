@@ -2,10 +2,9 @@ import React, { useContext, useEffect } from 'react';
 import { FaLocationDot } from 'react-icons/fa6';
 import { FaSearch } from 'react-icons/fa';
 import { BiCart } from 'react-icons/bi';
-import { FaBars } from 'react-icons/fa';
 import { langContext } from './../../contexts/lang';
 import { Badge } from '@material-tailwind/react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import CustomDrawer from './../Drawer/CustomDrawer';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchUser } from '../../redux/slices/User';
@@ -163,7 +162,9 @@ const NavBar = () => {
 					<li className="hidden gap-1 p-1 border border-transparent cursor-pointer hover:border-white lg:block">
 						<NavLink to="watches">Watches</NavLink>
 					</li>
-				
+					<li className="hidden gap-1 p-1 border border-transparent cursor-pointer hover:border-white lg:block">
+						<NavLink to="checkout">chekcout</NavLink>
+					</li>
 				</ul>
 			</div>
 		</>

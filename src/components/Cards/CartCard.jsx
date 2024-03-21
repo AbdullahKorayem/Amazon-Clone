@@ -1,51 +1,83 @@
-import React from 'react';
+import { useState } from 'react';
+import Available from '../Available/Available';
+import {
+  addProductToCart,
+  deleteItemFromCart,
+} from '../../firestore/firestore';
 
-function CartCard() {
+function CartCard({ item }) {
+  const {
+    productId,
+    productImage,
+    productDescription,
+    productPrice,
+    quantityInStock,
+    quantity,
+  } = item;
+  const [Quantity, setQuantity] = useState(quantity);
+  const availability = quantityInStock > 0;
+
+  function handleQuantityChange(e) {
+    setQuantity(+e.target.value);
+    addProductToCart(
+      '4kS2ASb6kLlaTn7Bos8Nr',
+      productId,
+      productImage,
+      productDescription,
+      productPrice,
+      quantityInStock,
+      +e.target.value
+    );
+  }
+
   return (
     <>
       <div className="w-full border-t-2 border-slate-300 rounded-md p-4 flex  justify-between">
         <div className="flex items-center">
           <div>
-            <img
-              className="w-40 mr-10 ml-10"
-              src="https://m.media-amazon.com/images/I/81za0uiwWOL._AC_SX679_.jpg"
-              alt=""
-            />
+            <img className="w-40 mr-10 ml-10" src={productImage} alt="" />
           </div>
           <div className="flex flex-col gap-3">
-            <h3 className="font-semibold w-[90%]">
-              12th Intel Core i7-1255U 10-Cores, 16GB RAM, 512GB SSD, NVIDIA
-              GeForce MX550 with 2GB GDDR6 Graphics, 15.6" FHD (1920 x 1080)
-            </h3>
+            <h3 className="font-semibold w-[90%]">{productDescription}</h3>
 
-            <p className="text-green-800 text-xs">In Stock</p>
+            <Available availability={availability} size="xs" />
+
             <p className="text-gray-500 text-xs">Eligible for FREE delivery</p>
             <div className="flex items-center">
               <select
                 className="bg-gray-200 border-none outline-none py-1 rounded-xl mr-2"
                 name="Quantity"
+                value={Quantity}
                 id=""
+                onChange={e => handleQuantityChange(e)}
               >
-                {Array.from({ length: 20 }, (_, i) => (
+                {Array.from({ length: quantityInStock }, (_, i) => (
                   <option key={i} value={i + 1}>
                     {i + 1}
                   </option>
                 ))}
               </select>
-              <div className="border-r border-gray-400 mx-2 h-4"></div>
-              <p className="mx-2 text-sm  text-sky-800 cursor-pointer">
+              <div className="border-r border-gray-400 mx-1 h-4"></div>
+              <button
+                onClick={() => {
+                  deleteItemFromCart(productId);
+                }}
+                className="  text-sm border-none text-sky-800 cursor-pointer"
+              >
                 Delete
-              </p>
-              <div className="border-r border-gray-400 mx-2 h-4"></div>
-              <p className="mx-2 text-sky-800 text-sm  cursor-pointer">
+              </button>
+              <div className="border-r border-gray-400 mx-1 h-4"></div>
+              <button className="border-none text-sky-800 text-sm  cursor-pointer">
                 Save for Later
-              </p>
-              <div className="border-r  border-gray-400 mx-2 h-4"></div>
-              <p className="mx-2 text-sm text-sky-800  cursor-pointer">Share</p>
+              </button>
+              <div className="border-r  border-gray-400 mx-1 h-4"></div>
+              <button className="border-none text-sm text-sky-800  cursor-pointer">
+                Share
+              </button>
             </div>
           </div>
         </div>
-        <div className=" font-semibold">$976.8</div>
+        <div className=" font-semibold">{productPrice}</div>
       </div>
     </>
   );

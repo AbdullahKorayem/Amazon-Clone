@@ -23,23 +23,16 @@ export default function SignIn() {
     setWorking(!working);
   };
 
-  const onSubmit = async (data) => {
-    if (data.emailOrPhone) {
-      try {
-        const userCredential = await signInWithE_PW(data.emailOrPhone, data.Password);
-        toast.success('Sign In Successful');
-        navigate('/');
-        // console.log(userCredential.user.uid);
-   
-        sessionStorage.setItem('UserUid', userCredential.user.uid);
-      } catch (error) {
-        if (error.code) {
-          const errorMessage = handleFirebaseError(error.code);
-          toast.error(errorMessage);
-        } else {
-          toast.error('An error occurred. Please try again later.');
-        }
-      }
+
+
+
+  const onSubmit = data => {
+    if (data.emailOrPhone != 0) {
+      const userCredential = signInWithE_PW(data.emailOrPhone, data.Password);
+      toast.success('Sign In Successful');
+      // console.log(data);
+      navigate('/');
+      console.log(userCredential);
     }
   };
 
@@ -96,7 +89,20 @@ export default function SignIn() {
               className="w-full px-2 py-1 mb-4 border rounded-md outline-none border-slate-500 focus:ring-blue-700 focus:ring-1"
               placeholder="Password"
             />
-            {errors.Password && <p className="text-xs italic text-red-500">{errors.Password.message}</p>}
+            {errors.Password && errors.Password.type === 'required' && (
+              <p className="text-xs italic text-red-500">
+                Please fill out this field.
+              </p>
+            )}
+            {errors.Password && errors.Password.type === 'validate' && (
+              <p className="text-xs italic text-red-500">
+                Password Must Match Contains 8 Characters And One Special
+                Character
+              </p>
+            )}
+
+
+
 
             {/* Continue Button */}
             <button className="bg-[#ffd814] hover:bg-[#ffc300] px-20 border-none mb-4">Continue</button>

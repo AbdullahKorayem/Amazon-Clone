@@ -1,12 +1,9 @@
-import { useState } from 'react';
-
-function HandleQuantity({ quantityInStock }) {
-  const [quantity, setQuantity] = useState(0);
+function HandleQuantity({ quantity, setQuantity, quantityInStock }) {
   function handlePlus() {
     if (quantity < quantityInStock) setQuantity(quantity => quantity + 1);
   }
   function handleMins() {
-    if (quantity > 0) setQuantity(quantity => quantity - 1);
+    if (quantity > 1) setQuantity(quantity => quantity - 1);
   }
   const plusMinuceButton =
     'flex h-8 w-8 cursor-pointer items-center justify-center border duration-100 hover:bg-neutral-100 focus:ring-2 focus:ring-gray-500 active:ring-2 active:ring-gray-500';

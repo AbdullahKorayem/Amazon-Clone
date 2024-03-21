@@ -6,16 +6,21 @@ import {
   Typography,
 } from '@material-tailwind/react';
 import StarRating from '../StarRating/StarRating';
+import { useNavigate } from 'react-router-dom';
 
-export function ProductCard({ name, price, image, description, rate }) {
+export function ProductCard({ id, name, price, image, description, rate }) {
+  const navigate = useNavigate();
+  function showDetails() {
+    navigate(`/product/${id}`);
+  }
   return (
-    <Card className="w-72">
+    <Card className="w-72 cursor-pointer" onClick={showDetails}>
       <CardHeader
         shadow={false}
         floated={false}
         className=" h-[327px] flex justify-center"
       >
-        <img src={image} alt={name} className="h-auto  object-contain" />
+        <img src={image} alt={name} className="h-auto object-contain" />
       </CardHeader>
       <CardBody>
         <div className="mb-2 flex items-center justify-between">
@@ -35,7 +40,6 @@ export function ProductCard({ name, price, image, description, rate }) {
           {description}
         </Typography>
       </CardBody>
-      <CardFooter className="pt-0"></CardFooter>
     </Card>
   );
 }

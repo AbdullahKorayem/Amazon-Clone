@@ -6,7 +6,6 @@ import {
 import ProductsList from '../../components/ProductsList/ProductsList';
 function PersonalCare() {
   const products = useLoaderData();
-  console.log(products);
 
   return <ProductsList products={products} title="Health & Personal Care" />;
 }

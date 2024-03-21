@@ -26,6 +26,8 @@ import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 
+import { CartItemsCountProvider } from './contexts/cartItemsCount';
+import SearchResults from './pages/SearchResults/SearchResults';
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
@@ -55,6 +57,7 @@ const router = createBrowserRouter([
         loader: personalCareLoader,
       },
       { path: '/watches', element: <Watches />, loader: watchesLoader },
+      { path: '/search', element: <SearchResults /> },
     ],
   },
   {
@@ -75,13 +78,13 @@ const router = createBrowserRouter([
 
 export default function App() {
   const [lang, setLang] = useState('en');
+  const [nums, setNums] = useState(0);
   return (
-    <Provider store={store}>
-      <LangProvider value={{ lang, setLang }}>
+    <LangProvider value={{ lang, setLang }}>
+      <CartItemsCountProvider value={{ nums, setNums }}>
         <RouterProvider router={router} />
-      </LangProvider>
-    </Provider>
-
+      </CartItemsCountProvider>
+    </LangProvider>
   );
 }
 

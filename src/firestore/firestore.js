@@ -1,5 +1,9 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from 'firebase/auth';
 import {
   getFirestore,
   doc,
@@ -10,10 +14,13 @@ import {
   collection,
   onSnapshot,
   where,
+  updateDoc,
+  increment,
   query,
   FieldValue,
   arrayUnion,
 
+  deleteDoc,
 } from 'firebase/firestore';
 const firebaseConfig = {
   apiKey: 'AIzaSyCfFoS46NFqfG7i1fDIPhVcqBWrU92CbIs',
@@ -79,7 +86,6 @@ export const getAllProducts = async () => {
     for (const doc of snapshot.docs) {
       products.push({ id: doc.id, ...doc.data() });
     }
-    console.log(products);
   });
   return products;
 };
@@ -90,7 +96,6 @@ export const getAllCategories = async () => {
       categories.push({ id: doc.id, ...doc.data() });
       console.log(doc.id);
     }
-    console.log(categories);
   });
   return categories;
 };
@@ -121,23 +126,42 @@ export const getProductsByCategoryId = async id => {
   });
   return products;
 };
+export const getProductsBySubCategoryId = async id => {
+  let querys1 = query(
+    collection(firestore, 'Products'),
+    where('subCategoryId', '==', id)
+  );
+  let respose = await getDocs(querys1);
+  let products = [];
+  respose.docs.forEach(cat => {
+    products.push({ id: cat.id, ...cat.data() });
+  });
+  return products;
+};
 
 export const getProductById = async id => {
   let productRef = doc(firestore, 'Products', id);
   let respose = await getDoc(productRef);
   if (respose.exists()) {
-    console.log(respose.data());
     return respose.data();
   } else {
     console.log('No such document!');
   }
 };
 
-
 export const createUSer = async (email, password) => {
-  return createUserWithEmailAndPassword(auth, email, password)
-}
+  return createUserWithEmailAndPassword(auth, email, password);
+};
 
+export const signInWithE_PW = async (email, password) => {
+  try {
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    const user = userCredential.user;
+    console.log(user);
 
 export const signInWithE_PW = async (email, password) => {
 
@@ -185,3 +209,108 @@ export const toGetUserData = async (uid) => {
     throw error; 
   }
 };
+export const addProductToCart = async (
+  userId,
+  productId,
+  productImage,
+  productDescription,
+  productPrice,
+  quantityInStock,
+  quantity
+) => {
+  const cartRef = collection(firestore, 'Cart');
+  const queryRef = query(
+    cartRef,
+    where('userId', '==', userId),
+    where('productId', '==', productId)
+  );
+  const snapshot = await getDocs(queryRef);
+
+  if (snapshot.empty) {
+    // If the product is not in the cart, add it
+    const newCartItem = {
+      userId,
+      productId,
+      productImage,
+      productDescription,
+      productPrice,
+      quantityInStock,
+      quantity,
+    };
+    await addDoc(cartRef, newCartItem);
+    console.log('Product added to cart successfully');
+  } else {
+    // If the product is already in the cart, update the quantity
+    snapshot.forEach(async cartDoc => {
+      const cartItemRef = doc(firestore, 'Cart', cartDoc.id);
+      await updateDoc(cartItemRef, {
+        quantity: quantity,
+      });
+      console.log('Product quantity updated in cart successfully');
+    });
+  }
+};
+
+export const getCartItems = async userId => {
+  let querys1 = query(
+    collection(firestore, 'Cart'),
+    where('userId', '==', userId)
+  );
+  let respose = await getDocs(querys1);
+  let Items = [];
+  respose.docs.forEach(pro => {
+    Items.push({ id: pro.id, ...pro.data() });
+  });
+  return Items;
+};
+
+export const deleteItemFromCart = async fieldValue => {
+  const queryRef = query(
+    collection(firestore, 'Cart'),
+    where('productId', '==', fieldValue)
+  );
+  const snapshot = await getDocs(queryRef);
+  if (!snapshot.empty) {
+    snapshot.forEach(async doc => {
+      await deleteDoc(doc.ref);
+      console.log(
+        `Document with ID =${fieldValue} successfully deleted from Cart.`
+      );
+    });
+  } else {
+    console.log(`No document found with ID =${fieldValue} in Cart.`);
+  }
+};
+
+// export const searchForProduct = async (searchChar = '', Ctgid = '') => {
+//   try {
+//     let products = [];
+//     const productsRef = collection(firestore, 'Products');
+
+//     const querySnapshot = await getDocs(productsRef);
+
+//     querySnapshot.forEach(doc => {
+//       const data = doc.data();
+
+//       if (
+//         data &&
+//         data.en &&
+//         Object.values(data.en).some(value =>
+//           value.toLowerCase().includes(searchChar.toLowerCase())
+//         )
+//       ) {
+//         if (data.categoryId === Ctgid) {
+//           products.push({ id: doc.id, ...data });
+//         } else {
+//           products.push({ id: doc.id, ...data });
+//         }
+//       }
+//     });
+
+//     return products;
+//   } catch (err) {
+//     console.log(err);
+//     return [];
+//   }
+// }
+ 
