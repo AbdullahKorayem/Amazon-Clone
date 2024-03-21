@@ -163,12 +163,11 @@ export const signInWithE_PW = async (email, password) => {
     const user = userCredential.user;
     console.log(user);
 
-export const signInWithE_PW = async (email, password) => {
-
-  return signInWithEmailAndPassword(auth, email, password);
-
+  } catch (error) {
+    console.error("Error signing in:", error);
+    throw error;
+  }
 };
-
 
 export const AddUserData = async (Uid, fieldToUpdate, valueToUpdate) => {
   try {
@@ -282,35 +281,34 @@ export const deleteItemFromCart = async fieldValue => {
   }
 };
 
-// export const searchForProduct = async (searchChar = '', Ctgid = '') => {
-//   try {
-//     let products = [];
-//     const productsRef = collection(firestore, 'Products');
+export const searchForProduct = async (searchChar = '', Ctgid = '') => {
+  try {
+    let products = [];
+    const productsRef = collection(firestore, 'Products');
 
-//     const querySnapshot = await getDocs(productsRef);
+    const querySnapshot = await getDocs(productsRef);
 
-//     querySnapshot.forEach(doc => {
-//       const data = doc.data();
+    querySnapshot.forEach(doc => {
+      const data = doc.data();
 
-//       if (
-//         data &&
-//         data.en &&
-//         Object.values(data.en).some(value =>
-//           value.toLowerCase().includes(searchChar.toLowerCase())
-//         )
-//       ) {
-//         if (data.categoryId === Ctgid) {
-//           products.push({ id: doc.id, ...data });
-//         } else {
-//           products.push({ id: doc.id, ...data });
-//         }
-//       }
-//     });
+      if (
+        data &&
+        data.en &&
+        Object.values(data.en).some(value =>
+          value.toLowerCase().includes(searchChar.toLowerCase())
+        )
+      ) {
+        if (data.categoryId === Ctgid) {
+          products.push({ id: doc.id, ...data });
+        } else {
+          products.push({ id: doc.id, ...data });
+        }
+      }
+    });
 
-//     return products;
-//   } catch (err) {
-//     console.log(err);
-//     return [];
-//   }
-// }
- 
+    return products;
+  } catch (err) {
+    console.log(err);
+    return [];
+  }
+};
