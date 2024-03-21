@@ -81,10 +81,9 @@ export const addNewProduct = async product => {
 
 export const getAllProducts = async () => {
   let products = [];
-  onSnapshot(collection(firestore, 'Products'), snapshot => {
-    for (const doc of snapshot.docs) {
-      products.push({ id: doc.id, ...doc.data() });
-    }
+  const snapshot = await getDocs(collection(firestore, 'Products'));
+  snapshot.forEach(doc => {
+    products.push({ id: doc.id, ...doc.data() });
   });
   return products;
 };
@@ -154,9 +153,7 @@ export const createUSer = async (email, password) => {
 };
 
 export const signInWithE_PW = async (email, password) => {
-
   return signInWithEmailAndPassword(auth, email, password);
-
 };
 
 export const AddUserData = async (Uid, fieldToUpdate, valueToUpdate) => {

@@ -1,5 +1,5 @@
 import { LangProvider } from './contexts/lang';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Home from './pages/Home/Home';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import AppLayout from './pages/AppLayout/AppLayout';
@@ -29,6 +29,8 @@ import store from './redux/store';
 import { CartItemsCountProvider } from './contexts/cartItemsCount';
 import SearchResults from './pages/SearchResults/SearchResults';
 import NotFound from './pages/Not-Found/NotFound';
+import { AllProductsProvider } from './contexts/allProducts';
+import { getAllProducts } from './firestore/firestore';
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
@@ -84,15 +86,25 @@ const router = createBrowserRouter([
 export default function App() {
   const [lang, setLang] = useState('en');
   const [nums, setNums] = useState(0);
+  const [allProducts, setAllProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const data = await getAllProducts();
+      setAllProducts(data);
+    };
+    fetchProducts();
+  }, []);
+
   return (
     <Provider store={store}>
-      <LangProvider value={{ lang, setLang }}>
-        <CartItemsCountProvider value={{ nums, setNums }}>
-          <RouterProvider router={router} />
-        </CartItemsCountProvider>
-      </LangProvider>
+      <AllProductsProvider value={{ allProducts }}>
+        <LangProvider value={{ lang, setLang }}>
+          <CartItemsCountProvider value={{ nums, setNums }}>
+            <RouterProvider router={router} />
+          </CartItemsCountProvider>
+        </LangProvider>
+      </AllProductsProvider>
     </Provider>
-
   );
 }
-

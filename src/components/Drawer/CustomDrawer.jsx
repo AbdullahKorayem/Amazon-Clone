@@ -12,7 +12,6 @@ import { useSelector } from 'react-redux';
 
 export default function CustomDrawer() {
   const UserName = useSelector(state => state.User.user?.UserName);
-  console.log(UserName);
 
   const [size, setSize] = useState();
   const [open, setOpen] = useState(false);

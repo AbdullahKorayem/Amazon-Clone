@@ -1,22 +1,28 @@
-import { useSearchParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 import ProductsList from '../../components/ProductsList/ProductsList';
-import { getAllProducts } from '../../firestore/firestore';
-import { CustomSpinner } from '../../components/Spinners/spinner';
+import { useContext } from 'react';
+import { allProductsContext } from '../../contexts/allProducts';
+import { useSearchParams } from 'react-router-dom';
+import NotFound from '../Not-Found/NotFound';
 
 export default function SearchResults() {
-  let [searchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const product = searchParams.get('pro');
-  const [results, setResults] = useState([]);
-  useEffect(() => {
-    async function getProducts() {
-      const products = await getAllProducts();
-      setResults(products);
-    }
-    getProducts();
-  }, []);
-  console.log(results);
+  const categoryId = searchParams.get('cat');
+  const { allProducts } = useContext(allProductsContext);
+  const filteredProducts = allProducts.filter(productObj => {
+    const categoryMatch = categoryId
+      ? productObj.categoryId === categoryId
+      : true;
 
-  if (results.length === 0) return <CustomSpinner />;
-  else return <ProductsList products={results} title="Results" />;
+    const productMatch = product
+      ? productObj &&
+        productObj.en &&
+        Object.values(productObj.en).some(value =>
+          value.toLowerCase().includes(product.toLowerCase())
+        )
+      : true;
+    return categoryMatch && productMatch;
+  });
+  if (filteredProducts.length === 0) return <NotFound />;
+  else return <ProductsList products={filteredProducts} title="Results" />;
 }

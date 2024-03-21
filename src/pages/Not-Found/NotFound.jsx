@@ -25,7 +25,7 @@ function NotFound() {
       </div>
       <p className="mt-4 text-xl text-gray-600">
         Let's get you back
-        <Link href="/" className="text-[#ffa41c] font-bold ms-2">
+        <Link to="/" className="text-[#ffa41c] font-bold ms-2">
           home
         </Link>
         .

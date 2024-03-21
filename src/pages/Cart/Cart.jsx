@@ -4,6 +4,7 @@ import { getCartItems } from '../../firestore/firestore';
 import { useContext, useEffect, useState } from 'react';
 import { cartItemsCountContext } from '../../contexts/cartItemsCount';
 import { useSelector } from 'react-redux';
+import { CustomSpinner } from '../../components/Spinners/spinner';
 
 const Cart = () => {
   const userUid = useSelector(state => state.User.user?.uid);

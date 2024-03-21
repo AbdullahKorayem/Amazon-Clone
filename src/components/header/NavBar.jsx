@@ -9,21 +9,25 @@ import CustomDrawer from './../Drawer/CustomDrawer';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchUser } from '../../redux/slices/User';
 import DropDownNav from '../DropDownNav/DropDownNav';
+import { cartItemsCountContext } from '../../contexts/cartItemsCount';
 
 const NavBar = () => {
+  const navigate = useNavigate();
+  const { lang, setLang } = useContext(langContext);
+  const { nums } = useContext(cartItemsCountContext);
   const User = sessionStorage.getItem('UserUid');
   const dispatch = useDispatch();
   const stateUser = useSelector(state => state.User?.user?.UserName);
   const [searchValue, setSearchValue] = useState('');
   const [searchCategory, setSearchCategory] = useState('');
-  const navigate = useNavigate();
   function handleClick() {
     navigate(`/search?pro=${searchValue}&cat=${searchCategory}`);
+    setSearchValue('');
+    setSearchCategory('');
   }
   useEffect(() => {
     dispatch(fetchUser(User));
   }, []);
-  const { lang, setLang } = useContext(langContext);
 
   return (
     <>
@@ -107,16 +111,6 @@ const NavBar = () => {
           </select>
         </div>
 
-        {/* Sign In */}
-        {/* <div className="p-1 border border-transparent hover:border-white">
-          <p className="text-sm">Hello, sign in</p>
-          <select className="py-0 text-base font-bold bg-transparent border-none ">
-            <option className=" bg-slate-900">
-              <Link to="/login">Sign in</Link>
-            </option>
-          </select>
-        </div> */}
-
         {stateUser != null ? (
           <div className="p-1 mx-2 border border-transparent hover:border-white">
             <p className="text-sm">Hello, {stateUser}</p>
@@ -143,18 +137,16 @@ const NavBar = () => {
           <p className="text-sm font-bold">& Order</p>
         </div>
 
-        {/* Cart */}
-        <Badge content="10" className="text-lg text-yellow-400 ms-5">
+        <Badge content={nums} className=" text-yellow-400 text-lg ms-5">
           <Link to="/cart">
-            <div className="flex items-center p-1 border border-transparent hover:border-white">
-              <BiCart className="mt-2 text-5xl" />
-              <p className="mt-5 font-bold">Cart</p>
+            <div className="border border-transparent p-1 hover:border-white flex items-center">
+              <BiCart className="text-5xl mt-2" />
+              <p className="font-bold mt-5">Cart</p>
             </div>
           </Link>
         </Badge>
       </nav>
 
-      {/* Secondary Navigation */}
       <div className="bg-[#222F3D] min-w-full w-[1000px] flex items-center text-white text-sm pl-4">
         <div className="flex items-center gap-1 p-2 border border-transparent hover:border-white">
           <div className="cursor-pointer " onClick={() => {}}>
