@@ -6,7 +6,7 @@ import { cartItemsCountContext } from '../../contexts/cartItemsCount';
 import { useSelector } from 'react-redux';
 
 const Cart = () => {
-  const userUid = useSelector((state) => state.User.user?.uid);
+  const userUid = useSelector(state => state.User.user?.uid);
 
   const [items, setItems] = useState([]);
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ const Cart = () => {
     };
     fetchItems();
   }, [items]);
-  if (items.length === 0) return <div>loding...</div>;
+  if (items.length === 0) return <CustomSpinner />;
   else
     return (
       <div className="min-h-screen" style={{ backgroundColor: '#EAEDED' }}>
