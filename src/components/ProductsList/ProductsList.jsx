@@ -4,7 +4,7 @@ import { langContext } from '../../contexts/lang';
 function ProductsList({ title, products }) {
   const { lang } = useContext(langContext);
   return (
-    <div className=" container mx-auto mt-3">
+    <div className=" container  mt-3">
       <h1 className=" text-3xl font-bold">{title}</h1>
       <div className="grid sm:grid-cols-2 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-6 min-[570px]:grid-cols-2 ">
         {products.map(product => {

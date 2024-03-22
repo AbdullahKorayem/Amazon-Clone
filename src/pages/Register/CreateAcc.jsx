@@ -3,7 +3,7 @@ import NeedHelp from '../SignIn/NeedHelp';
 import { useForm } from 'react-hook-form';
 import { Toaster, toast } from 'sonner';
 import { createUSer, db } from '../../firestore/firestore';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { doc, setDoc } from 'firebase/firestore';
 
 export default function Register() {
@@ -31,8 +31,8 @@ export default function Register() {
       await setDoc(doc(db, 'Users', userCredential.user.uid), {
         uid: userCredential.user.uid,
         UserName: data.UserName,
-        UserInformation:[],
-        PaymentCards:[]
+        UserInformation: [],
+        PaymentCards: [],
       });
 
       navigate('/login');
@@ -67,11 +67,13 @@ export default function Register() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <section className="flex flex-col items-center ">
           {/* Amazon Logo */}
-          <img
-            src="amazon-icon/Amazon_logo_dark.webp"
-            className="mt-5 w-28"
-            alt="Amazon Logo"
-          />
+          <Link to="/">
+            <img
+              src="amazon-icon/Amazon_logo_dark.webp"
+              className="mt-5 w-28"
+              alt="Amazon Logo"
+            />
+          </Link>
 
           {/* Form Container */}
           <div className="flex flex-col border border-slate border-0.5 rounded-md p-10 max-w-xs mt-8 w-full ">

@@ -70,7 +70,7 @@ export default function CustomDrawer() {
     <>
       <ButtonToolbar>
         <Button
-          className="p-1 text-base bg-transparent border-none outline-none focus:outline-none focus:bg-transparent hover:bg-transparent"
+          className=" text-white p-1 text-base bg-transparent border-none outline-none focus:outline-none focus:bg-transparent hover:bg-transparent"
           size="xs"
           onClick={() => handleOpen('xs')}
         >

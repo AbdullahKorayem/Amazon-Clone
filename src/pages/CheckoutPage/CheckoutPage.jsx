@@ -5,25 +5,26 @@ import OrderCard from './../../components/Addresess/OrderCard/OrderCard';
 import ItemAndShipping from '../../components/Addresess/ItemAndShipping/ItemAndShipping';
 import { useDispatch } from 'react-redux';
 import { fetchUser } from '../../redux/slices/User';
+import { Link } from 'react-router-dom';
 
 export default function CheckoutPage() {
-
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchUser())
-  }, [])
-
+    dispatch(fetchUser());
+  }, []);
 
   return (
     <>
       <div className="bg-[#f3f3f3]  justify-around h-20 grid grid-cols-10  items-center  ">
         <div className="col-span-4">
-          <img
-            src="amazon-icon/Amazon_logo_dark.webp"
-            alt=""
-            className="ml-20 w-28"
-          />
+          <Link to="/">
+            <img
+              src="amazon-icon/Amazon_logo_dark.webp"
+              alt=""
+              className="ml-20 w-28"
+            />
+          </Link>
         </div>
         <div className="col-span-6 ">
           <h1 className="text-4xl">

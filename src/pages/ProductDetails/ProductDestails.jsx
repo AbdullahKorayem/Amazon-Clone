@@ -8,16 +8,14 @@ import { langContext } from '../../contexts/lang';
 import { addProductToCart, getProductById } from '../../firestore/firestore';
 import HandleQuantity from '../../components/HandleQuantity/HandleQuantity';
 import ProductData from '../../components/ProductData/ProductData';
-import { useLoaderData, useParams } from 'react-router-dom';
+import { useLoaderData, useNavigate, useParams } from 'react-router-dom';
 import { cartItemsCountContext } from '../../contexts/cartItemsCount';
 import { useSelector } from 'react-redux';
 
 const ProductDetail = () => {
-  const userUid = useSelector((state) => state.User.user?.uid);
-
+  const userUid = useSelector(state => state.User.user?.uid);
   const product = useLoaderData();
-  const { productId } = useParams();
-
+  const navigate = useNavigate();
   const { lang } = useContext(langContext);
   const [quantity, setQuantity] = useState(1);
   const { nums, setNums } = useContext(cartItemsCountContext);
@@ -39,7 +37,7 @@ const ProductDetail = () => {
   });
 
   return (
-    <section className="container flex-grow mx-0 max-w-[1200px]  border-b py-5 lg:grid lg:grid-cols-2 lg:py-10">
+    <section className="container mx-0 flex-grow  max-w-[1200px]  border-b py-5 lg:grid lg:grid-cols-2 lg:py-10">
       <div className="container mx-auto px-4">
         <ReactImageGallery
           showBullets={false}
@@ -73,18 +71,20 @@ const ProductDetail = () => {
         <div className="mt-7 flex flex-row items-center gap-6">
           <button
             onClick={() => {
-              addProductToCart(
-                userUid,
-                'productId',
-                product.thumbnail,
-                product[lang].description,
-                price,
-                product.quantityInStock,
-                quantity
-              );
-              setNums(nums => nums + quantity);
+              if (userUid) {
+                addProductToCart(
+                  userUid,
+                  'productId',
+                  product.thumbnail,
+                  product[lang].description,
+                  price,
+                  product.quantityInStock,
+                  quantity
+                );
+                setNums(nums => nums + quantity);
+              } else navigate('/login');
             }}
-            className=" bg-[#ffd814] hover:bg-[#ffc300]  flex h-12 w-1/3 items-center justify-center text-black duration-100 border-none "
+            className=" bg-[#ffd814] hover:bg-[#ffc300]  flex h-12 w-2/3 items-center justify-center text-black duration-100 border-none "
           >
             Add to cart
           </button>
