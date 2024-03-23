@@ -5,7 +5,6 @@ import { Toaster, toast } from 'sonner';
 import { AddUserData } from '../../../../firestore/firestore';
 import { useSelector } from 'react-redux';
 
-
 function PaymentCards() {
   const [openModal, setOpenModal] = useState(false);
   const {
@@ -14,13 +13,11 @@ function PaymentCards() {
     formState: { errors },
   } = useForm();
 
-  const userUid = sessionStorage.getItem('UserUid')
+  const userUid = sessionStorage.getItem('UserUid');
 
-  const UserPaymentArray = useSelector((state) => state.User.user?.PaymentCards);
+  const UserPaymentArray = useSelector(state => state.User.user?.PaymentCards);
 
-
-
-  const onSubmit = async (data) => {
+  const onSubmit = async data => {
     if (!userUid) {
       toast.error('Please Login First');
       setTimeout(() => {
@@ -32,7 +29,7 @@ function PaymentCards() {
       return;
     }
 
-    console.log("Form Data:", data);
+    console.log('Form Data:', data);
 
     const thePaymentCard = {
       cardName: data.fullName,
@@ -40,13 +37,19 @@ function PaymentCards() {
       expiryDate: data.ExpireDate,
     };
 
-    const updatedUserPaymentArray = Array.isArray(UserPaymentArray) ? [...UserPaymentArray] : [];
+    const updatedUserPaymentArray = Array.isArray(UserPaymentArray)
+      ? [...UserPaymentArray]
+      : [];
 
     updatedUserPaymentArray.push(thePaymentCard);
 
     try {
-      const result = await AddUserData(userUid, 'PaymentCards', updatedUserPaymentArray);
-      console.log("AddUserData Result:", result);
+      const result = await AddUserData(
+        userUid,
+        'PaymentCards',
+        updatedUserPaymentArray
+      );
+      console.log('AddUserData Result:', result);
       if (result.success) {
         toast.success('Your Card Added Successfully');
         setOpenModal(false);
@@ -54,11 +57,10 @@ function PaymentCards() {
         toast.error(`Failed to add Credit Card: ${result.error}`);
       }
     } catch (error) {
-      console.error("Error adding Payment Card:", error);
-      toast.error("An Error Occurred While Adding The Payment Card");
+      console.error('Error adding Payment Card:', error);
+      toast.error('An Error Occurred While Adding The Payment Card');
     }
   };
-
 
   function generateYearOptions() {
     const currentYear = new Date().getFullYear();
@@ -81,7 +83,7 @@ function PaymentCards() {
       <Button
         onClick={() => setOpenModal(true)}
         color="white"
-        className="bg-[#ffd814] hover:bg-[#ffc300] border-none"
+        className="bg-[#ffd814] hover:bg-[#ffc300] border-none "
       >
         Add New Payment
       </Button>

@@ -13,7 +13,7 @@ export default function OrderCard() {
 
   return (
     <>
-      <section className="flex flex-col items-center justify-center w-2/4 border-2 rounded-md">
+      <section className="flex flex-col items-center justify-center border-2 rounded-md">
         <div className="flex-col border-0.5 border-black p-4 mb-4 rounded-lg w-full">
           <Button
             disabled
