@@ -33,8 +33,8 @@ const Cart = () => {
     return (
       <div className="min-h-screen" style={{ backgroundColor: '#EAEDED' }}>
         <div className="container m-auto pt-8 pb-5">
-          <div className="grid grid-cols-8 gap-10">
-            <div className="col-span-6 bg-white">
+          <div className="grid  grid-cols-8 gap-10">
+            <div className=" lg:col-span-6 col-span-8 bg-white">
               <div className="text-2xl xl:text-3xl m-4">Shopping Cart</div>
               <div className="px-4 py-8 pt-2">
                 <div className="text-right">Price</div>
@@ -49,7 +49,7 @@ const Cart = () => {
               </div>
             </div>
             {/* cheackOut */}
-            <div className=" flex flex-col col-span-2 rounded bg-white p-7 h-fit">
+            <div className=" flex flex-col lg:col-span-2 col-span-8 rounded bg-white p-7 h-fit">
               <div>
                 <span style={{ color: '#1D8778' }}>
                   Your order qualifies for FREE Shipping
@@ -65,10 +65,24 @@ const Cart = () => {
                 onClick={() => {
                   navigate('/checkout');
                 }}
-                className=" my-5 border-none bg-[#ffd814]   hover:bg-[#ffc300] px-20"
+                className=" my-5 border-none bg-[#ffd814] hover:bg-[#ffc300]s "
               >
                 Proceed to Buy
               </button>
+            </div>
+            <div className=" lg:col-span-6 col-span-8 bg-white">
+              <div className="text-2xl xl:text-3xl m-4">Your Items</div>
+              <div className="px-4 py-8 pt-2">
+                <div className="text-right">Price</div>
+                {items.map((item, index) => {
+                  return <CartCard item={item} key={index} />;
+                })}
+
+                <div className=" text-xl text-right">
+                  Subtotal(<span className="px-1">{nums}</span>Items):
+                  <span className="font-bold">${subtotal.toFixed(2)}</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -77,7 +91,3 @@ const Cart = () => {
 };
 
 export default Cart;
-// export async function loader() {
-//   const items = await getCartItems('4kS2ASb6kLlaTn7Bos8Nr');
-//   return items;
-// }

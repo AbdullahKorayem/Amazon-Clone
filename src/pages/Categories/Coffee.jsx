@@ -39,7 +39,7 @@ function Coffee() {
   if (products.length === 0) return <ServiceUnavailable />;
   else
     return (
-      <div className="flex">
+      <div className="flex ">
         <div className="w-[20%] min-w-44">
           <FilterSidebar onFilterChange={handleFilterChange} />
         </div>

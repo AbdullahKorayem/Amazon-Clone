@@ -14,6 +14,7 @@ import { useSelector } from 'react-redux';
 
 const ProductDetail = () => {
   const userUid = useSelector(state => state.User.user?.uid);
+  const { id: productId } = useParams();
   const product = useLoaderData();
   const navigate = useNavigate();
   const { lang } = useContext(langContext);
@@ -74,7 +75,7 @@ const ProductDetail = () => {
               if (userUid) {
                 addProductToCart(
                   userUid,
-                  'productId',
+                  productId,
                   product.thumbnail,
                   product[lang].description,
                   price,

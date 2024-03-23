@@ -4,6 +4,7 @@ import {
   addProductToCart,
   deleteItemFromCart,
 } from '../../firestore/firestore';
+import { Link } from 'react-router-dom';
 
 function CartCard({ item }) {
   const {
@@ -31,11 +32,11 @@ function CartCard({ item }) {
   }
 
   return (
-    <>
+    <Link to={`/product/${productId}`}>
       <div className="w-full border-t-2 border-slate-300 rounded-md p-4 flex  justify-between">
         <div className="flex items-center">
           <div>
-            <img className="w-40 mr-10 ml-10" src={productImage} alt="" />
+            <img className="w-40 mr-16 " src={productImage} alt="" />
           </div>
           <div className="flex flex-col gap-3">
             <h3 className="font-semibold w-[90%]">{productDescription}</h3>
@@ -76,7 +77,7 @@ function CartCard({ item }) {
         </div>
         <div className=" font-semibold">${productPrice}</div>
       </div>
-    </>
+    </Link>
   );
 }
 
