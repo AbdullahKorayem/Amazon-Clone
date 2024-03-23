@@ -4,6 +4,20 @@ import ProductsList from '../../components/ProductsList/ProductsList';
 import ServiceUnavailable from '../Service-Unavailable/ServiceUnavailable';
 import { useState } from 'react';
 import { FilterSidebar } from './FilterSidebar';
+
+const categories = [
+  { view: 'Office Supplies', value: '6562f4ad1cf9fca552f8c5b0' },
+];
+const brands = [
+  { view: 'JODO', value: 'UIXJODO' },
+  { view: 'Amanple', value: 'Amanple' },
+];
+const priceRanges = [
+  { view: 'Up to 100 USD', value: 0 },
+  { view: '101 to 200 USD', value: 100 },
+  { view: '200 USD & above', value: 200 },
+];
+
 function OfficeSupplies() {
   const products = useLoaderData();
   const [filters, setFilters] = useState({
@@ -40,7 +54,12 @@ function OfficeSupplies() {
     return (
       <div className="flex">
         <div className="w-[20%] min-w-44">
-          <FilterSidebar onFilterChange={handleFilterChange} />
+          <FilterSidebar
+            onFilterChange={handleFilterChange}
+            priceRanges={priceRanges}
+            brands={brands}
+            categories={categories}
+          />
         </div>
         <div className="w-[80%]">
           <ProductsList products={filteredProducts} title="Office Supplies" />

@@ -5,6 +5,18 @@ import { useState } from 'react';
 import { FilterSidebar } from './FilterSidebar';
 import ServiceUnavailable from '../Service-Unavailable/ServiceUnavailable';
 
+const categories = [{ view: 'Coffee', value: '6552824aa8299445e5fe5e9b' }];
+const brands = [
+  { view: 'Abu Auf', value: 'Abu Auf' },
+  { view: 'Farouk Pasha', value: 'Farouk Pasha' },
+];
+const priceRanges = [
+  { view: 'Up to 50 USD', value: 0 },
+  { view: '51 to 100 USD', value: 50 },
+  { view: '101 to 150 USD', value: 100 },
+  { view: '151 USD & above', value: 150 },
+];
+
 function Coffee() {
   const products = useLoaderData();
   const [filters, setFilters] = useState({
@@ -41,7 +53,12 @@ function Coffee() {
     return (
       <div className="flex ">
         <div className="w-[20%] min-w-44">
-          <FilterSidebar onFilterChange={handleFilterChange} />
+          <FilterSidebar
+            onFilterChange={handleFilterChange}
+            priceRanges={priceRanges}
+            brands={brands}
+            categories={categories}
+          />
         </div>
         <div className="w-[80%]">
           <ProductsList products={filteredProducts} title="Coffee" />

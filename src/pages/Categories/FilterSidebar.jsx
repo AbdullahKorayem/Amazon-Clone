@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import { Rating } from 'flowbite-react';
-export function FilterSidebar({ onFilterChange }) {
+export function FilterSidebar({
+  onFilterChange,
+  categories,
+  brands,
+  priceRanges,
+}) {
   const [selectedFilters, setSelectedFilters] = useState({
     category: '',
     brand: '',
@@ -8,21 +13,13 @@ export function FilterSidebar({ onFilterChange }) {
     rating: '',
   });
 
-  const categories = ['Coffee'];
-  const brands = ['Abu Auf', 'Farouk Pasha'];
-  const priceRanges = [
-    'Up to 50 USD',
-    '51 to 100 USD',
-    '101 to 150 USD',
-    '151 USD & above',
-  ];
   const ratings = [
-    FiveStar(),
-    FourStar(),
-    ThirdStar(),
-    TwoStar(),
-    OneStar(),
-    ZeroStar(),
+    { view: FiveStar(), value: 5 },
+    { view: FourStar(), value: 4 },
+    { view: ThirdStar(), value: 3 },
+    { view: TwoStar(), value: 2 },
+    { view: OneStar(), value: 1 },
+    { view: ZeroStar(), value: 0 },
   ];
 
   const handleFilterClick = (filterType, value) => {
@@ -36,10 +33,10 @@ export function FilterSidebar({ onFilterChange }) {
       {items.map((item, index) => (
         <li
           key={index}
-          onClick={() => handleFilterClick(filterType, item)}
+          onClick={() => handleFilterClick(filterType, item.value)}
           className={`cursor-pointer p-2 text-gray-700 hover:bg-gray-100`}
         >
-          {item}
+          {item.view}
         </li>
       ))}
     </ul>

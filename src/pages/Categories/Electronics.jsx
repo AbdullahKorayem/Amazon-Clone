@@ -6,6 +6,29 @@ import ServiceUnavailable from '../Service-Unavailable/ServiceUnavailable';
 import { FilterSidebar } from './FilterSidebar';
 import { useState } from 'react';
 
+const categories = [
+  { view: 'Laptops', value: '65527fafa8299445e5fe5e85' },
+  { view: 'Mobiles', value: '656e34938ab097079167133d' },
+  { view: 'Head Phones', value: '65527fdca8299445e5fe5e87 ' },
+];
+const brands = [
+  { view: 'Dell Laptops', value: 'dell' },
+  { view: 'Samsung Phones', value: 'Samsung' },
+  { view: 'Apple Phones', value: 'Apple' },
+  { view: 'Crucial', value: 'Crucial' },
+  { view: 'Logitech', value: 'Logitech' },
+  { view: 'Sony', value: 'sony' },
+  { view: 'sony', value: 'sony' },
+  { view: 'Mokata', value: 'Mokata' },
+];
+const priceRanges = [
+  { view: 'Up to 1000 USD', value: 0 },
+  { view: '1001 to 5000 USD', value: 1000 },
+  { view: '5001 to 10000 USD', value: 5000 },
+  { view: '10000 to 30000 USD', value: 10000 },
+  { view: '10000 to 30000 USD', value: 30000 },
+];
+
 function Electronics() {
   const products = useLoaderData();
   const [filters, setFilters] = useState({
@@ -42,7 +65,12 @@ function Electronics() {
     return (
       <div className="flex ">
         <div className="w-[20%] min-w-44">
-          <FilterSidebar onFilterChange={handleFilterChange} />
+          <FilterSidebar
+            onFilterChange={handleFilterChange}
+            priceRanges={priceRanges}
+            brands={brands}
+            categories={categories}
+          />
         </div>
         <div className="w-[80%]">
           <ProductsList products={filteredProducts} title="Electronics" />

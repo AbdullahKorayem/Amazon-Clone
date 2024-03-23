@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from 'react';
 import { cartItemsCountContext } from '../../contexts/cartItemsCount';
 import { useSelector } from 'react-redux';
 import { CustomSpinner } from '../../components/Spinners/spinner';
+import ItemCard from '../../components/itemCard/itemCard';
 
 const Cart = () => {
   const userUid = useSelector(state => state.User.user?.uid);
@@ -28,6 +29,9 @@ const Cart = () => {
     };
     fetchItems();
   }, [items]);
+
+  function proceedToCheckout() {}
+
   if (items.length === 0) return <CustomSpinner />;
   else
     return (
@@ -75,13 +79,8 @@ const Cart = () => {
               <div className="px-4 py-8 pt-2">
                 <div className="text-right">Price</div>
                 {items.map((item, index) => {
-                  return <CartCard item={item} key={index} />;
+                  return <ItemCard item={item} key={index} />;
                 })}
-
-                <div className=" text-xl text-right">
-                  Subtotal(<span className="px-1">{nums}</span>Items):
-                  <span className="font-bold">${subtotal.toFixed(2)}</span>
-                </div>
               </div>
             </div>
           </div>

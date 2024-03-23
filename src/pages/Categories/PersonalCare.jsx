@@ -4,6 +4,18 @@ import ProductsList from '../../components/ProductsList/ProductsList';
 import ServiceUnavailable from '../Service-Unavailable/ServiceUnavailable';
 import { useState } from 'react';
 import { FilterSidebar } from './FilterSidebar';
+
+const categories = [
+  { view: 'Skin Care', value: '65663e6987a7139093a18198' },
+  { view: 'Skin Care', value: '65657840e686c668a4d18920' },
+];
+const brands = [{ view: "L'Oréal Paris", value: "L'Oréal Paris" }];
+const priceRanges = [
+  { view: 'Up to 200 USD', value: 0 },
+  { view: '201 to 500 USD', value: 200 },
+  { view: '201 to 500 USD', value: 500 },
+];
+
 function PersonalCare() {
   const products = useLoaderData();
   const [filters, setFilters] = useState({
@@ -40,7 +52,12 @@ function PersonalCare() {
     return (
       <div className="flex">
         <div className="w-[20%] min-w-44">
-          <FilterSidebar onFilterChange={handleFilterChange} />
+          <FilterSidebar
+            onFilterChange={handleFilterChange}
+            priceRanges={priceRanges}
+            brands={brands}
+            categories={categories}
+          />
         </div>
         <div className="w-[80%]">
           <ProductsList

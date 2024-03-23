@@ -236,6 +236,48 @@ export const addProductToCart = async (
   }
 };
 
+export const addProductToOrder = async (
+  userId,
+  productId,
+  productImage,
+  productDescription,
+  productPrice,
+  quantityInStock,
+  quantity
+) => {
+  const orderRef = collection(firestore, 'Order');
+  const queryRef = query(
+    orderRef,
+    where('userId', '==', userId),
+    where('productId', '==', productId)
+  );
+  const snapshot = await getDocs(queryRef);
+
+  if (snapshot.empty) {
+    // If the product is not in the cart, add it
+    const newOrderItem = {
+      userId,
+      productId,
+      productImage,
+      productDescription,
+      productPrice,
+      quantityInStock,
+      quantity,
+    };
+    await addDoc(orderRef, newOrderItem);
+    console.log('Product added to Order successfully');
+  } else {
+    // If the product is already in the cart, update the quantity
+    snapshot.forEach(async orderDoc => {
+      const orderItemRef = doc(firestore, 'Order', orderDoc.id);
+      await updateDoc(orderItemRef, {
+        quantity: quantity,
+      });
+      console.log('Product quantity updated in Order successfully');
+    });
+  }
+};
+
 export const getCartItems = async userId => {
   let querys1 = query(
     collection(firestore, 'Cart'),
