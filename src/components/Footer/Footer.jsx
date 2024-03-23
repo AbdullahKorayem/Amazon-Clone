@@ -1,4 +1,3 @@
-import './Footer.css';
 import React from 'react';
 
 function Footer() {
@@ -7,83 +6,77 @@ function Footer() {
   };
 
   return (
-    <div className="footer min-w-full w-[1000px]">
-      <>
-        <button className="back-to-top-button" onClick={handleBackToTop}>
+    <>
+      <div className="bg-gray-800 text-white">
+        <button
+          className="w-full py-4 font-bold text-xl border-gray-500"
+          onClick={handleBackToTop}
+        >
           Back to Top
         </button>
-        <div className="amazon-footer"></div>
-        <footer className="amazon-footer">
-          <div className="amazon-footer__container">
-            <div className="amazon-footer__section">
-              <h4>Get to Know Us</h4>
-              <ul>
-                <li>About Amazon</li>
-                <li>Careers</li>
-                <li>Amazon Science</li>
-              </ul>
-            </div>
-            <div className="amazon-footer__section">
-              <h4>Shop with Us</h4>
-              <ul>
-                <li>Your Account</li>
-                <li>Your Orders</li>
-                <li>Your Addresses</li>
-                <li>Your Lists</li>
-              </ul>
-            </div>
-            <div className="amazon-footer__section">
-              <h4>Make Money with Us</h4>
-              <ul>
-                <li>Protect and build your brand</li>
-                <li>Advertise Your Products</li>
-                <li>Sell on Amazon</li>
-                <li>Fulfillment by Amazon</li>
-              </ul>
-            </div>
-            <div className="amazon-footer__section">
-              <h4>Let Us Help You</h4>
-              <ul>
-                <li>Help</li>
-                <li>Shipping & Delivery</li>
-                <li>Returns & Replacements</li>
-                <li>Amazon App Download</li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="amazon-footer__divider"></div>
-          <div className="w-full flex gap-6 items-center justify-center py-6">
+        <div className="max-w-6xl mx-auto px-4 py-10 md:py-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div>
-              <img
-                width={100}
-                height={100}
-                src="https://logodownload.org/wp-content/uploads/2014/04/amazon-logo.png"
-              />
+              <h4 className="font-bold text-lg mb-4">Get to Know Us</h4>
+              <ul className="list-none m-0 p-0">
+                <li className="mb-2">About Amazon</li>
+                <li className="mb-2">Careers</li>
+                <li className="mb-2">Amazon Science</li>
+              </ul>
             </div>
-            <div className="flex gap-2">
-              <p
-                className="flex gap-1 items-center justify-center border border-gray-500
-                        hover:border-amazon_yellow cursor-pointer duration-200 px-2 py-1"
-              >
-                English
-              </p>
+            <div>
+              <h4 className="font-bold text-lg mb-4">Shop with Us</h4>
+              <ul>
+                <li className="mb-2">Your Account</li>
+                <li className="mb-2">Your Orders</li>
+                <li className="mb-2">Your Addresses</li>
+                <li className="mb-2">Your Lists</li>
+              </ul>
             </div>
-            <div
-              className="flex gap-1 items-center justify-center border border-gray-500
-                     hover:border-amazon_yellow cursor-pointer duration-200 px-2 py-1"
-            >
-              <img
-                className="w-6"
-                src="https://www.bing.com/th?id=OIP.4ve4zACsz1LZOlMcCUHGBAHaE8&w=142&h=100&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2"
-                alt="flag"
-              />
-              <p>Egypt</p>
+            <div>
+              <h4 className="font-bold text-lg mb-4">Make Money with Us</h4>
+              <ul>
+                <li className="mb-2">Sell on Amazon</li>
+                <li className="mb-2">Advertise Your Products</li>
+                <li className="mb-2">Fulfillment by Amazon</li>
+                <li className="mb-2">Protect and Build Your Brand</li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-bold text-lg mb-4">Let Us Help You</h4>
+              <ul>
+                <li className="mb-2">Help</li>
+                <li className="mb-2">Shipping & Delivery</li>
+                <li className="mb-2">Returns & Replacements</li>
+                <li className="mb-2">Amazon App Download</li>
+              </ul>
             </div>
           </div>
-        </footer>
-      </>
-    </div>
+          <div className="border-t border-gray-700 mt-10 pt-10 text-center">
+            <div className="flex justify-center mb-4">
+              <img
+                className="w-15 h-12"
+                src="https://logodownload.org/wp-content/uploads/2014/04/amazon-logo.png"
+                alt="Amazon Logo"
+              />
+            </div>
+            <p className="text-sm text-gray-400">© 2023 Amazon Clone, Inc.</p>
+            <div className="flex justify-center space-x-4 mt-4">
+              {/* Example social media icons */}
+              <a href="#" className="hover:text-gray-300">
+                <i className="fab fa-facebook-f"></i>
+              </a>
+              <a href="#" className="hover:text-gray-300">
+                <i className="fab fa-twitter"></i>
+              </a>
+              <a href="#" className="hover:text-gray-300">
+                <i className="fab fa-instagram"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
 

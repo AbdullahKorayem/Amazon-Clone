@@ -33,9 +33,9 @@ export function FilterSidebar({ onFilterChange }) {
 
   const renderFilterList = (filterType, items) => (
     <ul className="list-none">
-      {items.map(item => (
+      {items.map((item, index) => (
         <li
-          key={item}
+          key={index}
           onClick={() => handleFilterClick(filterType, item)}
           className={`cursor-pointer p-2 text-gray-700 hover:bg-gray-100`}
         >

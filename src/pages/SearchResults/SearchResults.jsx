@@ -2,7 +2,7 @@ import ProductsList from '../../components/ProductsList/ProductsList';
 import { useContext } from 'react';
 import { allProductsContext } from '../../contexts/allProducts';
 import { useSearchParams } from 'react-router-dom';
-import NotFound from '../Not-Found/NotFound';
+import NoResult from './NoResult';
 
 export default function SearchResults() {
   const [searchParams] = useSearchParams();
@@ -23,6 +23,6 @@ export default function SearchResults() {
       : true;
     return categoryMatch && productMatch;
   });
-  if (filteredProducts.length === 0) return <NotFound />;
+  if (filteredProducts.length === 0) return <NoResult result={product} />;
   else return <ProductsList products={filteredProducts} title="Results" />;
 }

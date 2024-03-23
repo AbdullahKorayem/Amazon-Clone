@@ -6,7 +6,7 @@ function ProductsList({ title, products }) {
   return (
     <div className=" container  mt-3">
       <h1 className=" text-3xl font-bold">{title}</h1>
-      <div className="grid sm:grid-cols-2 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-6 min-[570px]:grid-cols-2 ">
+      <div className="grid sm:grid-cols-2 2xl:grid-cols-4 xl:grid-cols-3 min-[1150px]:grid-cols-3 md:grid-cols-2 gap-6 min-[650px]:grid-cols-1 md:mx-auto ">
         {products.map(product => {
           return (
             <ProductCard

@@ -1,11 +1,9 @@
 import { useLoaderData } from 'react-router-dom';
-import {
-  getCategoryByName,
-  getProductsByCategoryId,
-} from '../../firestore/firestore';
+import { getProductsByCategoryId } from '../../firestore/firestore';
 import ProductsList from '../../components/ProductsList/ProductsList';
 import { useState } from 'react';
 import { FilterSidebar } from './FilterSidebar';
+import ServiceUnavailable from '../Service-Unavailable/ServiceUnavailable';
 
 function Coffee() {
   const products = useLoaderData();
@@ -38,22 +36,23 @@ function Coffee() {
       (filters.brand ? product.brand === filters.brand : true)
     );
   });
-  return (
-    <div className="flex">
-      <div className="w-[20%]">
-        <FilterSidebar onFilterChange={handleFilterChange} />
+  if (products.length === 0) return <ServiceUnavailable />;
+  else
+    return (
+      <div className="flex">
+        <div className="w-[20%] min-w-44">
+          <FilterSidebar onFilterChange={handleFilterChange} />
+        </div>
+        <div className="w-[80%]">
+          <ProductsList products={filteredProducts} title="Coffee" />
+        </div>
       </div>
-      <div className="w-[80%]">
-        <ProductsList products={filteredProducts} title="Coffee" />
-      </div>
-    </div>
-  );
+    );
 }
 
 export default Coffee;
 
 export async function loader() {
-  const category = await getCategoryByName('Coffee');
-  const products = await getProductsByCategoryId(category.id);
+  const products = await getProductsByCategoryId('65527c22376a52ea210d9708');
   return products;
 }

@@ -13,7 +13,7 @@ function HandlePrice({ discountPercentage, price, prePrice }) {
           Deals
         </Badge>
       )}
-      <p className="mt-4 text-4xl">
+      <div className="mt-4 text-4xl">
         {discountPercentage > 0 && (
           <span className="text-3xl text-red-600">-{discountPercentage}% </span>
         )}
@@ -24,7 +24,7 @@ function HandlePrice({ discountPercentage, price, prePrice }) {
         <div className="mt-3">
           <p className=" text-sm text-black">All prices include VAT</p>
         </div>
-      </p>
+      </div>
       <div className=" container mx-4 flex flex-row mt-3">
         <div className="w-20">
           <img

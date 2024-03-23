@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 import { Drawer, Button, Accordion, ButtonToolbar } from 'rsuite';
 import { FaBars } from 'react-icons/fa';
-
+import { fetchUser } from '../../redux/slices/User';
 import 'rsuite/Drawer/styles/index.css';
 import 'rsuite/Button/styles/index.css';
 import 'rsuite/Accordion/styles/index.css';
 
 import 'rsuite/Animation/styles/index.css';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-export default function CustomDrawer() {
+export default function CustomDrawer({ lang, onSetLang }) {
   const UserName = useSelector(state => state.User.user?.UserName);
-
+  const dispatch = useDispatch();
+  const User = sessionStorage.getItem('UserUid');
   const [size, setSize] = useState();
   const [open, setOpen] = useState(false);
   const [placement, setPlacement] = useState('left');
@@ -151,37 +152,55 @@ export default function CustomDrawer() {
                   </Link>
                 </h3>
               </div>
-              <select
-                className="text-base font-bold bg-transparent border-none rounded-md"
-                onChange={e => setLang(e.target.value)}
-              >
-                <option className=" bg-slate-900" value="en">
-                  EN
-                </option>
-                <option className=" bg-slate-900" value="ar">
-                  AR
-                </option>
-              </select>
-              <div className="w-full p-1 rounded-md hover:bg-[#eaeded]">
-                <h3 className="font-semibold">
-                  <Link
-                    to="/Help"
-                    className="block w-full text-blue-500 no-underline hover:no-underline"
-                    onClick={handleClose}
-                  >
-                    Help
-                  </Link>
-                </h3>
+              <div className=" lg:flex items-center p-1 border border-transparent hover:border-white">
+                <img
+                  src={
+                    lang === 'en'
+                      ? 'amazon-icon/us_flag.png'
+                      : 'amazon-icon/eg_flag.png'
+                  }
+                  srcSet={
+                    lang === 'en'
+                      ? '../amazon-icon/us_flag.png'
+                      : '../amazon-icon/eg_flag.png'
+                  }
+                  className="w-5 h-5"
+                  alt="US Flag"
+                />
+                <select
+                  className="text-base font-bold bg-transparent border-none"
+                  onChange={e => onSetLang(e.target.value)}
+                >
+                  <option className=" bg-white" value="en">
+                    EN
+                  </option>
+                  <option className=" bg-white" value="ar">
+                    AR
+                  </option>
+                </select>
               </div>
+
               <div className="w-full p-1 rounded-md hover:bg-[#eaeded]">
                 <h3 className="font-semibold">
-                  <Link
-                    to="/SighOut"
-                    className="block w-full ml-2 text-blue-500 no-underline hover:no-underline"
-                    onClick={handleClose}
-                  >
-                    Sigh Out
-                  </Link>
+                  {User ? (
+                    <Link
+                      className="block w-full ml-2 text-blue-500 no-underline hover:no-underline"
+                      onClick={() => {
+                        handleClose;
+                        window.sessionStorage.removeItem('UserUid');
+                        dispatch(fetchUser(User));
+                      }}
+                    >
+                      Sigh Out
+                    </Link>
+                  ) : (
+                    <Link
+                      className="block w-full ml-2 text-blue-500 no-underline hover:no-underline"
+                      to="/login"
+                    >
+                      Sign In
+                    </Link>
+                  )}
                 </h3>
               </div>
             </Accordion.Panel>

@@ -1,12 +1,11 @@
 import { Link } from 'react-router-dom';
 
-function NotFound() {
+function ServiceUnavailable() {
   return (
-    // Use flex, flex-col for vertical stacking, justify-center to center vertically, and items-center to center horizontally
     <div className="flex flex-col justify-center items-center h-screen">
-      <h1 className="mb-4 text-8xl font-semibold text-[#131921]">404</h1>
+      <h1 className="mb-4 text-8xl font-semibold text-[#131921]">503</h1>
       <p className="mb-4 text-xl text-gray-600">
-        Oops! Looks like you're lost.
+        Oops! Service Unavailable, Please Try Again
       </p>
       <div className="animate-bounce">
         <svg
@@ -34,4 +33,4 @@ function NotFound() {
   );
 }
 
-export default NotFound;
+export default ServiceUnavailable;

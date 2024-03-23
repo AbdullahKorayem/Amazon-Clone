@@ -20,7 +20,8 @@ const NavBar = () => {
   const stateUser = useSelector(state => state.User?.user?.UserName);
   const [searchValue, setSearchValue] = useState('');
   const [searchCategory, setSearchCategory] = useState('');
-  function handleClick() {
+  function handleClick(e) {
+    e.preventDefault();
     navigate(`/search?pro=${searchValue}&cat=${searchCategory}`);
     setSearchValue('');
     setSearchCategory('');
@@ -31,7 +32,7 @@ const NavBar = () => {
 
   return (
     <>
-      <nav className="bg-[#131921] min-w-full w-[1000px] h-auto justify-evenly flex items-center text-white px-4 ">
+      <nav className="bg-[#131921]  h-auto justify-evenly flex items-center text-white px-4 ">
         {/* Logo */}
         <div className="border border-transparent hover:border-white">
           <Link to="/">
@@ -45,7 +46,7 @@ const NavBar = () => {
         </div>
 
         {/* Deliver To */}
-        <div className="hidden px-4 border border-transparent hover:border-white md:block">
+        <div className="hidden  px-4 border border-transparent hover:border-white lg:block">
           <p className="text-sm">Deliver To</p>
           <div className="flex items-center gap-1">
             <FaLocationDot />
@@ -53,9 +54,14 @@ const NavBar = () => {
           </div>
         </div>
 
-        <div className="text-black px-4 flex h-10 flex-grow">
+        <form
+          onSubmit={e => {
+            handleClick(e);
+          }}
+          className="text-black px-4 flex h-10 flex-grow"
+        >
           <select
-            className="bg-[#E6E6E6] px-2 rounded-lg rounded-r-none "
+            className="bg-[#E6E6E6] px-2 rounded-lg rounded-r-none w-10 md:w-fit "
             value={searchCategory}
             onChange={e => setSearchCategory(e.target.value)}
           >
@@ -74,16 +80,13 @@ const NavBar = () => {
             value={searchValue}
             onChange={e => setSearchValue(e.target.value)}
           />
-          <div
-            onClick={handleClick}
-            className="bg-orange-300 flex rounded-lg rounded-l-none items-center p-2 cursor-pointer"
-          >
+          <button className="bg-orange-300 flex rounded-lg rounded-l-none items-center p-2 cursor-pointer">
             <FaSearch />
-          </div>
-        </div>
+          </button>
+        </form>
 
         {/* Language */}
-        <div className="flex items-center p-1 border border-transparent hover:border-white">
+        <div className="hidden lg:flex items-center p-1 border border-transparent hover:border-white">
           <img
             src={
               lang === 'en'
@@ -112,16 +115,16 @@ const NavBar = () => {
         </div>
 
         {stateUser != null ? (
-          <div className="p-1 mx-2 border border-transparent hover:border-white">
+          <div className="hidden p-1 mx-2 border border-transparent hover:border-white lg:block">
             <p className="text-sm">Hello, {stateUser}</p>
             <div className="py-0 text-base font-bold bg-transparent border-none ">
-              <div className="font-bold bg-slate-900 ">
+              <div className="font-bold bg-slate-900  ">
                 <DropDownNav />
               </div>
             </div>
           </div>
         ) : (
-          <div className="p-1 mx-2 border border-transparent hover:border-white">
+          <div className="hidden p-1 mx-2 border border-transparent hover:border-white lg:block">
             <p className="text-sm">Hello, sign in</p>
             <div className="py-0 text-base font-bold bg-transparent border-none ">
               <div className=" bg-slate-900">
@@ -147,10 +150,10 @@ const NavBar = () => {
         </Badge>
       </nav>
 
-      <div className="bg-[#222F3D] min-w-full w-[1000px] flex items-center text-white text-sm pl-4">
+      <div className="bg-[#222F3D]  flex items-center text-white text-sm pl-4">
         <div className="flex items-center gap-1 p-2 border border-transparent hover:border-white">
           <div className="cursor-pointer " onClick={() => {}}>
-            <CustomDrawer />
+            <CustomDrawer lang={lang} onSetLang={setLang} />
           </div>
         </div>
 
