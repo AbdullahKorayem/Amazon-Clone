@@ -14,12 +14,12 @@ import ProductSlider from '../../components/productSlider/ProductSlider';
 const Home = () => {
   return (
     <div
-      className=" min-w-[1000px] max-w-full"
+      className="min-w-[320px] md:min-w-[768px] lg:min-w-[1024px] max-w-full"
       style={{ backgroundColor: '#E3E6E6' }}
     >
       <HomeSlider />
-      <div className=" pl-7 pr-7">
-        <div className=" grid gap-5 grid-cols-4 -mt-80">
+      <div className="pl-4 md:pl-7 pr-4 md:pr-7">
+        <div className=" grid gap-5 lg:grid-cols-4 md:grid-cols-2 -mt-80">
           <HomeCardOneImage
             title={'Try Prime FREE for 30 days & shop Ramadan deals'}
             link={'SeeMore'}
@@ -242,7 +242,7 @@ const Home = () => {
           </Swiper>
         </Slider>
 
-        <div className=" grid gap-5 grid-cols-4 ">
+        <div className=" grid gap-5 lg:grid-cols-4 md:grid-cols-2 ">
           <HomeCardOneImage
             title={'Try Prime FREE for 30 days & shop Ramadan deals'}
             link={'SeeMore'}
@@ -376,7 +376,7 @@ const Home = () => {
             </SwiperSlide>
           </Swiper>
         </Slider>
-        <div className=" grid gap-5 grid-cols-4 ">
+        <div className=" grid gap-5 lg:grid-cols-4 md:grid-cols-2 ">
           <HomeCardOneImage
             title={'Try Prime FREE for 30 days & shop Ramadan deals'}
             link={'SeeMore'}
@@ -478,7 +478,7 @@ const Home = () => {
           </Swiper>
         </Slider>
 
-        <div className=" grid gap-5 grid-cols-4 ">
+        <div className=" grid gap-5 lg:grid-cols-4 md:grid-cols-2 ">
           <HomeCardOneImage
             title={'Try Prime FREE for 30 days & shop Ramadan deals'}
             link={'SeeMore'}

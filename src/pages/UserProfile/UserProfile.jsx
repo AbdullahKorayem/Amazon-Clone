@@ -6,7 +6,7 @@ const UserProfile = () => {
       <div className="text-2xl xl:text-3xl  ml-64 mt-4 -mb-5">Your Account</div>
       <div className="flex flex-col items-center ">
         <div className="grid  lg:grid-cols-3  md:grid-cols-2 sm:grid-cols-1 md:gap-x-6 pt-4 items-center">
-          <div class="relative flex items-center mt-6 cursor-pointer hover:bg-gray-200 text-gray-700 bg-white  shadow-sm border rounded-xl w-80 p-4">
+          <div className="relative flex items-center mt-6 cursor-pointer hover:bg-gray-200 text-gray-700 bg-white  shadow-sm border rounded-xl w-80 p-4">
             <img
               src="https://m.media-amazon.com/images/G/42/x-locale/cs/help/images/gateway/self-service/order._CB657847415_.png"
               className="w-[20%]"
@@ -24,7 +24,7 @@ const UserProfile = () => {
               </div>
             </div>
           </div>
-          <div class="relative flex items-center mt-6 cursor-pointer  hover:bg-gray-200 text-gray-700 bg-white  shadow-sm border rounded-xl w-80 p-4">
+          <div className="relative flex items-center mt-6 cursor-pointer  hover:bg-gray-200 text-gray-700 bg-white  shadow-sm border rounded-xl w-80 p-4">
             <img
               src="https://m.media-amazon.com/images/G/42/x-locale/cs/help/images/gateway/self-service/security._CB657836742_.png"
               className="w-[20%]"
@@ -42,7 +42,7 @@ const UserProfile = () => {
               </div>
             </div>
           </div>
-          <div class="relative flex items-center mt-6 cursor-pointer  hover:bg-gray-200 text-gray-700 bg-white  shadow-sm border rounded-xl w-80 p-4">
+          <div className="relative flex items-center mt-6 cursor-pointer  hover:bg-gray-200 text-gray-700 bg-white  shadow-sm border rounded-xl w-80 p-4">
             <img
               src="https://m.media-amazon.com/images/G/42/x-locale/cs/help/images/gateway/self-service/fshub/fshub_prime._CB608110998_.png"
               className="w-[20%]"
@@ -60,7 +60,7 @@ const UserProfile = () => {
               </div>
             </div>
           </div>
-          <div class="relative flex  mt-6 text-gray-700 cursor-pointer  hover:bg-gray-200 bg-white  shadow-sm border rounded-xl w-80 p-4 h-[121.6px]">
+          <div className="relative flex  mt-6 text-gray-700 cursor-pointer  hover:bg-gray-200 bg-white  shadow-sm border rounded-xl w-80 p-4 h-[121.6px]">
             <img
               src="https://m.media-amazon.com/images/G/42/x-locale/cs/help/images/gateway/self-service/gift_card._CB657847415_.png"
               className="w-[66.21px] h-[66.21px]"
@@ -76,7 +76,7 @@ const UserProfile = () => {
               </div>
             </div>
           </div>
-          <div class="relative flex items-center mt-6 cursor-pointer  hover:bg-gray-200 text-gray-700 bg-white  shadow-sm border rounded-xl w-80 p-4">
+          <div className="relative flex items-center mt-6 cursor-pointer  hover:bg-gray-200 text-gray-700 bg-white  shadow-sm border rounded-xl w-80 p-4">
             <img
               src="https://m.media-amazon.com/images/G/42/x-locale/cs/help/images/gateway/self-service/payment._CB657847415_.png"
               className="w-[66.21px] h-[66.21px]"
@@ -94,7 +94,7 @@ const UserProfile = () => {
               </div>
             </div>
           </div>
-          <div class="relative flex items-center mt-6 cursor-pointer  hover:bg-gray-200 text-gray-700 bg-white  shadow-sm border rounded-xl w-80 p-4 h-[121.6px]">
+          <div className="relative flex items-center mt-6 cursor-pointer  hover:bg-gray-200 text-gray-700 bg-white  shadow-sm border rounded-xl w-80 p-4 h-[121.6px]">
             <img
               src="https://m.media-amazon.com/images/G/42/x-locale/cs/help/images/gateway/self-service/YA_icon_Help_1._CB657836742_.png"
               className="w-[66.21px] h-[66.21px]"
@@ -112,7 +112,7 @@ const UserProfile = () => {
               </div>
             </div>
           </div>
-          <div class="relative flex items-center mt-6 cursor-pointer  hover:bg-gray-200 text-gray-700 bg-white  shadow-sm border rounded-xl w-80 p-4">
+          <div className="relative flex items-center mt-6 cursor-pointer  hover:bg-gray-200 text-gray-700 bg-white  shadow-sm border rounded-xl w-80 p-4">
             <img
               src="https://m.media-amazon.com/images/G/42/x-locale/cs/help/images/gateway/self-service/fshub/FS_Message_Centre._CB647329578_.png"
               className="w-[20%]"
@@ -130,7 +130,7 @@ const UserProfile = () => {
               </div>
             </div>
           </div>
-          <div class="relative flex items-center mt-6 cursor-pointer  hover:bg-gray-200 text-gray-700 bg-white  shadow-sm border rounded-xl w-80 p-4">
+          <div className="relative flex items-center mt-6 cursor-pointer  hover:bg-gray-200 text-gray-700 bg-white  shadow-sm border rounded-xl w-80 p-4">
             <img
               src="https://m.media-amazon.com/images/G/42/x-locale/cs/help/images/gateway/self-service/YA_icon_address_01._CB657836742_.png"
               className="w-[20%]"
@@ -146,7 +146,7 @@ const UserProfile = () => {
               </div>
             </div>
           </div>
-          <div class="relative flex items-center mt-6 cursor-pointer  hover:bg-gray-200 text-gray-700 bg-white  shadow-sm border rounded-xl w-80 p-4">
+          <div className="relative flex items-center mt-6 cursor-pointer  hover:bg-gray-200 text-gray-700 bg-white  shadow-sm border rounded-xl w-80 p-4">
             <img
               src="https://m.media-amazon.com/images/G/42/x-locale/cs/help/images/gateway/self-service/fshub/Gateway_icon_YA_Installment_Plan_01._CB628728316_.png"
               className="w-[20%]"
@@ -162,7 +162,7 @@ const UserProfile = () => {
               </div>
             </div>
           </div>
-          <div class="relative flex items-center mt-6 cursor-pointer  hover:bg-gray-200 text-gray-700 bg-white  shadow-sm border rounded-xl w-80 h-[101.6px] p-4">
+          <div className="relative flex items-center mt-6 cursor-pointer  hover:bg-gray-200 text-gray-700 bg-white  shadow-sm border rounded-xl w-80 h-[101.6px] p-4">
             <img
               src="https://m.media-amazon.com/images/G/42/x-locale/cs/help/images/gateway/self-service/mobileapp._CB668209870_.png"
               className="w-[20%]"
@@ -178,7 +178,7 @@ const UserProfile = () => {
               </div>
             </div>
           </div>
-          <div class="relative flex items-center mt-6 cursor-pointer  hover:bg-gray-200 text-gray-700 bg-white  shadow-sm border rounded-xl w-80 p-4">
+          <div className="relative flex items-center mt-6 cursor-pointer  hover:bg-gray-200 text-gray-700 bg-white  shadow-sm border rounded-xl w-80 p-4">
             <img
               src="https://m.media-amazon.com/images/G/42/x-locale/cs/help/images/gateway/self-service/fshub/11_lists._CB608110873_.png"
               className="w-[20%]"
@@ -194,7 +194,7 @@ const UserProfile = () => {
               </div>
             </div>
           </div>
-          <div class="relative flex items-center mt-6 cursor-pointer  hover:bg-gray-200 text-gray-700 bg-white  shadow-sm border rounded-xl w-80 p-4">
+          <div className="relative flex items-center mt-6 cursor-pointer  hover:bg-gray-200 text-gray-700 bg-white  shadow-sm border rounded-xl w-80 p-4">
             <img
               src="https://m.media-amazon.com/images/G/42/x-locale/cs/help/images/gateway/self-service/contact_us._CB665051409_.png"
               className="w-[20%]"
