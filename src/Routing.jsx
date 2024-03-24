@@ -28,12 +28,17 @@ import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
 import SearchResults from './pages/SearchResults/SearchResults';
 import NotFound from './pages/Not-Found/NotFound';
 import { useSelector } from 'react-redux';
+import UserProfile from './pages/UserProfile/UserProfile';
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
     children: [
       { path: '/', element: <Home /> },
       { path: '/cart', element: <ProtectedRoute element={<Cart />} /> },
+      {
+        path: '/profile',
+        element: <ProtectedRoute element={<UserProfile />} />,
+      },
       {
         path: '/product/:id',
         element: <ProductDestails />,
@@ -64,7 +69,7 @@ const router = createBrowserRouter([
     path: '/checkout',
     element: <ProtectedRoute element={<CheckoutPage />} />,
   },
-  ,
+
   {
     path: '/login',
     element: <SignIn />,

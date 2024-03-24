@@ -1,19 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Rating } from 'flowbite-react';
 export function FilterSidebar({
   onFilterChange,
   categories,
   brands,
   priceRanges,
+  setFilters,
+  filters,
 }) {
-  const [selectedFilters, setSelectedFilters] = useState({
-    category: '',
-    brand: '',
-    price: '',
-    rating: '',
-  });
-
   const ratings = [
+    { view: 'All', value: 'all' },
     { view: FiveStar(), value: 5 },
     { view: FourStar(), value: 4 },
     { view: ThirdStar(), value: 3 },
@@ -22,10 +18,36 @@ export function FilterSidebar({
     { view: ZeroStar(), value: 0 },
   ];
 
-  const handleFilterClick = (filterType, value) => {
-    const newFilters = { ...selectedFilters, [filterType]: value };
-    setSelectedFilters(newFilters);
-    onFilterChange(filterType, value);
+  const handleFilterClick = (type, value) => {
+    if (type === 'category') {
+      setFilters(filters => {
+        return {
+          ...filters,
+          category: value,
+        };
+      });
+    } else if (type === 'brand') {
+      setFilters(filters => {
+        return {
+          ...filters,
+          brand: value,
+        };
+      });
+    } else if (type === 'price') {
+      setFilters(filters => {
+        return {
+          ...filters,
+          price: value,
+        };
+      });
+    } else if (type === 'rating') {
+      setFilters(filters => {
+        return {
+          ...filters,
+          rating: value,
+        };
+      });
+    }
   };
 
   const renderFilterList = (filterType, items) => (
@@ -33,7 +55,9 @@ export function FilterSidebar({
       {items.map((item, index) => (
         <li
           key={index}
-          onClick={() => handleFilterClick(filterType, item.value)}
+          onClick={() => {
+            handleFilterClick(filterType, item.value);
+          }}
           className={`cursor-pointer p-2 text-gray-700 hover:bg-gray-100`}
         >
           {item.view}

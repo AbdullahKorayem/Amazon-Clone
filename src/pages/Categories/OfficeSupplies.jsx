@@ -5,60 +5,63 @@ import ServiceUnavailable from '../Service-Unavailable/ServiceUnavailable';
 import { useState } from 'react';
 import { FilterSidebar } from './FilterSidebar';
 
-const categories = [
-  { view: 'Office Supplies', value: '6562f4ad1cf9fca552f8c5b0' },
-];
+const categories = [{ view: 'Office Supplies', value: 'all' }];
 const brands = [
+  { view: 'All', value: 'all' },
   { view: 'JODO', value: 'UIXJODO' },
   { view: 'Amanple', value: 'Amanple' },
 ];
 const priceRanges = [
-  { view: 'Up to 100 USD', value: 0 },
-  { view: '101 to 200 USD', value: 100 },
-  { view: '200 USD & above', value: 200 },
+  { view: 'All', value: 'all' },
+  { view: 'Up to 100 USD', value: [0, 100] },
+  { view: '101 to 200 USD', value: [100, 200] },
+  { view: '200 USD & above', value: [200, 100000] },
 ];
 
 function OfficeSupplies() {
   const products = useLoaderData();
   const [filters, setFilters] = useState({
-    category: '',
-    price: { min: 0, max: Infinity },
-    rating: 0,
-    brand: '',
+    category: 'all',
+    brand: 'all',
+    price: 'all',
+    rating: 'all',
   });
 
-  const handleFilterChange = (filterName, value) => {
-    setFilters(prevFilters => {
-      const newFilters = { ...prevFilters };
-      if (filterName.startsWith('price')) {
-        const key = filterName === 'priceMin' ? 'min' : 'max';
-        newFilters.price[key] = value || (key === 'max' ? Infinity : 0);
-      } else {
-        newFilters[filterName] = value;
-      }
-      return newFilters;
-    });
-  };
-
-  const filteredProducts = products.filter(product => {
-    return (
-      (filters.category ? product.category === filters.category : true) &&
-      product.price >= filters.price.min &&
-      product.price <= filters.price.max &&
-      product.rating >= filters.rating &&
-      (filters.brand ? product.brand === filters.brand : true)
-    );
+  let filterCategory = [];
+  let filterBrand = [];
+  let filterPrice = [];
+  let filterRating = [];
+  let filteredProducts = products;
+  filterCategory = products.filter(pro => {
+    if (filters.category == 'all') return true;
+    else return pro.subCategoryId === filters.category;
   });
+
+  filterBrand = filterCategory.filter(pro => {
+    if (filters.brand == 'all') return true;
+    else return pro.en.brand === filters.brand;
+  });
+  filterPrice = filterBrand.filter(pro => {
+    if (filters.price == 'all') return true;
+    else return pro.price >= filters.price[0] && pro.price <= filters.price[1];
+  });
+  filterRating = filterPrice.filter(pro => {
+    if (filters.rating == 'all') return true;
+    else return pro.rating === filters.rating;
+  });
+
+  filteredProducts = filterRating;
   if (products.length === 0) return <ServiceUnavailable />;
   else
     return (
       <div className="flex">
         <div className="w-[20%] min-w-44">
           <FilterSidebar
-            onFilterChange={handleFilterChange}
             priceRanges={priceRanges}
             brands={brands}
             categories={categories}
+            setFilters={setFilters}
+            filters={filters}
           />
         </div>
         <div className="w-[80%]">

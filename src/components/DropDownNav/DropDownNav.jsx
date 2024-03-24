@@ -12,7 +12,7 @@ const accountHeaders = [
 const CustomDropdown = ({ dispatch, ...props }) => (
   <Dropdown {...props}>
     <Dropdown.Item>
-      <Link className="text-lg text-black" to="/">
+      <Link className="text-lg text-black" to="/profile">
         Your Account
       </Link>
     </Dropdown.Item>
