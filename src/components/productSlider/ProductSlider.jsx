@@ -29,10 +29,23 @@ const ProductSlider = () => {
     <>
       <Slider title="Mobiles">
         <Swiper
-          slidesPerView={5}
           modules={[Navigation]}
           spaceBetween={0}
           navigation={true}
+          breakpoints={{
+            640: {
+              slidesPerView: 2,
+              spaceBetween: 25,
+            },
+            768: {
+              slidesPerView: 3,
+              spaceBetween: 40,
+            },
+            1024: {
+              slidesPerView: 4,
+              spaceBetween: 50,
+            },
+          }}
         >
           {data.map(slide => {
             return (

@@ -17,7 +17,7 @@ const HomeSlider = () => {
         pagination={false}
         navigation={true}
         modules={[Navigation]}
-        className="h-96 w-[100%] "
+        className="lg:h-96 w-[100%] "
       >
         <SwiperSlide>
           <img
