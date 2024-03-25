@@ -18,11 +18,11 @@ const Home = () => {
   console.log(categories);
   return (
     <div
-      className="min-w-[320px] md:min-w-[750px] lg:min-w-[1000px] max-w-full"
+      className="  min-w-[320px] md:min-w-[750px] lg:min-w-[1000px] max-w-full"
       style={{ backgroundColor: '#E3E6E6' }}
     >
       <HomeSlider />
-      <div className="pl-4 md:pl-7 pr-4 md:pr-7">
+      <div className="  pl-4 md:pl-7 pr-4 md:pr-7">
         <div className=" grid gap-5 lg:grid-cols-3 xl:grid-cols-4 md:grid-cols-2 min-[400px]:grid-cols-2 sm:grid-cols-1 -mt-80">
           <Link to={`/${categories[0]?.link}`}>
             <HomeCardOneImage title={categories[0]?.name}>
