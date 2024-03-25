@@ -58,7 +58,9 @@ export function FilterSidebar({
           onClick={() => {
             handleFilterClick(filterType, item.value);
           }}
-          className={`cursor-pointer p-2 text-gray-700 hover:bg-gray-100`}
+          className={`cursor-pointer p-2 text-gray-700 hover:bg-gray-300 ${
+            filters[filterType] === item.value ? 'bg-gray-200' : ''
+          }`}
         >
           {item.view}
         </li>

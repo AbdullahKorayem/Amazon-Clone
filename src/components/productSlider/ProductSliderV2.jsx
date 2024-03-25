@@ -8,23 +8,11 @@ import 'swiper/css/navigation';
 
 import { Navigation } from 'swiper/modules';
 import Slider from '../Slider/slider';
-import { useEffect, useState } from 'react';
-import { getProductsBySubCategoryId } from '../../firestore/firestore';
 import { ProductCard } from './../Cards/ProductCard';
 import { useContext } from 'react';
 import { langContext } from '../../contexts/lang';
-
-const ProductSlider = ({ subCategoryId, title }) => {
-  const [data, setData] = useState([]);
+function ProductSliderV2({ data, title }) {
   const { lang } = useContext(langContext);
-
-  useEffect(() => {
-    async function fetch() {
-      const res = await getProductsBySubCategoryId(subCategoryId);
-      setData(res);
-    }
-    fetch();
-  }, []);
   return (
     <>
       <Slider title={title}>
@@ -77,5 +65,6 @@ const ProductSlider = ({ subCategoryId, title }) => {
       </Slider>
     </>
   );
-};
-export default ProductSlider;
+}
+
+export default ProductSliderV2;
