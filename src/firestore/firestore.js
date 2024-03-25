@@ -93,7 +93,6 @@ export const getAllCategories = async () => {
   onSnapshot(collection(firestore, 'Categories'), snapshot => {
     for (const doc of snapshot.docs) {
       categories.push({ id: doc.id, ...doc.data() });
-      console.log(doc.id);
     }
   });
   return categories;

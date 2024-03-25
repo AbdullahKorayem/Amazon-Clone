@@ -1,4 +1,4 @@
-import Home from './pages/Home/Home';
+import Home, { loader as homeLoader } from './pages/Home/Home';
 import {
   RouterProvider,
   Navigate,
@@ -33,7 +33,7 @@ const router = createBrowserRouter([
   {
     element: <AppLayout />,
     children: [
-      { path: '/', element: <Home /> },
+      { path: '/', element: <Home />, loader: homeLoader },
       { path: '/cart', element: <ProtectedRoute element={<Cart />} /> },
       {
         path: '/profile',

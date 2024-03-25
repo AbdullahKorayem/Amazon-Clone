@@ -10,9 +10,12 @@ import {
 } from '../../components/Cards/HomeCards';
 import Slider from '../../components/Slider/slider';
 import ProductSlider from '../../components/productSlider/ProductSlider';
-import { Link } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
+import { getAllCategories } from './../../firestore/firestore';
 
 const Home = () => {
+  const categories = useLoaderData();
+  console.log(categories);
   return (
     <div
       className="min-w-[320px] md:min-w-[750px] lg:min-w-[1000px] max-w-full"
@@ -21,124 +24,42 @@ const Home = () => {
       <HomeSlider />
       <div className="pl-4 md:pl-7 pr-4 md:pr-7">
         <div className=" grid gap-5 lg:grid-cols-3 xl:grid-cols-4 md:grid-cols-2 min-[400px]:grid-cols-2 sm:grid-cols-1 -mt-80">
-          <HomeCardOneImage
-            title={'Try Prime FREE for 30 days & shop Ramadan deals'}
-            link={'SeeMore'}
-          >
-            <Link to="/">
+          <Link to={`/${categories[0]?.link}`}>
+            <HomeCardOneImage title={categories[0]?.name}>
               <img
-                src="https://images-eu.ssl-images-amazon.com/images/G/42/SL/Feb24/XCM_Manual_1689585_6104577_758x608_2X._SY304_CB582986608_.jpg"
-                alt=""
+                className=" h-72 w-72"
+                src={categories[0]?.thumbnails}
+                alt={categories[0]?.name}
               />
-            </Link>
-          </HomeCardOneImage>
-          <HomeCardOneImage
-            title={'Try Prime FREE for 30 days & shop Ramadan deals'}
-            link={'SeeMore'}
-          >
-            <Link to="/">
+            </HomeCardOneImage>
+          </Link>
+          <Link to={`/${categories[1]?.link}`}>
+            <HomeCardOneImage title={categories[1]?.name}>
               <img
-                src="https://images-eu.ssl-images-amazon.com/images/G/42/SL/Feb24/XCM_Manual_1689585_6104577_758x608_2X._SY304_CB582986608_.jpg"
-                alt=""
+                className=" h-72 w-72"
+                src={categories[1]?.thumbnails}
+                alt={categories[1]?.name}
               />
-            </Link>
-          </HomeCardOneImage>
-          <HomeCardOneImage
-            title={'Try Prime FREE for 30 days & shop Ramadan deals'}
-            link={'SeeMore'}
-          >
-            <Link to="/">
+            </HomeCardOneImage>
+          </Link>
+          <Link to={`/${categories[2]?.link}`}>
+            <HomeCardOneImage title={categories[2]?.name}>
               <img
-                src="https://images-eu.ssl-images-amazon.com/images/G/42/SL/Feb24/XCM_Manual_1689585_6104577_758x608_2X._SY304_CB582986608_.jpg"
-                alt=""
+                className=" h-72 w-72"
+                src={categories[2]?.thumbnails}
+                alt={categories[2]?.name}
               />
-            </Link>
-          </HomeCardOneImage>
-          <HomeCardOneImage
-            title={'Try Prime FREE for 30 days & shop Ramadan deals'}
-            link={'SeeMore'}
-          >
-            <Link to="/">
+            </HomeCardOneImage>
+          </Link>
+          <Link to={`/${categories[3]?.link}`}>
+            <HomeCardOneImage title={categories[3]?.name}>
               <img
-                src="https://images-eu.ssl-images-amazon.com/images/G/42/SL/Feb24/XCM_Manual_1689585_6104577_758x608_2X._SY304_CB582986608_.jpg"
-                alt=""
+                className=" h-72 w-72"
+                src={categories[3]?.thumbnails}
+                alt={categories[3]?.name}
               />
-            </Link>
-          </HomeCardOneImage>
-          <HomeCardOneImage
-            title={'Try Prime FREE for 30 days & shop Ramadan deals'}
-            link={'SeeMore'}
-          >
-            <Link to="/">
-              <img
-                src="https://images-eu.ssl-images-amazon.com/images/G/42/SL/Feb24/XCM_Manual_1689585_6104577_758x608_2X._SY304_CB582986608_.jpg"
-                alt=""
-              />
-            </Link>
-          </HomeCardOneImage>
-          <HomeCardFourImage
-            title={'Electronics | Free Delivery* on First Order'}
-            link={'SeeMore'}
-          >
-            <div>
-              <img src="amazon-icon//Headphones.jpg" />
-              <p>HeadPhones</p>
-            </div>
-            <div>
-              <img src="amazon-icon//Headphones.jpg" />
-              <p>HeadPhones</p>
-            </div>
-            <div>
-              <img src="amazon-icon//Headphones.jpg" />
-              <p>HeadPhones</p>
-            </div>
-            <div>
-              <img src="amazon-icon//Headphones.jpg" />
-              <p>HeadPhones</p>
-            </div>
-          </HomeCardFourImage>
-          <HomeCardFourImage
-            title={'Electronics | Low Prices'}
-            link={'Discover More'}
-          >
-            <div>
-              <img src="amazon-icon//mobiles.jpg" />
-              <p>Mobiles</p>
-            </div>
-            <div>
-              <img src="amazon-icon//Head2.jpg" />
-              <p>HeadPhones</p>
-            </div>
-            <div>
-              <img src="amazon-icon//Tablets.jpg" />
-              <p>Tablets</p>
-            </div>
-            <div>
-              <img src="amazon-icon//camera.jpg" />
-              <p>camera</p>
-            </div>
-          </HomeCardFourImage>
-          <HomeCardFourImage
-            title={'Electronics | Low Prices'}
-            link={'Discover More'}
-          >
-            <div>
-              <img src="amazon-icon//mobiles.jpg" />
-              <p>Mobiles</p>
-            </div>
-            <div>
-              <img src="amazon-icon//Head2.jpg" />
-              <p>HeadPhones</p>
-            </div>
-            <div>
-              <img src="amazon-icon//Tablets.jpg" />
-              <p>Tablets</p>
-            </div>
-            <div>
-              <img src="amazon-icon//camera.jpg" />
-              <p>camera</p>
-            </div>
-          </HomeCardFourImage>
+            </HomeCardOneImage>
+          </Link>
         </div>
         <Slider title="Shop by Category">
           <Swiper
@@ -332,72 +253,34 @@ const Home = () => {
         </Slider>
 
         <div className=" grid gap-5 lg:grid-cols-3 xl:grid-cols-4 md:grid-cols-2 min-[400px]:grid-cols-2 sm:grid-cols-1 ">
-          <HomeCardOneImage
-            title={'Try Prime FREE for 30 days & shop Ramadan deals'}
-            link={'SeeMore'}
-          >
-            <Link to="/">
+          <Link to={`/${categories[4]?.link}`}>
+            <HomeCardOneImage title={categories[4]?.name}>
+              <img src={categories[4]?.thumbnails} alt={categories[4]?.name} />
+            </HomeCardOneImage>
+          </Link>
+          <Link to={`/${categories[5]?.link}`}>
+            <HomeCardOneImage title={categories[5]?.name}>
               <img
-                src="https://images-eu.ssl-images-amazon.com/images/G/42/SL/Feb24/XCM_Manual_1689585_6104577_758x608_2X._SY304_CB582986608_.jpg"
-                alt=""
+                className=" h-72 w-72"
+                src={categories[5]?.thumbnails}
+                alt={categories[5]?.name}
               />
-            </Link>
-          </HomeCardOneImage>
-          <HomeCardOneImage
-            title={'Try Prime FREE for 30 days & shop Ramadan deals'}
-            link={'SeeMore'}
-          >
-            <Link to="/">
+            </HomeCardOneImage>
+          </Link>
+          <Link to={`/${categories[6]?.link}`}>
+            <HomeCardOneImage title={categories[6]?.name}>
+              <img src={categories[6]?.thumbnails} alt={categories[6]?.name} />
+            </HomeCardOneImage>
+          </Link>
+          <Link to={`/${categories[7]?.link}`}>
+            <HomeCardOneImage title={categories[7]?.name}>
               <img
-                src="https://images-eu.ssl-images-amazon.com/images/G/42/SL/Feb24/XCM_Manual_1689585_6104577_758x608_2X._SY304_CB582986608_.jpg"
-                alt=""
+                className=" h-72 w-72"
+                src={categories[7]?.thumbnails}
+                alt={categories[7]?.name}
               />
-            </Link>
-          </HomeCardOneImage>
-
-          <HomeCardFourImage
-            title={'Electronics | Free Delivery* on First Order'}
-            link={'SeeMore'}
-          >
-            <div>
-              <img src="amazon-icon//Headphones.jpg" />
-              <p>HeadPhones</p>
-            </div>
-            <div>
-              <img src="amazon-icon//Headphones.jpg" />
-              <p>HeadPhones</p>
-            </div>
-            <div>
-              <img src="amazon-icon//Headphones.jpg" />
-              <p>HeadPhones</p>
-            </div>
-            <div>
-              <img src="amazon-icon//Headphones.jpg" />
-              <p>HeadPhones</p>
-            </div>
-          </HomeCardFourImage>
-
-          <HomeCardFourImage
-            title={'Electronics | Low Prices'}
-            link={'Discover More'}
-          >
-            <div>
-              <img src="amazon-icon//mobiles.jpg" />
-              <p>Mobiles</p>
-            </div>
-            <div>
-              <img src="amazon-icon//Head2.jpg" />
-              <p>HeadPhones</p>
-            </div>
-            <div>
-              <img src="amazon-icon//Tablets.jpg" />
-              <p>Tablets</p>
-            </div>
-            <div>
-              <img src="amazon-icon//camera.jpg" />
-              <p>camera</p>
-            </div>
-          </HomeCardFourImage>
+            </HomeCardOneImage>
+          </Link>
         </div>
         <Slider title="Shop by Category">
           <Swiper
@@ -524,72 +407,34 @@ const Home = () => {
           </Swiper>
         </Slider>
         <div className=" grid gap-5 lg:grid-cols-3 xl:grid-cols-4 md:grid-cols-2 min-[400px]:grid-cols-2 sm:grid-cols-1 ">
-          <HomeCardOneImage
-            title={'Try Prime FREE for 30 days & shop Ramadan deals'}
-            link={'SeeMore'}
-          >
-            <Link to="/">
+          <Link to={`/${categories[8]?.link}`}>
+            <HomeCardOneImage title={categories[8]?.name}>
+              <img src={categories[8]?.thumbnails} alt={categories[8]?.name} />
+            </HomeCardOneImage>
+          </Link>
+          <Link to={`/${categories[1]?.link}`}>
+            <HomeCardOneImage title={categories[1]?.name}>
               <img
-                src="https://images-eu.ssl-images-amazon.com/images/G/42/SL/Feb24/XCM_Manual_1689585_6104577_758x608_2X._SY304_CB582986608_.jpg"
-                alt=""
+                className=" h-72 w-72"
+                src={categories[1]?.thumbnails}
+                alt={categories[1]?.name}
               />
-            </Link>
-          </HomeCardOneImage>
-          <HomeCardOneImage
-            title={'Try Prime FREE for 30 days & shop Ramadan deals'}
-            link={'SeeMore'}
-          >
-            <Link to="/">
+            </HomeCardOneImage>
+          </Link>
+          <Link to={`/${categories[6]?.link}`}>
+            <HomeCardOneImage title={categories[6]?.name}>
+              <img src={categories[6]?.thumbnails} alt={categories[6]?.name} />
+            </HomeCardOneImage>
+          </Link>
+          <Link to={`/${categories[5]?.link}`}>
+            <HomeCardOneImage title={categories[5]?.name}>
               <img
-                src="https://images-eu.ssl-images-amazon.com/images/G/42/SL/Feb24/XCM_Manual_1689585_6104577_758x608_2X._SY304_CB582986608_.jpg"
-                alt=""
+                className=" h-72 w-72"
+                src={categories[5]?.thumbnails}
+                alt={categories[5]?.name}
               />
-            </Link>
-          </HomeCardOneImage>
-
-          <HomeCardFourImage
-            title={'Electronics | Free Delivery* on First Order'}
-            link={'SeeMore'}
-          >
-            <div>
-              <img src="amazon-icon//Headphones.jpg" />
-              <p>HeadPhones</p>
-            </div>
-            <div>
-              <img src="amazon-icon//Headphones.jpg" />
-              <p>HeadPhones</p>
-            </div>
-            <div>
-              <img src="amazon-icon//Headphones.jpg" />
-              <p>HeadPhones</p>
-            </div>
-            <div>
-              <img src="amazon-icon//Headphones.jpg" />
-              <p>HeadPhones</p>
-            </div>
-          </HomeCardFourImage>
-
-          <HomeCardFourImage
-            title={'Electronics | Low Prices'}
-            link={'Discover More'}
-          >
-            <div>
-              <img src="amazon-icon//mobiles.jpg" />
-              <p>Mobiles</p>
-            </div>
-            <div>
-              <img src="amazon-icon//Head2.jpg" />
-              <p>HeadPhones</p>
-            </div>
-            <div>
-              <img src="amazon-icon//Tablets.jpg" />
-              <p>Tablets</p>
-            </div>
-            <div>
-              <img src="amazon-icon//camera.jpg" />
-              <p>camera</p>
-            </div>
-          </HomeCardFourImage>
+            </HomeCardOneImage>
+          </Link>
         </div>
         <Slider title="Shop by Category">
           <Swiper
@@ -654,74 +499,6 @@ const Home = () => {
           </Swiper>
         </Slider>
 
-        <div className=" grid gap-5 lg:grid-cols-3 xl:grid-cols-4 md:grid-cols-2 min-[400px]:grid-cols-2 sm:grid-cols-1 ">
-          <HomeCardOneImage
-            title={'Try Prime FREE for 30 days & shop Ramadan deals'}
-            link={'SeeMore'}
-          >
-            <Link to="/">
-              <img
-                src="https://images-eu.ssl-images-amazon.com/images/G/42/SL/Feb24/XCM_Manual_1689585_6104577_758x608_2X._SY304_CB582986608_.jpg"
-                alt=""
-              />
-            </Link>
-          </HomeCardOneImage>
-          <HomeCardOneImage
-            title={'Try Prime FREE for 30 days & shop Ramadan deals'}
-            link={'SeeMore'}
-          >
-            <Link to="/">
-              <img
-                src="https://images-eu.ssl-images-amazon.com/images/G/42/SL/Feb24/XCM_Manual_1689585_6104577_758x608_2X._SY304_CB582986608_.jpg"
-                alt=""
-              />
-            </Link>
-          </HomeCardOneImage>
-
-          <HomeCardFourImage
-            title={'Electronics | Free Delivery* on First Order'}
-            link={'SeeMore'}
-          >
-            <div>
-              <img src="amazon-icon//Headphones.jpg" />
-              <p>HeadPhones</p>
-            </div>
-            <div>
-              <img src="amazon-icon//Headphones.jpg" />
-              <p>HeadPhones</p>
-            </div>
-            <div>
-              <img src="amazon-icon//Headphones.jpg" />
-              <p>HeadPhones</p>
-            </div>
-            <div>
-              <img src="amazon-icon//Headphones.jpg" />
-              <p>HeadPhones</p>
-            </div>
-          </HomeCardFourImage>
-
-          <HomeCardFourImage
-            title={'Electronics | Low Prices'}
-            link={'Discover More'}
-          >
-            <div>
-              <img src="amazon-icon//mobiles.jpg" />
-              <p>Mobiles</p>
-            </div>
-            <div>
-              <img src="amazon-icon//Head2.jpg" />
-              <p>HeadPhones</p>
-            </div>
-            <div>
-              <img src="amazon-icon//Tablets.jpg" />
-              <p>Tablets</p>
-            </div>
-            <div>
-              <img src="amazon-icon//camera.jpg" />
-              <p>camera</p>
-            </div>
-          </HomeCardFourImage>
-        </div>
         <Slider title="Shop by Category">
           <Swiper
             modules={[Navigation]}
@@ -794,3 +571,8 @@ const Home = () => {
 };
 
 export default Home;
+
+export async function loader() {
+  const res = await getAllCategories();
+  return res;
+}
