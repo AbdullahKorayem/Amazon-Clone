@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Addresses from '../../components/Addresess/Addresses';
 import Payment from '../../components/Addresess/PaymentComponent/Payment';
 import OrderCard from './../../components/Addresess/OrderCard/OrderCard';
@@ -9,10 +9,11 @@ import { Link } from 'react-router-dom';
 
 export default function CheckoutPage() {
   const dispatch = useDispatch();
-
+  const [isRender, setIsRender] = useState(true);
+  let checkoutItem = JSON.parse(sessionStorage.getItem('checkout'));
   useEffect(() => {
     dispatch(fetchUser());
-  }, []);
+  }, [isRender]);
 
   return (
     <>
@@ -28,7 +29,8 @@ export default function CheckoutPage() {
         </div>
         <div className="col-span-1 md:col-span-6">
           <h1 className="text-xl md:text-4xl text-center md:text-left">
-            Checkout(<span className="text-[#007185]">1 item</span>)
+            Checkout(
+            <span className="text-[#007185]">{checkoutItem.length} item</span>)
           </h1>
         </div>
       </div>
@@ -36,10 +38,10 @@ export default function CheckoutPage() {
       <div className=" mx-auto sm:grid sm:grid-cols-12  p-4 ">
         <div className=" md:col-span-6 sm:col-span-6">
           <div className="md:mb-6">
-            <Addresses />
+            <Addresses isRender={isRender} setIsRender={setIsRender} />
           </div>
           <div>
-            <Payment />
+            <Payment isRender={isRender} setIsRender={setIsRender} />
           </div>
           {/* <ItemAndShipping /> */}
         </div>

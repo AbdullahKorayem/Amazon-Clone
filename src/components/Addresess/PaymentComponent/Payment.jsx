@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PaymentCards from './PaymentCards/PaymentCards';
 import { useSelector } from 'react-redux';
 
-export default function Payment() {
+export default function Payment({ isRender, setIsRender }) {
   const userPaymentArray = useSelector(state => state.User.user?.PaymentCards);
-
+  useEffect(() => {
+    setIsRender(!isRender);
+  }, [userPaymentArray]);
   return (
     <div className="w-full ">
       <div className="border-2 rounded-md p-4 mb-4">

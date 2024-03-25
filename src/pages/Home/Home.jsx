@@ -279,9 +279,9 @@ const Home = () => {
               },
             }}
           >
-            {categories.map(cat => {
+            {categories.map((cat, i) => {
               return (
-                <SwiperSlide className="cursor-pointer">
+                <SwiperSlide key={i} className="cursor-pointer">
                   <Link to={`/${cat.link}`}>
                     <img
                       className="w-40 h-40"

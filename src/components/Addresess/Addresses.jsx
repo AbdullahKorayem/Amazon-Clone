@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import AddAddressModal from './AddAddressModel/AddAddressModal';
 import { useSelector } from 'react-redux';
 
-export default function Addresses() {
+export default function Addresses({ isRender, setIsRender }) {
   const addresses = useSelector(state => state.User.user?.UserInformation);
+  useEffect(() => {
+    setIsRender(!isRender);
+  }, [addresses]);
 
   return (
     <div className="flex flex-col items-center justify-center w-full  border-2 rounded-md p-4">

@@ -28,7 +28,10 @@ const Cart = () => {
     fetchItems();
   }, [items]);
 
-  function proceedToCheckout() {}
+  function proceedToCheckout() {
+    sessionStorage.setItem('checkout', JSON.stringify(items));
+    navigate('/checkout');
+  }
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#EAEDED' }}>
@@ -66,9 +69,7 @@ const Cart = () => {
               <span className="font-bold"> ${subtotal.toFixed(2)}</span>
             </div>
             <button
-              onClick={() => {
-                navigate('/checkout');
-              }}
+              onClick={proceedToCheckout}
               className=" my-5 border-none bg-[#ffd814] hover:bg-[#ffc300]s "
             >
               Proceed to Buy

@@ -5,8 +5,10 @@ import {
   deleteItemFromCart,
 } from '../../firestore/firestore';
 import { Link, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 function CartCard({ item }) {
+  const userUid = useSelector(state => state.User.user?.uid);
   const {
     productId,
     productImage,
@@ -21,7 +23,7 @@ function CartCard({ item }) {
   function handleQuantityChange(e) {
     setQuantity(+e.target.value);
     addProductToCart(
-      '4kS2ASb6kLlaTn7Bos8Nr',
+      userUid,
       productId,
       productImage,
       productDescription,
