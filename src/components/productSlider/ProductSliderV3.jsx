@@ -1,37 +1,27 @@
 // Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
-import { Navigation } from "swiper/modules";
-import Slider from "../Slider/slider";
-import { useEffect, useState } from "react";
-import {
-  getProductsByCategoryId,
-  getProductsBySubCategoryId,
-} from "../../firestore/firestore";
-import { ProductCard } from "./../Cards/ProductCard";
-import { useContext } from "react";
-import { langContext } from "../../contexts/lang";
-import { Link } from "react-router-dom";
-const ProductSliderVthree = ({ CategoryId, title }) => {
-  const [data, setData] = useState([]);
-  const { lang } = useContext(langContext);
+import { Navigation } from 'swiper/modules';
+import Slider from '../Slider/slider';
+import { useContext } from 'react';
+import { allProductsContext } from '../../contexts/allProducts';
+import { Link } from 'react-router-dom';
+const ProductSliderVthree = ({ CategoryId, title, link }) => {
+  const { allProducts } = useContext(allProductsContext);
 
-  useEffect(() => {
-    async function fetch() {
-      const res = await getProductsByCategoryId(CategoryId);
-      setData(res);
-    }
-    fetch();
-  }, []);
+  const result = allProducts.filter(product => {
+    return product.categoryId === CategoryId;
+  });
   return (
     <>
       <Slider title={title}>
         <Swiper
+          className="mx-6"
           modules={[Navigation]}
           spaceBetween={0}
           navigation={true}
@@ -45,28 +35,29 @@ const ProductSliderVthree = ({ CategoryId, title }) => {
               spaceBetween: 40,
             },
             800: {
-              slidesPerView: 2,
+              slidesPerView: 3,
               spaceBetween: 40,
             },
             900: {
-              slidesPerView: 3,
+              slidesPerView: 4,
               spaceBetween: 40,
             },
             1024: {
-              slidesPerView: 3,
+              slidesPerView: 4,
               spaceBetween: 50,
             },
             1200: {
               slidesPerView: 4,
               spaceBetween: 50,
             },
-          }}>
-          {data.map((slide) => {
+          }}
+        >
+          {result.map(slide => {
             return (
               <SwiperSlide className="cursor-pointer" key={slide.id}>
-                {/* <Link to={"/office-supplies"}> */}
+                <Link to={link}>
                   <img className=" h-56 w-52 " src={slide.thumbnail} alt="" />
-                {/* </Link> */}
+                </Link>
               </SwiperSlide>
             );
           })}

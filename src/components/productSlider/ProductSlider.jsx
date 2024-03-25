@@ -1,6 +1,5 @@
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
-
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -8,23 +7,18 @@ import 'swiper/css/navigation';
 
 import { Navigation } from 'swiper/modules';
 import Slider from '../Slider/slider';
-import { useEffect, useState } from 'react';
-import { getProductsBySubCategoryId } from '../../firestore/firestore';
 import { ProductCard } from './../Cards/ProductCard';
 import { useContext } from 'react';
 import { langContext } from '../../contexts/lang';
+import { allProductsContext } from '../../contexts/allProducts';
 
 const ProductSlider = ({ subCategoryId, title }) => {
-  const [data, setData] = useState([]);
+  const { allProducts } = useContext(allProductsContext);
   const { lang } = useContext(langContext);
+  const result = allProducts.filter(
+    product => product.subCategoryId === subCategoryId
+  );
 
-  useEffect(() => {
-    async function fetch() {
-      const res = await getProductsBySubCategoryId(subCategoryId);
-      setData(res);
-    }
-    fetch();
-  }, []);
   return (
     <>
       <Slider title={title}>
@@ -59,7 +53,7 @@ const ProductSlider = ({ subCategoryId, title }) => {
             },
           }}
         >
-          {data.map(slide => {
+          {result.map(slide => {
             return (
               <SwiperSlide className="cursor-pointer" key={slide.id}>
                 <ProductCard
