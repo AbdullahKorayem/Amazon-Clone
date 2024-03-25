@@ -1,17 +1,17 @@
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-import { Navigation } from 'swiper/modules';
-import HomeSlider from '../../components/HomeSlider/HomeSlider';
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import { Navigation } from "swiper/modules";
+import HomeSlider from "../../components/HomeSlider/HomeSlider";
 import {
   HomeCardFourImage,
   HomeCardOneImage,
-} from '../../components/Cards/HomeCards';
-import Slider from '../../components/Slider/slider';
-import ProductSlider from '../../components/productSlider/ProductSlider';
-import { Link, useLoaderData } from 'react-router-dom';
-import { getAllCategories } from './../../firestore/firestore';
+} from "../../components/Cards/HomeCards";
+import Slider from "../../components/Slider/slider";
+import ProductSlider from "../../components/productSlider/ProductSlider";
+import { Link, useLoaderData } from "react-router-dom";
+import { getAllCategories } from "./../../firestore/firestore";
 
 const Home = () => {
   const categories = useLoaderData();
@@ -19,8 +19,7 @@ const Home = () => {
   return (
     <div
       className="min-w-[320px] md:min-w-[750px] lg:min-w-[1000px] max-w-full"
-      style={{ backgroundColor: '#E3E6E6' }}
-    >
+      style={{ backgroundColor: "#E3E6E6" }}>
       <HomeSlider />
       <div className="pl-4 md:pl-7 pr-4 md:pr-7">
         <div className=" grid gap-5 lg:grid-cols-3 xl:grid-cols-4 md:grid-cols-2 min-[400px]:grid-cols-2 sm:grid-cols-1 -mt-80">
@@ -61,7 +60,7 @@ const Home = () => {
             </HomeCardOneImage>
           </Link>
         </div>
-        <Slider title="Shop by Category">
+        <Slider title="Discover Amazon">
           <Swiper
             // slidesPerView={4}
             modules={[Navigation]}
@@ -96,28 +95,73 @@ const Home = () => {
                 slidesPerView: 6,
                 spaceBetween: 25,
               },
-            }}
-          >
+            }}>
             <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_0.jpg'} alt="Deal category" />
-            </SwiperSlide>
-            <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_0.jpg'} alt="Deal category" />
-            </SwiperSlide>
-            <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_0.jpg'} alt="Deal category" />
-            </SwiperSlide>
-            <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_1.jpg'} alt="Amazon category" />
+              <img
+                src="https://images-eu.ssl-images-amazon.com/images/G/42/Egypt-hq/2023/img/Outbound/XCM_Manual_1616427_5886076_200x200_1X._CB577290887_.jpg"
+                alt="Deal category"
+              />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
               <img
-                src={'amazon-icon/category_3.jpg'}
+                src="https://images-eu.ssl-images-amazon.com/images/G/42/Egypt-hq/2023/img/Outbound/XCM_Manual_1616427_5886082_200x200_1X._CB577290887_.jpg"
+                alt="Deal category"
+              />
+            </SwiperSlide>
+            <SwiperSlide className="cursor-pointer">
+              <img
+                src={
+                  "https://images-eu.ssl-images-amazon.com/images/G/42/Egypt-hq/2023/img/Outbound/XCM_Manual_1616427_5886075_200x200_1X._CB577290887_.jpg"
+                }
+                alt="Deal category"
+              />
+            </SwiperSlide>
+            <SwiperSlide className="cursor-pointer">
+              <img
+                src={
+                  "https://images-eu.ssl-images-amazon.com/images/G/42/Egypt-hq/2023/img/Outbound/XCM_Manual_1616427_5886064_200x200_1X._CB577290887_.jpg"
+                }
+                alt="Amazon category"
+              />
+            </SwiperSlide>
+            <SwiperSlide className="cursor-pointer">
+              <img
+                src={
+                  "https://images-eu.ssl-images-amazon.com/images/G/42/Egypt-hq/2023/img/Outbound/XCM_Manual_1616427_5900023_200x200_1X._CB577651073_.jpg"
+                }
                 alt="Computers category"
               />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_5.jpg'} alt="Mobiles category" />
+              <img
+                src={
+                  "https://images-eu.ssl-images-amazon.com/images/G/42/Egypt-hq/2023/img/Outbound/XCM_Manual_1616427_5886066_200x200_1X._CB577290887_.jpg"
+                }
+                alt="Mobiles category"
+              />
+            </SwiperSlide>
+            <SwiperSlide className="cursor-pointer">
+              <img
+                src={
+                  "https://images-eu.ssl-images-amazon.com/images/G/42/Egypt-hq/2023/img/Outbound/XCM_Manual_1616427_5886069_200x200_1X._CB577290887_.jpg"
+                }
+              />
+            </SwiperSlide>
+            <SwiperSlide className="cursor-pointer">
+              <img
+                src={
+                  "https://images-eu.ssl-images-amazon.com/images/G/42/Egypt-hq/2023/img/Outbound/XCM_Manual_1616427_5886073_200x200_1X._CB577290887_.jpg"
+                }
+                alt="Mobiles"
+              />
+            </SwiperSlide>
+            <SwiperSlide className="cursor-pointer">
+              <img
+                src={
+                  "https://images-eu.ssl-images-amazon.com/images/G/42/Egypt-hq/2023/img/Outbound/XCM_Manual_1616427_5886071_200x200_1X._CB577290887_.jpg"
+                }
+                alt="Mobiles category"
+              />
             </SwiperSlide>
           </Swiper>
         </Slider>
@@ -155,37 +199,36 @@ const Home = () => {
                 slidesPerView: 6,
                 spaceBetween: 25,
               },
-            }}
-          >
+            }}>
             <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_0.jpg'} alt="Deal category" />
+              <img src={"amazon-icon/category_0.jpg"} alt="Deal category" />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_0.jpg'} alt="Deal category" />
+              <img src={"amazon-icon/category_0.jpg"} alt="Deal category" />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_0.jpg'} alt="Deal category" />
+              <img src={"amazon-icon/category_0.jpg"} alt="Deal category" />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_1.jpg'} alt="Amazon category" />
+              <img src={"amazon-icon/category_1.jpg"} alt="Amazon category" />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_2.jpg'} alt="Fashion category" />
+              <img src={"amazon-icon/category_2.jpg"} alt="Fashion category" />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_2.jpg'} alt="Fashion category" />
+              <img src={"amazon-icon/category_2.jpg"} alt="Fashion category" />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
               <img
-                src={'amazon-icon/category_3.jpg'}
+                src={"amazon-icon/category_3.jpg"}
                 alt="Computers category"
               />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_4.jpg'} alt="Home category" />
+              <img src={"amazon-icon/category_4.jpg"} alt="Home category" />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_5.jpg'} alt="Mobiles category" />
+              <img src={"amazon-icon/category_5.jpg"} alt="Mobiles category" />
             </SwiperSlide>
           </Swiper>
         </Slider>
@@ -223,31 +266,30 @@ const Home = () => {
                 slidesPerView: 6,
                 spaceBetween: 25,
               },
-            }}
-          >
+            }}>
             <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_0.jpg'} alt="Deal category" />
+              <img src={"amazon-icon/category_0.jpg"} alt="Deal category" />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_1.jpg'} alt="Amazon category" />
+              <img src={"amazon-icon/category_1.jpg"} alt="Amazon category" />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_2.jpg'} alt="Fashion category" />
+              <img src={"amazon-icon/category_2.jpg"} alt="Fashion category" />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_2.jpg'} alt="Fashion category" />
+              <img src={"amazon-icon/category_2.jpg"} alt="Fashion category" />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
               <img
-                src={'amazon-icon/category_3.jpg'}
+                src={"amazon-icon/category_3.jpg"}
                 alt="Computers category"
               />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_4.jpg'} alt="Home category" />
+              <img src={"amazon-icon/category_4.jpg"} alt="Home category" />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_5.jpg'} alt="Mobiles category" />
+              <img src={"amazon-icon/category_5.jpg"} alt="Mobiles category" />
             </SwiperSlide>
           </Swiper>
         </Slider>
@@ -316,31 +358,30 @@ const Home = () => {
                 slidesPerView: 6,
                 spaceBetween: 25,
               },
-            }}
-          >
+            }}>
             <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_0.jpg'} alt="Deal category" />
+              <img src={"amazon-icon/category_0.jpg"} alt="Deal category" />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_1.jpg'} alt="Amazon category" />
+              <img src={"amazon-icon/category_1.jpg"} alt="Amazon category" />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_2.jpg'} alt="Fashion category" />
+              <img src={"amazon-icon/category_2.jpg"} alt="Fashion category" />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_2.jpg'} alt="Fashion category" />
+              <img src={"amazon-icon/category_2.jpg"} alt="Fashion category" />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
               <img
-                src={'amazon-icon/category_3.jpg'}
+                src={"amazon-icon/category_3.jpg"}
                 alt="Computers category"
               />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_4.jpg'} alt="Home category" />
+              <img src={"amazon-icon/category_4.jpg"} alt="Home category" />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_5.jpg'} alt="Mobiles category" />
+              <img src={"amazon-icon/category_5.jpg"} alt="Mobiles category" />
             </SwiperSlide>
           </Swiper>
         </Slider>
@@ -378,31 +419,30 @@ const Home = () => {
                 slidesPerView: 6,
                 spaceBetween: 25,
               },
-            }}
-          >
+            }}>
             <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_0.jpg'} alt="Deal category" />
+              <img src={"amazon-icon/category_0.jpg"} alt="Deal category" />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_1.jpg'} alt="Amazon category" />
+              <img src={"amazon-icon/category_1.jpg"} alt="Amazon category" />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_2.jpg'} alt="Fashion category" />
+              <img src={"amazon-icon/category_2.jpg"} alt="Fashion category" />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_2.jpg'} alt="Fashion category" />
+              <img src={"amazon-icon/category_2.jpg"} alt="Fashion category" />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
               <img
-                src={'amazon-icon/category_3.jpg'}
+                src={"amazon-icon/category_3.jpg"}
                 alt="Computers category"
               />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_4.jpg'} alt="Home category" />
+              <img src={"amazon-icon/category_4.jpg"} alt="Home category" />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_5.jpg'} alt="Mobiles category" />
+              <img src={"amazon-icon/category_5.jpg"} alt="Mobiles category" />
             </SwiperSlide>
           </Swiper>
         </Slider>
@@ -470,31 +510,30 @@ const Home = () => {
                 slidesPerView: 6,
                 spaceBetween: 25,
               },
-            }}
-          >
+            }}>
             <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_0.jpg'} alt="Deal category" />
+              <img src={"amazon-icon/category_0.jpg"} alt="Deal category" />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_1.jpg'} alt="Amazon category" />
+              <img src={"amazon-icon/category_1.jpg"} alt="Amazon category" />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_2.jpg'} alt="Fashion category" />
+              <img src={"amazon-icon/category_2.jpg"} alt="Fashion category" />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_2.jpg'} alt="Fashion category" />
+              <img src={"amazon-icon/category_2.jpg"} alt="Fashion category" />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
               <img
-                src={'amazon-icon/category_3.jpg'}
+                src={"amazon-icon/category_3.jpg"}
                 alt="Computers category"
               />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_4.jpg'} alt="Home category" />
+              <img src={"amazon-icon/category_4.jpg"} alt="Home category" />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_5.jpg'} alt="Mobiles category" />
+              <img src={"amazon-icon/category_5.jpg"} alt="Mobiles category" />
             </SwiperSlide>
           </Swiper>
         </Slider>
@@ -533,37 +572,44 @@ const Home = () => {
                 slidesPerView: 6,
                 spaceBetween: 25,
               },
-            }}
-          >
+            }}>
             <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_0.jpg'} alt="Deal category" />
+              <img src={"amazon-icon/category_0.jpg"} alt="Deal category" />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_1.jpg'} alt="Amazon category" />
+              <img src={"amazon-icon/category_1.jpg"} alt="Amazon category" />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_2.jpg'} alt="Fashion category" />
+              <img src={"amazon-icon/category_2.jpg"} alt="Fashion category" />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_2.jpg'} alt="Fashion category" />
+              <img src={"amazon-icon/category_2.jpg"} alt="Fashion category" />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
               <img
-                src={'amazon-icon/category_3.jpg'}
+                src={"amazon-icon/category_3.jpg"}
                 alt="Computers category"
               />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_4.jpg'} alt="Home category" />
+              <img src={"amazon-icon/category_4.jpg"} alt="Home category" />
             </SwiperSlide>
             <SwiperSlide className="cursor-pointer">
-              <img src={'amazon-icon/category_5.jpg'} alt="Mobiles category" />
+              <img src={"amazon-icon/category_5.jpg"} alt="Mobiles category" />
             </SwiperSlide>
           </Swiper>
         </Slider>
         <ProductSlider
           subCategoryId="656e34938ab097079167133d"
           title="Moblie"
+        />
+        <ProductSlider
+          subCategoryId="65527fdca8299445e5fe5e87"
+          title="Headphones"
+        />
+        <ProductSlider
+          subCategoryId="65694e7b244db28213810d49"
+          title="Amazon products"
         />
       </div>
     </div>
