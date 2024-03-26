@@ -4,7 +4,7 @@ import { getProductsByCategoryId } from '../../firestore/firestore';
 import ProductsList from '../../components/ProductsList/ProductsList';
 import ServiceUnavailable from '../Service-Unavailable/ServiceUnavailable';
 import { FilterSidebar } from './FilterSidebar';
-import { useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 
 const categories = [
   { view: 'All', value: 'all' },
@@ -33,6 +33,9 @@ const priceRanges = [
 
 function Electronics() {
   const products = useLoaderData();
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const [filters, setFilters] = useState({
     category: 'all',
     brand: 'all',

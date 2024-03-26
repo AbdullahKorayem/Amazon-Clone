@@ -3,12 +3,12 @@ import React from 'react';
 import OrderCardItems from './OrderCardItems';
 import { Button } from 'flowbite-react';
 
-export default function OrderCard() {
+export default function OrderCard({ totalQuantity, totalPrice }) {
   const orderSummary = [
-    { label: 'Items', value: '2' },
+    { label: 'Items', value: totalQuantity },
     { label: 'Shipping & handling', value: 'Free' },
-    { label: 'Total before tax', value: '2,000' },
-    { label: 'Estimated tax to be collected', value: '2,000' },
+    { label: 'Total before tax', value: totalPrice },
+    { label: 'Estimated tax to be collected', value: totalPrice },
   ];
 
   return (
@@ -40,7 +40,7 @@ export default function OrderCard() {
         </section>
         <hr />
         <h1 className="mb-5 text-xl font-medium  dark:text-white text-[#b12704]">
-          Order total:
+          Order total: {totalPrice}
         </h1>
       </section>
     </>

@@ -11,6 +11,13 @@ export default function CheckoutPage() {
   const dispatch = useDispatch();
   const [isRender, setIsRender] = useState(true);
   let checkoutItem = JSON.parse(sessionStorage.getItem('checkout'));
+  const totalPrice = checkoutItem.reduce((acc, item) => {
+    return acc + item.productPrice * item.quantity;
+  }, 0);
+  const totalQuantity = checkoutItem.reduce((acc, item) => {
+    return acc + item.quantity;
+  }, 0);
+
   useEffect(() => {
     dispatch(fetchUser());
   }, [isRender]);
@@ -30,7 +37,7 @@ export default function CheckoutPage() {
         <div className="col-span-1 md:col-span-6">
           <h1 className="text-xl md:text-4xl text-center md:text-left">
             Checkout(
-            <span className="text-[#007185]">{checkoutItem.length} item</span>)
+            <span className="text-[#007185]">{totalQuantity} item</span>)
           </h1>
         </div>
       </div>
@@ -47,7 +54,7 @@ export default function CheckoutPage() {
         </div>
         <div className=" md:col-span-1 sm:col-span-0"></div>
         <div className="lg:col-span-4 md:col-span-5 sm:col-span-5">
-          <OrderCard />
+          <OrderCard totalQuantity={totalQuantity} totalPrice={totalPrice} />
         </div>
       </div>
     </>

@@ -3,7 +3,7 @@ import 'react-rater/lib/react-rater.css';
 import StarRating from '../../components/StarRating/StarRating';
 import HandlePrice from '../../components/HandlePrice/HandlePrice';
 import Available from '../../components/Available/Available';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { langContext } from '../../contexts/lang';
 import {
   addProductToCart,
@@ -43,6 +43,12 @@ const ProductDetail = () => {
       thumbnail: img,
     };
   });
+  useLayoutEffect(() => {
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 1000);
+  }, [product]);
+
   useEffect(() => {
     async function fetch() {
       const result = await getProductsBySubCategoryId(product.subCategoryId);

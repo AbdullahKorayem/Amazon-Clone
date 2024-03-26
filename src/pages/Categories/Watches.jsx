@@ -2,7 +2,7 @@ import { useLoaderData } from 'react-router-dom';
 import { getProductsByCategoryId } from '../../firestore/firestore';
 import ProductsList from '../../components/ProductsList/ProductsList';
 import ServiceUnavailable from '../Service-Unavailable/ServiceUnavailable';
-import { useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { FilterSidebar } from './FilterSidebar';
 
 const categories = [{ view: 'Watches', value: 'all' }];
@@ -21,6 +21,9 @@ const priceRanges = [
 
 function Watches() {
   const products = useLoaderData();
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const [filters, setFilters] = useState({
     category: 'all',
     brand: 'all',
