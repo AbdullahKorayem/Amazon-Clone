@@ -10,6 +10,7 @@ import ProductSlider from '../../components/productSlider/ProductSlider';
 import { Link, useLoaderData } from 'react-router-dom';
 import { getAllCategories } from './../../firestore/firestore';
 import ProductSliderVthree from '../../components/productSlider/ProductSliderV3';
+import UserRating from '../../components/UserRating/UserRating';
 
 const Home = () => {
   const categories = useLoaderData();
@@ -307,6 +308,7 @@ const Home = () => {
           subCategoryId="65694e7b244db28213810d49"
           title="Amazon products"
         />
+        <UserRating />
       </div>
     </div>
   );
