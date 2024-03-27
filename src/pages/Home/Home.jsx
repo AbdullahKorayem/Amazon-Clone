@@ -308,7 +308,6 @@ const Home = () => {
           subCategoryId="65694e7b244db28213810d49"
           title="Amazon products"
         />
-        <UserRating />
       </div>
     </div>
   );

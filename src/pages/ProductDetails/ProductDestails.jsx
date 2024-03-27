@@ -1,6 +1,5 @@
 import ReactImageGallery from 'react-image-gallery';
 import 'react-rater/lib/react-rater.css';
-import StarRating from '../../components/StarRating/StarRating';
 import HandlePrice from '../../components/HandlePrice/HandlePrice';
 import Available from '../../components/Available/Available';
 import { useContext, useEffect, useLayoutEffect, useState } from 'react';
@@ -17,6 +16,7 @@ import { cartItemsCountContext } from '../../contexts/cartItemsCount';
 import { useSelector } from 'react-redux';
 import ProductsList from './../../components/ProductsList/ProductsList';
 import ProductSliderV2 from './../../components/productSlider/ProductSliderV2';
+import SetRating from './../../components/SetRating/SetRating';
 
 const ProductDetail = () => {
   const userUid = useSelector(state => state.User.user?.uid);
@@ -52,7 +52,6 @@ const ProductDetail = () => {
   useEffect(() => {
     async function fetch() {
       const result = await getProductsBySubCategoryId(product.subCategoryId);
-      console.log(result);
       setRelatedProduct(result);
     }
     fetch();
@@ -73,8 +72,11 @@ const ProductDetail = () => {
             {product[lang].description}
           </h3>
           <div className="flex items-center mt-2">
-            <StarRating rate={product.rating} />
-            <span className="mb-3">({product.ratingQuantity})</span>
+            <SetRating
+              productId={productId}
+              product={product}
+              userUid={userUid}
+            />
           </div>
           <HandlePrice
             prePrice={product.price}

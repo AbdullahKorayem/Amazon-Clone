@@ -337,3 +337,45 @@ export const searchForProduct = async (searchChar = '', Ctgid = '') => {
     return [];
   }
 };
+
+export const addNewUserRate = async (docId, value) => {
+  const docRef = doc(firestore, 'Products', docId);
+  try {
+    const docSnapshot = await getDoc(docRef);
+    if (docSnapshot.exists()) {
+      const currentData = docSnapshot.data();
+      if (currentData.usersRating) {
+        if (
+          currentData.usersRating.find(user => user.userUid === value.userUid)
+        ) {
+          const oldValue = currentData.usersRating.find(
+            user => user.userUid === value.userUid
+          );
+          const newValue = { ...oldValue, rating: value.rating };
+          const newArray = currentData.usersRating.filter(
+            obj => obj.userUid !== newValue.userUid
+          );
+          const updatedField = [...newArray, newValue];
+          await updateDoc(docRef, {
+            usersRating: updatedField,
+          });
+        } else {
+          const updatedField = [...currentData.usersRating, value];
+          await updateDoc(docRef, {
+            usersRating: updatedField,
+          });
+        }
+      } else {
+        const updatedField = [value];
+        await updateDoc(docRef, {
+          usersRating: updatedField,
+        });
+      }
+      console.log('New field created and set successfully');
+    } else {
+      console.log('Document does not exist');
+    }
+  } catch (error) {
+    console.error('Error creating new field:', error);
+  }
+};
