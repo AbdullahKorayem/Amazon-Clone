@@ -1,14 +1,14 @@
-import Routing from './Routing';
-import { LangProvider } from './contexts/lang';
-import { Provider } from 'react-redux';
-import store from './redux/store';
-import { CartItemsCountProvider } from './contexts/cartItemsCount';
-import { AllProductsProvider } from './contexts/allProducts';
-import { getAllProducts } from './firestore/firestore';
-
-import { useEffect, useState } from 'react';
+import Routing from "./Routing";
+import { LangProvider } from "./contexts/lang";
+import { Provider } from "react-redux";
+import store from "./redux/store";
+import { CartItemsCountProvider } from "./contexts/cartItemsCount";
+import { AllProductsProvider } from "./contexts/allProducts";
+import { getAllProducts } from "./firestore/firestore";
+import UserRating from "./components/UserRating/UserRating";
+import { useEffect, useState } from "react";
 function App() {
-  const [lang, setLang] = useState('en');
+  const [lang, setLang] = useState("en");
   const [nums, setNums] = useState(0);
   const [allProducts, setAllProducts] = useState([]);
 
@@ -19,6 +19,9 @@ function App() {
     };
     fetchProducts();
   }, []);
+  const handleSetRating = (rating) => {
+    console.log(`Rated: ${rating}`);
+  };
   return (
     <Provider store={store}>
       <AllProductsProvider value={{ allProducts }}>
@@ -29,6 +32,7 @@ function App() {
         </LangProvider>
       </AllProductsProvider>
     </Provider>
+    
   );
 }
 
