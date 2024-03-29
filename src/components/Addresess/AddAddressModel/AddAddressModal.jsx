@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 
 import { AddUserData } from './../../../firestore/firestore';
 
-export default function AddAddressModal() {
+export default function AddAddressModal({ setIsRender }) {
   const navigate = useNavigate();
 
   const [country, setCountry] = useState([]);
@@ -35,9 +35,10 @@ export default function AddAddressModal() {
     formState: { errors },
   } = useForm();
 
-  const userUid = sessionStorage.getItem('UserUid');
+  const userUid = localStorage.getItem('UserUid');
 
   const onSubmit = async data => {
+    setIsRender(false);
     if (!userUid) {
       toast.error('Please Login First');
       setTimeout(() => {
@@ -75,6 +76,8 @@ export default function AddAddressModal() {
       await AddUserData(userUid, 'UserInformation', updatedUserInfoArray);
       toast.success('Your Address Added Successfully');
       setOpenModal(false);
+      navigate('/checkout');
+      setIsRender(true);
     } catch (error) {
       console.error('Error adding address:', error);
       toast.error('An error occurred while adding the address');

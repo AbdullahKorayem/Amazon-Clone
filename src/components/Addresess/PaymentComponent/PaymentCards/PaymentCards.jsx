@@ -13,7 +13,7 @@ function PaymentCards() {
     formState: { errors },
   } = useForm();
 
-  const userUid = sessionStorage.getItem('UserUid');
+  const userUid = localStorage.getItem('UserUid');
 
   const UserPaymentArray = useSelector(state => state.User.user?.PaymentCards);
 

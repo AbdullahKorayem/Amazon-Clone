@@ -33,7 +33,7 @@ export default function SignIn() {
         navigate('/');
         // console.log(userCredential.user.uid);
 
-        sessionStorage.setItem('UserUid', userCredential.user.uid);
+        localStorage.setItem('UserUid', userCredential.user.uid);
       } catch (error) {
         if (error.code) {
           const errorMessage = handleFirebaseError(error.code);

@@ -29,7 +29,15 @@ const Cart = () => {
   }, [items]);
 
   function proceedToCheckout() {
-    sessionStorage.setItem('checkout', JSON.stringify(items));
+    const orderItems = items.map(item => {
+      return {
+        id: item.productId,
+        quantity: item.quantity,
+        price: Number(item.productPrice.toFixed(2)),
+        name: item.productTitle,
+      };
+    });
+    sessionStorage.setItem('checkout', JSON.stringify(orderItems));
     navigate('/checkout');
   }
 

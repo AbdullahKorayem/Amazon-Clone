@@ -15,7 +15,7 @@ const NavBar = () => {
   const navigate = useNavigate();
   const { lang, setLang } = useContext(langContext);
   const { nums } = useContext(cartItemsCountContext);
-  const User = sessionStorage.getItem('UserUid');
+  const User = localStorage.getItem('UserUid');
   const dispatch = useDispatch();
   const stateUser = useSelector(state => state.User?.user?.UserName);
   const [searchValue, setSearchValue] = useState('');

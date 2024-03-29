@@ -135,6 +135,7 @@ const ProductDetail = () => {
                         productId,
                         product.thumbnail,
                         product[lang].description,
+                        product[lang].title,
                         price,
                         product.quantityInStock,
                         quantity

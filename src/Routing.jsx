@@ -29,6 +29,9 @@ import SearchResults from './pages/SearchResults/SearchResults';
 import NotFound from './pages/Not-Found/NotFound';
 import { useSelector } from 'react-redux';
 import UserProfile from './pages/UserProfile/UserProfile';
+import Success from './pages/Stripe/Success';
+import Cancel from './pages/Stripe/Cancel';
+import DataStripe from './pages/Stripe/DataStripe';
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
@@ -78,6 +81,18 @@ const router = createBrowserRouter([
   {
     path: '/register',
     element: <Register />,
+  },
+  {
+    path: '/success',
+    element: <Success />,
+  },
+  {
+    path: '/cancel',
+    element: <Cancel />,
+  },
+  {
+    path: '/datastripe',
+    element: <DataStripe />,
   },
   {
     path: '*',

@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 export default function CustomDrawer({ lang, onSetLang }) {
   const UserName = useSelector(state => state.User.user?.UserName);
   const dispatch = useDispatch();
-  const User = sessionStorage.getItem('UserUid');
+  const User = localStorage.getItem('UserUid');
   const [size, setSize] = useState();
   const [open, setOpen] = useState(false);
   const [placement, setPlacement] = useState('left');
@@ -187,7 +187,7 @@ export default function CustomDrawer({ lang, onSetLang }) {
                       className="block w-full ml-2 text-blue-500 no-underline hover:no-underline"
                       onClick={() => {
                         handleClose;
-                        window.sessionStorage.removeItem('UserUid');
+                        window.localStorage.removeItem('UserUid');
                         dispatch(fetchUser(User));
                       }}
                     >

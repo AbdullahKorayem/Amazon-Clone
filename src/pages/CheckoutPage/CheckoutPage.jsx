@@ -9,10 +9,10 @@ import { Link } from 'react-router-dom';
 
 export default function CheckoutPage() {
   const dispatch = useDispatch();
-  const [isRender, setIsRender] = useState(true);
   let checkoutItem = JSON.parse(sessionStorage.getItem('checkout'));
+  const [isRender, setIsRender] = useState(false);
   const totalPrice = checkoutItem.reduce((acc, item) => {
-    return acc + item.productPrice * item.quantity;
+    return acc + item.price * item.quantity;
   }, 0);
   const totalQuantity = checkoutItem.reduce((acc, item) => {
     return acc + item.quantity;
@@ -45,16 +45,20 @@ export default function CheckoutPage() {
       <div className=" mx-auto sm:grid sm:grid-cols-12  p-4 ">
         <div className=" md:col-span-6 sm:col-span-6">
           <div className="md:mb-6">
-            <Addresses isRender={isRender} setIsRender={setIsRender} />
+            <Addresses setIsRender={setIsRender} isRender={isRender} />
           </div>
-          <div>
+          {/* <div>
             <Payment isRender={isRender} setIsRender={setIsRender} />
-          </div>
+          </div> */}
           {/* <ItemAndShipping /> */}
         </div>
         <div className=" md:col-span-1 sm:col-span-0"></div>
         <div className="lg:col-span-4 md:col-span-5 sm:col-span-5">
-          <OrderCard totalQuantity={totalQuantity} totalPrice={totalPrice} />
+          <OrderCard
+            totalQuantity={totalQuantity}
+            totalPrice={totalPrice}
+            checkoutItem={checkoutItem}
+          />
         </div>
       </div>
     </>

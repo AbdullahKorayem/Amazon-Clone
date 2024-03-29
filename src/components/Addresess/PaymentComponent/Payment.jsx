@@ -45,9 +45,7 @@ export default function Payment({ isRender, setIsRender }) {
             Cash On Delivery
           </h1>
           <hr className="mb-5" />
-          <div className="ms-3">
-            <PaymentCards />
-          </div>
+          <div className="ms-3">{/* <PaymentCards /> */}</div>
         </div>
       </div>
     </div>

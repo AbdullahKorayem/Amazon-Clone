@@ -30,7 +30,7 @@ const CustomDropdown = ({ dispatch, ...props }) => (
       <Link
         onClick={e => {
           e.preventDefault();
-          window.sessionStorage.removeItem('UserUid');
+          window.localStorage.removeItem('UserUid');
           dispatch();
         }}
         className="text-lg text-black"
@@ -43,7 +43,7 @@ const CustomDropdown = ({ dispatch, ...props }) => (
 
 export default function DropDownNav() {
   const dispatch = useDispatch();
-  const User = sessionStorage.getItem('UserUid');
+  const User = localStorage.getItem('UserUid');
   return (
     <ButtonToolbar>
       <CustomDropdown

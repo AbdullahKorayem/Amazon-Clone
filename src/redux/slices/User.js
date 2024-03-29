@@ -12,9 +12,9 @@ export const fetchUser = createAsyncThunk(
   'User/UserData',
   async (_, { rejectWithValue }) => {
     try {
-      const userUid = sessionStorage.getItem('UserUid');
+      const userUid = localStorage.getItem('UserUid');
       if (!userUid) {
-        return rejectWithValue('No user UID in session storage');
+        return rejectWithValue('No user UID in local storage');
       }
 
       const userRef = doc(db, 'Users', userUid);
@@ -55,7 +55,7 @@ const userSlice = createSlice({
 });
 
 export const initializeUser = () => dispatch => {
-  const userUid = sessionStorage.getItem('UserUid');
+  const userUid = localStorage.getItem('UserUid');
   if (userUid) {
     dispatch(fetchUser());
   }
