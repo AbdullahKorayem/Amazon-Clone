@@ -3,13 +3,14 @@ import Available from '../Available/Available';
 import {
   addProductToCart,
   deleteItemFromCart,
+  updateCartItemQuantity,
 } from '../../firestore/firestore';
-import { Link, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 function CartCard({ item }) {
-  const userUid = useSelector(state => state.User.user?.uid);
   const {
+    id,
+    userUid,
     productId,
     productImage,
     productDescription,
@@ -19,18 +20,8 @@ function CartCard({ item }) {
   } = item;
   const [Quantity, setQuantity] = useState(quantity);
   const availability = quantityInStock > 0;
-  const navigate = useNavigate();
-  function handleQuantityChange(e) {
-    setQuantity(+e.target.value);
-    addProductToCart(
-      userUid,
-      productId,
-      productImage,
-      productDescription,
-      productPrice,
-      quantityInStock,
-      +e.target.value
-    );
+  async function handleQuantityChange(e) {
+    await updateCartItemQuantity(id, +e.target.value);
   }
 
   return (

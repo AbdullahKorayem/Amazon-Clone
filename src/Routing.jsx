@@ -1,4 +1,4 @@
-import Home, { loader as homeLoader } from './pages/Home/Home';
+import Home from './pages/Home/Home';
 import {
   RouterProvider,
   Navigate,
@@ -31,12 +31,11 @@ import { useSelector } from 'react-redux';
 import UserProfile from './pages/UserProfile/UserProfile';
 import Success from './pages/Stripe/Success';
 import Cancel from './pages/Stripe/Cancel';
-import DataStripe from './pages/Stripe/DataStripe';
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
     children: [
-      { path: '/', element: <Home />, loader: homeLoader },
+      { path: '/', element: <Home /> },
       { path: '/cart', element: <ProtectedRoute element={<Cart />} /> },
       {
         path: '/profile',
@@ -90,10 +89,7 @@ const router = createBrowserRouter([
     path: '/cancel',
     element: <Cancel />,
   },
-  {
-    path: '/datastripe',
-    element: <DataStripe />,
-  },
+
   {
     path: '*',
     element: <NotFound />,

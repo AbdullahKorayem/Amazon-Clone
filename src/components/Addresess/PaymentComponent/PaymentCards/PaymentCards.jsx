@@ -29,8 +29,6 @@ function PaymentCards() {
       return;
     }
 
-    console.log('Form Data:', data);
-
     const thePaymentCard = {
       cardName: data.fullName,
       cardNumber: data.CreditCard,
@@ -49,7 +47,7 @@ function PaymentCards() {
         'PaymentCards',
         updatedUserPaymentArray
       );
-      console.log('AddUserData Result:', result);
+      // console.log('AddUserData Result:', result);
       if (result.success) {
         toast.success('Your Card Added Successfully');
         setOpenModal(false);

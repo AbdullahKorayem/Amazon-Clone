@@ -72,7 +72,7 @@ export const addNewProduct = async product => {
         sold,
       });
     } catch (err) {
-      console.log('err creating', err.message);
+      // console.log('err creating', err.message);
     }
   }
 
@@ -143,7 +143,7 @@ export const getProductById = async id => {
   if (respose.exists()) {
     return respose.data();
   } else {
-    console.log('No such document!');
+    // console.log('No such document!');
   }
 };
 
@@ -185,11 +185,11 @@ export const toGetUserData = async uid => {
     if (userDoc.exists()) {
       return userDoc.data();
     } else {
-      console.log('No such document!');
+      // console.log('No such document!');
       return null;
     }
   } catch (error) {
-    console.log('Error getting user data:', error);
+    // console.log('Error getting user data:', error);
     throw error;
   }
 };
@@ -224,7 +224,7 @@ export const addProductToCart = async (
       quantity,
     };
     await addDoc(cartRef, newCartItem);
-    console.log('Product added to cart successfully');
+    // console.log('Product added to cart successfully');
   } else {
     // If the product is already in the cart, update the quantity
     snapshot.forEach(async cartDoc => {
@@ -232,7 +232,7 @@ export const addProductToCart = async (
       await updateDoc(cartItemRef, {
         quantity: quantity,
       });
-      console.log('Product quantity updated in cart successfully');
+      // console.log('Product quantity updated in cart successfully');
     });
   }
 };
@@ -266,15 +266,16 @@ export const addProductToOrder = async (
       quantity,
     };
     await addDoc(orderRef, newOrderItem);
-    console.log('Product added to Order successfully');
+    // console.log('Product added to Order successfully');
   } else {
     // If the product is already in the cart, update the quantity
     snapshot.forEach(async orderDoc => {
       const orderItemRef = doc(firestore, 'Order', orderDoc.id);
+
       await updateDoc(orderItemRef, {
         quantity: quantity,
       });
-      console.log('Product quantity updated in Order successfully');
+      // console.log(`Product quantity updated in Order successfully `);
     });
   }
 };
@@ -301,12 +302,12 @@ export const deleteItemFromCart = async fieldValue => {
   if (!snapshot.empty) {
     snapshot.forEach(async doc => {
       await deleteDoc(doc.ref);
-      console.log(
-        `Document with ID =${fieldValue} successfully deleted from Cart.`
-      );
+      // console.log(
+      //   `Document with ID =${fieldValue} successfully deleted from Cart.`
+      // );
     });
   } else {
-    console.log(`No document found with ID =${fieldValue} in Cart.`);
+    // console.log(`No document found with ID =${fieldValue} in Cart.`);
   }
 };
 
@@ -335,7 +336,7 @@ export const searchForProduct = async (searchChar = '', Ctgid = '') => {
 
     return products;
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     return [];
   }
 };
@@ -373,11 +374,18 @@ export const addNewUserRate = async (docId, value) => {
           usersRating: updatedField,
         });
       }
-      console.log('New field created and set successfully');
+      // console.log('New field created and set successfully');
     } else {
-      console.log('Document does not exist');
+      // console.log('Document does not exist');
     }
   } catch (error) {
     console.error('Error creating new field:', error);
   }
+};
+export const updateCartItemQuantity = async (cartItemId, newQuantity) => {
+  const cartItemRef = doc(firestore, 'Cart', cartItemId);
+  await updateDoc(cartItemRef, {
+    quantity: newQuantity,
+  });
+  // console.log('Cart item quantity updated successfully');
 };

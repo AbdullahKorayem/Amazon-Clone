@@ -40,6 +40,7 @@ const Cart = () => {
     sessionStorage.setItem('checkout', JSON.stringify(orderItems));
     navigate('/checkout');
   }
+  // console.log(items);
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#EAEDED' }}>

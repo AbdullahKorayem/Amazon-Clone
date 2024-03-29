@@ -12,7 +12,6 @@ export default function OrderCard({ totalQuantity, totalPrice }) {
   ];
 
   let checkoutItem = JSON.parse(sessionStorage.getItem('checkout'));
-  console.log(checkoutItem);
   const checkout = async () => {
     try {
       const res = await fetch('http://localhost:8000/checkout', {
@@ -28,9 +27,7 @@ export default function OrderCard({ totalQuantity, totalPrice }) {
 
       const data = await res.json();
       window.location = data.url;
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
   return (
     <>
