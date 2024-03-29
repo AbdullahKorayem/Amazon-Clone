@@ -1,26 +1,26 @@
-import ReactImageGallery from "react-image-gallery";
-import "react-rater/lib/react-rater.css";
-import HandlePrice from "../../components/HandlePrice/HandlePrice";
-import Available from "../../components/Available/Available";
-import { useContext, useEffect, useLayoutEffect, useState } from "react";
-import { langContext } from "../../contexts/lang";
+import ReactImageGallery from 'react-image-gallery';
+import 'react-rater/lib/react-rater.css';
+import HandlePrice from '../../components/HandlePrice/HandlePrice';
+import Available from '../../components/Available/Available';
+import { useContext, useEffect, useLayoutEffect, useState } from 'react';
+import { langContext } from '../../contexts/lang';
 import {
   addProductToCart,
   getProductById,
   getProductsBySubCategoryId,
-} from "../../firestore/firestore";
-import HandleQuantity from "../../components/HandleQuantity/HandleQuantity";
-import ProductData from "../../components/ProductData/ProductData";
-import { useLoaderData, useNavigate, useParams } from "react-router-dom";
-import { cartItemsCountContext } from "../../contexts/cartItemsCount";
-import { useSelector } from "react-redux";
-import ProductsList from "./../../components/ProductsList/ProductsList";
-import ProductSliderV2 from "./../../components/productSlider/ProductSliderV2";
-import { FaLocationDot } from "react-icons/fa6";
-import SetRating from "../../components/SetRating/SetRating";
+} from '../../firestore/firestore';
+import HandleQuantity from '../../components/HandleQuantity/HandleQuantity';
+import ProductData from '../../components/ProductData/ProductData';
+import { useLoaderData, useNavigate, useParams } from 'react-router-dom';
+import { cartItemsCountContext } from '../../contexts/cartItemsCount';
+import { useSelector } from 'react-redux';
+import ProductsList from './../../components/ProductsList/ProductsList';
+import ProductSliderV2 from './../../components/productSlider/ProductSliderV2';
+import { FaLocationDot } from 'react-icons/fa6';
+import SetRating from '../../components/SetRating/SetRating';
 
 const ProductDetail = () => {
-  const userUid = useSelector((state) => state.User.user?.uid);
+  const userUid = useSelector(state => state.User.user?.uid);
   const { id: productId } = useParams();
   const product = useLoaderData();
   const navigate = useNavigate();
@@ -38,7 +38,7 @@ const ProductDetail = () => {
 
   price = product.price - (product.price * product.discountPercentage) / 100;
   availability = product.quantityInStock > 0;
-  images = product.images.map((img) => {
+  images = product.images.map(img => {
     return {
       original: img,
       thumbnail: img,
@@ -60,7 +60,7 @@ const ProductDetail = () => {
   return (
     <div>
       <div className=" flex gap-2">
-        <section className="container mx-auto  grid grid-cols-3 max-w-[1200px]  border-b py-5 lg:grid lg:grid-cols-2 lg:py-10">
+        <section className="container mx-auto flex-grow  max-w-[1200px]  border-b py-5 lg:grid lg:grid-cols-2 lg:py-10">
           <div className="container mx-auto px-4">
             <ReactImageGallery
               showBullets={false}
@@ -110,10 +110,11 @@ const ProductDetail = () => {
                       product.quantityInStock,
                       quantity
                     );
-                    setNums((nums) => nums + quantity);
-                  } else navigate("/login");
+                    setNums(nums => nums + quantity);
+                  } else navigate('/login');
                 }}
-                className=" bg-[#ffd814] hover:bg-[#ffc300]  flex  h-12  w-52 items-center justify-center text-black duration-100 border-none ">
+                className=" bg-[#ffd814] hover:bg-[#ffc300]  flex  h-12  w-52 items-center justify-center text-black duration-100 border-none "
+              >
                 Add to cart
               </button>
             </div>
@@ -126,9 +127,9 @@ const ProductDetail = () => {
                 <strong>{price}</strong>
               </p>
             </div>
-            <div style={{ color: "#007185" }}>FREE Returns </div>
+            <div style={{ color: '#007185' }}>FREE Returns </div>
             <div>
-              <span style={{ color: "#DD0042" }}>
+              <span style={{ color: '#DD0042' }}>
                 This item cannot be shipped to your selected delivery location.
                 Please choose a different delivery location.
               </span>
@@ -136,12 +137,13 @@ const ProductDetail = () => {
 
             <div className="flex items-center">
               <FaLocationDot />
-              <p style={{ color: "#007185" }}>Diliver to Egypt</p>
+              <p style={{ color: '#007185' }}>Diliver to Egypt</p>
             </div>
             <div>
               <span
                 className=" text-xl  font-bold "
-                style={{ color: "#057A55" }}>
+                style={{ color: '#057A55' }}
+              >
                 In Stock
               </span>
             </div>
@@ -165,10 +167,11 @@ const ProductDetail = () => {
                         product.quantityInStock,
                         quantity
                       );
-                      setNums((nums) => nums + quantity);
-                    } else navigate("/login");
+                      setNums(nums => nums + quantity);
+                    } else navigate('/login');
                   }}
-                  className=" bg-[#ffd814] hover:bg-[#ffc300]  flex  h-7  w-52 items-center justify-center text-black duration-100 border-none ">
+                  className=" bg-[#ffd814] hover:bg-[#ffc300]  flex  h-7  w-52 items-center justify-center text-black duration-100 border-none "
+                >
                   Add to cart
                 </button>
                 <button
@@ -183,10 +186,11 @@ const ProductDetail = () => {
                         product.quantityInStock,
                         quantity
                       );
-                      setNums((nums) => nums + quantity);
-                    } else navigate("/login");
+                      setNums(nums => nums + quantity);
+                    } else navigate('/login');
                   }}
-                  className=" bg-[#FFA41C] hover:bg-[#FFA41C]  flex  h-7  w-52 items-center justify-center text-black duration-100 border-none ">
+                  className=" bg-[#FFA41C] hover:bg-[#FFA41C]  flex  h-7  w-52 items-center justify-center text-black duration-100 border-none "
+                >
                   Buy Now
                 </button>
               </div>
@@ -207,14 +211,14 @@ const ProductDetail = () => {
               <strong>Add a Protection Plan:</strong>
               <div className=" flex ">
                 <input type="checkbox" />
-                <span className=" pl-2" style={{ color: "#007185" }}>
+                <span className=" pl-2" style={{ color: '#007185' }}>
                   1-Year Extended Warranty by Salama Care (E-mail delivery) for
                   <span className=" text-red-500"> EGP 345.00</span>
                 </span>
               </div>
               <div className=" flex ">
                 <input type="checkbox" />
-                <span className=" pl-2" style={{ color: "#007185" }}>
+                <span className=" pl-2" style={{ color: '#007185' }}>
                   2-Year Extended Warranty by Salama Care (E-mail delivery) for
                   <span className=" text-red-500"> EGP 577.00</span>
                 </span>
