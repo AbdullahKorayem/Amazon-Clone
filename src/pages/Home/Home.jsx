@@ -17,10 +17,10 @@ const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (categories.length > 0) {
+    if (categories.length === 0) {
       setIsLoading(false);
     }
-  }, [categories]);
+  }, []);
   return (
     <div
       className="min-w-[320px] md:min-w-[750px] lg:min-w-[1000px] max-w-full"

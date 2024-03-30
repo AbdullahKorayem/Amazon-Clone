@@ -20,7 +20,7 @@ function App() {
       setCategories(Allcategries);
     };
     fetchProducts();
-  }, [categories, allProducts]);
+  }, []);
 
   return (
     <Provider store={store}>

@@ -21,6 +21,7 @@ function CartCard({ item }) {
   const [Quantity, setQuantity] = useState(quantity);
   const availability = quantityInStock > 0;
   async function handleQuantityChange(e) {
+    setQuantity(+e.target.value);
     await updateCartItemQuantity(id, +e.target.value);
   }
 

@@ -14,7 +14,7 @@ export default function Payment({ isRender, setIsRender }) {
           Payment Methods
         </h1>
         <div className="flex flex-col w-full">
-          {userPaymentArray && userPaymentArray.length > 0 ? (
+          {/* {userPaymentArray && userPaymentArray.length > 0 ? (
             userPaymentArray.map((card, index) => (
               <label htmlFor={`card-${index}`} key={index} className="w-full">
                 <div className="border-2 p-2 mb-4 border-yellow-100 rounded-md bg-[#fcf5ee]">
@@ -38,14 +38,18 @@ export default function Payment({ isRender, setIsRender }) {
             ))
           ) : (
             <h1 className="text-lg font-semibold text-center">No Cards</h1>
-          )}
+          )} */}
           <hr className="mb-5" />
           <h1 className="text-xl font-medium text-gray-900 dark:text-white mb-5">
             <input type="radio" name="card" className="mr-2 outline-none" />{' '}
             Cash On Delivery
           </h1>
+          <h1 className="text-xl font-medium text-gray-900 dark:text-white mb-5">
+            <input type="radio" name="card" className="mr-2 outline-none" />{' '}
+            Payment Card
+          </h1>
           <hr className="mb-5" />
-          <div className="ms-3">{/* <PaymentCards /> */}</div>
+          {/* <div className="ms-3"><PaymentCards /></div> */}
         </div>
       </div>
     </div>

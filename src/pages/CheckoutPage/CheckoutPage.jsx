@@ -47,10 +47,9 @@ export default function CheckoutPage() {
           <div className="md:mb-6">
             <Addresses setIsRender={setIsRender} isRender={isRender} />
           </div>
-          {/* <div>
+          <div>
             <Payment isRender={isRender} setIsRender={setIsRender} />
-          </div> */}
-          {/* <ItemAndShipping /> */}
+          </div>
         </div>
         <div className=" md:col-span-1 sm:col-span-0"></div>
         <div className="lg:col-span-4 md:col-span-5 sm:col-span-5">

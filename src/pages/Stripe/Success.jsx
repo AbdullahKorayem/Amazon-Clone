@@ -26,7 +26,7 @@ function Success() {
               to="/"
               className="px-12 bg-slate-800 hover:bg-[#131921] text-white font-semibold rounded-2xl py-3"
             >
-              Go Home
+              continue Shopping
             </Link>
           </div>
         </div>
