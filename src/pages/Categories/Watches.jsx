@@ -21,6 +21,7 @@ const priceRanges = [
 
 function Watches() {
   const products = useLoaderData();
+  document.title = 'Amazon : Watches';
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
   }, []);

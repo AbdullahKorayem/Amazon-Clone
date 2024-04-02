@@ -5,7 +5,11 @@ import store from './redux/store';
 import { CartItemsCountProvider } from './contexts/cartItemsCount';
 import { AllProductsProvider } from './contexts/allProducts';
 import { AllCategoriesProvider } from './contexts/allCategories';
-import { getAllCategories, getAllProducts } from './firestore/firestore';
+import {
+  getAllCategories,
+  getAllProducts,
+  getCartItems,
+} from './firestore/firestore';
 import { useEffect, useState } from 'react';
 function App() {
   const [lang, setLang] = useState('en');
@@ -15,9 +19,7 @@ function App() {
   useEffect(() => {
     const fetchProducts = async () => {
       const products = await getAllProducts();
-      const Allcategries = await getAllCategories();
       setAllProducts(products);
-      setCategories(Allcategries);
     };
     fetchProducts();
   }, []);
@@ -25,7 +27,7 @@ function App() {
   return (
     <Provider store={store}>
       <AllProductsProvider value={{ allProducts }}>
-        <AllCategoriesProvider value={{ categories }}>
+        <AllCategoriesProvider value={{ categories, setCategories }}>
           <LangProvider value={{ lang, setLang }}>
             <CartItemsCountProvider value={{ nums, setNums }}>
               <Routing />

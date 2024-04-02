@@ -15,8 +15,8 @@ function ItemCard({ item }) {
   return (
     <div className="w-full border-t-2 border-slate-300 rounded-md p-4 flex  justify-between">
       <div className="flex items-center">
-        <div>
-          <img className="w-40 mr-16 " src={productImage} alt="" />
+        <div className="w-30 h-30">
+          <img className="w-16 mr-16" src={productImage} alt="" />
         </div>
         <div className="flex flex-col gap-3">
           <Link to={`/product/${productId}`}>

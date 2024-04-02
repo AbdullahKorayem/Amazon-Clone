@@ -1,29 +1,34 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const UserProfile = () => {
+  document.title = 'Amazon : Your Profile';
   return (
     <>
       <div className="text-2xl xl:text-3xl  ml-64 mt-4 -mb-5">Your Account</div>
       <div className="flex flex-col items-center ">
         <div className="grid  lg:grid-cols-3  md:grid-cols-2 sm:grid-cols-1 md:gap-x-6 pt-4 items-center">
-          <div className="relative flex items-center mt-6 cursor-pointer hover:bg-gray-200 text-gray-700 bg-white  shadow-sm border rounded-xl w-80 p-4">
-            <img
-              src="https://m.media-amazon.com/images/G/42/x-locale/cs/help/images/gateway/self-service/order._CB657847415_.png"
-              className="w-[20%]"
-            />
-            <div className="flex pl-1 flex-col">
-              <div className="">
-                <p>
-                  <strong>Your orders</strong>
-                </p>
-              </div>
-              <div>
-                <span>
-                  track, return, cancel an order, download invoice or buy again
-                </span>
+          <Link to="/orders">
+            <div className="relative flex items-center mt-6 cursor-pointer hover:bg-gray-200 text-gray-700 bg-white  shadow-sm border rounded-xl w-80 p-4">
+              <img
+                src="https://m.media-amazon.com/images/G/42/x-locale/cs/help/images/gateway/self-service/order._CB657847415_.png"
+                className="w-[20%]"
+              />
+              <div className="flex pl-1 flex-col">
+                <div className="">
+                  <p>
+                    <strong>Your orders</strong>
+                  </p>
+                </div>
+                <div>
+                  <span>
+                    track, return, cancel an order, download invoice or buy
+                    again
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
+          </Link>
           <div className="relative flex items-center mt-6 cursor-pointer  hover:bg-gray-200 text-gray-700 bg-white  shadow-sm border rounded-xl w-80 p-4">
             <img
               src="https://m.media-amazon.com/images/G/42/x-locale/cs/help/images/gateway/self-service/security._CB657836742_.png"

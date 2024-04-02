@@ -3,11 +3,9 @@ import {
   CardHeader,
   CardBody,
   Typography,
-} from "@material-tailwind/react";
-import StarRating from "../StarRating/StarRating";
-import { useNavigate } from "react-router-dom";
-import { allProductsContext } from "../../contexts/allProducts";
-import { useContext } from "react";
+} from '@material-tailwind/react';
+import StarRating from '../StarRating/StarRating';
+import { useNavigate } from 'react-router-dom';
 export function ProductCard({ id, name, price, image, description, rate }) {
   const navigate = useNavigate();
   function showDetails() {
@@ -19,7 +17,8 @@ export function ProductCard({ id, name, price, image, description, rate }) {
       <CardHeader
         shadow={false}
         floated={false}
-        className=" h-[327px] flex justify-center">
+        className=" h-[327px] flex justify-center"
+      >
         <img
           src={image}
           alt={name}
@@ -41,7 +40,8 @@ export function ProductCard({ id, name, price, image, description, rate }) {
         <Typography
           variant="small"
           color="gray"
-          className="font-normal opacity-75">
+          className="font-normal opacity-75"
+        >
           {description}
         </Typography>
       </CardBody>

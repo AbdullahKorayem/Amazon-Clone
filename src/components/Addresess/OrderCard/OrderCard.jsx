@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import OrderCardItems from './OrderCardItems';
 import { Button } from 'flowbite-react';
+import { useNavigate } from 'react-router-dom';
+import { addOrder, deleteItemFromCart } from '../../../firestore/firestore';
 
-export default function OrderCard({ totalQuantity, totalPrice }) {
+export default function OrderCard({ totalQuantity, totalPrice, info }) {
+  const navigate = useNavigate();
   const orderSummary = [
     { label: 'Items', value: totalQuantity },
     { label: 'Shipping & handling', value: 'Free' },
@@ -12,7 +15,16 @@ export default function OrderCard({ totalQuantity, totalPrice }) {
   ];
 
   let checkoutItem = JSON.parse(sessionStorage.getItem('checkout'));
+  const cashMethod = async () => {
+    const res = await addOrder(info);
+    info.item.forEach(async ele => {
+      const res = await deleteItemFromCart(ele.id);
+    });
+    navigate('/');
+  };
+
   const checkout = async () => {
+    sessionStorage.setItem('order', JSON.stringify(info));
     try {
       const res = await fetch('http://localhost:8000/checkout', {
         method: 'POST',
@@ -33,14 +45,42 @@ export default function OrderCard({ totalQuantity, totalPrice }) {
     <>
       <section className="flex flex-col items-center justify-center border-2 rounded-md">
         <div className="flex-col border-0.5 border-black p-4 mb-4 rounded-lg w-full">
-          <Button
-            // disabled
-            onClick={checkout}
-            color="white"
-            className="mx-auto w-full mb-4 bg-[#ffd814] hover:bg-[#ffc300] border-none "
-          >
-            Add New Payment
-          </Button>
+          {info.paymentMethod &&
+            info.shippingAddress &&
+            info.paymentMethod === 'cash' && (
+              <Button
+                // disabled
+                onClick={cashMethod}
+                color="white"
+                className="mx-auto w-full mb-4 bg-[#ffd814] hover:bg-[#ffc300] border-none "
+              >
+                Place your order
+              </Button>
+            )}
+          {info.paymentMethod &&
+            info.shippingAddress &&
+            info.paymentMethod === 'card' && (
+              <Button
+                // disabled
+                onClick={checkout}
+                color="white"
+                className="mx-auto w-full mb-4 bg-[#ffd814] hover:bg-[#ffc300] border-none "
+              >
+                Use this payment method
+              </Button>
+            )}
+          {info.paymentMethod !== '' ||
+            (info.shippingAddress !== '' && (
+              <Button
+                disabled
+                onClick={checkout}
+                color="white"
+                className="mx-auto w-full mb-4 bg-[#ffd814] hover:bg-[#ffc300] border-none "
+              >
+                Use this payment method
+              </Button>
+            ))}
+
           <p className="text-sm font-semibold text-center ">
             Choose a payment method to continue checking out. You'll still have
             a chance to review and edit your order before it's final.

@@ -17,7 +17,7 @@ const CustomDropdown = ({ dispatch, ...props }) => (
       </Link>
     </Dropdown.Item>
     <Dropdown.Item>
-      <Link className="text-lg text-black" to="/">
+      <Link className="text-lg text-black" to="/orders">
         Your Order
       </Link>
     </Dropdown.Item>

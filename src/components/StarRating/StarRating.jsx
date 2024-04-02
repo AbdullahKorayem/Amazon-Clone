@@ -8,7 +8,7 @@ function StarRating({ rate, id }) {
         <Star key={`Star-${id}-${rate + i}`} />
       ))}
       <span className="ml-3 mr-2 rounded bg-cyan-100 px-2.5 py-0.5 text-xs font-semibold text-cyan-800 dark:bg-cyan-200 dark:text-cyan-800">
-        {rate}.0
+        {rate}
       </span>
     </div>
   );

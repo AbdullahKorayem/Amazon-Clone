@@ -20,7 +20,11 @@ export function HomeCardOneImage({ children, title, link }) {
       <Card className="mt-6 h-96 relative">
         <div className="">
           <div color="blue-gray" className=" font-bold">
-            <h1 className=" absolute text-xl top-7 text-gray-800">{title}</h1>
+            {title && (
+              <h1 className=" absolute text-xl top-7 text-gray-800">
+                {title} | see more
+              </h1>
+            )}
           </div>
           <div className="mt-8 flex justify-center">{children}</div>
           <div className="text-blue-700">{link}</div>

@@ -20,6 +20,7 @@ const priceRanges = [
 
 function PersonalCare() {
   const products = useLoaderData();
+  document.title = 'Amazon : Health & Personal Care';
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
   }, []);

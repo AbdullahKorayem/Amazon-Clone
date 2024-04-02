@@ -1,6 +1,6 @@
-function HandleQuantity({ quantity, setQuantity, quantityInStock }) {
+function HandleQuantity({ quantity, setQuantity }) {
   function handlePlus() {
-    if (quantity < quantityInStock) setQuantity(quantity => quantity + 1);
+    if (quantity < 5) setQuantity(quantity => quantity + 1);
   }
   function handleMins() {
     if (quantity > 1) setQuantity(quantity => quantity - 1);

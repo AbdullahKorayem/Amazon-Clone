@@ -30,24 +30,21 @@ export default function CustomDrawer({ lang, onSetLang }) {
 
   const sections = [
     {
-      title: 'Trending',
-      links: [
-        { text: 'Best Sellers', to: '/best-sellers' },
-        { text: 'New Releases', to: '/' },
-        { text: 'Electronics', to: '/electronics' },
-      ],
-    },
-    {
       title: 'Digital content and devices',
-      links: [{ text: 'Amazon Kindle E-readers', to: '/kindle' }],
+      links: [
+        { text: 'Amazon Kindle E-readers', to: '/kindle' },
+        { text: 'Mobiles & Labtops', to: '/electronics' },
+      ],
     },
     {
       title: 'Shop by Category',
       links: [
-        { text: 'Mobiles, Tablets & Accessories', to: '/mobiles-accessories' },
-        { text: 'Computers & Office Supplies', to: '/computer-accessories' },
-        { text: 'TVs & Electronics', to: '/tvs' },
-        { text: "Women's Fashion", to: '/watches' },
+        { text: 'Mobiles, Tablets & Accessories', to: '/electronics' },
+        { text: 'Amazon Products', to: '/kindle' },
+        { text: 'Health & Personal Care', to: '/personal-care' },
+        { text: "Men's Fashion", to: '/watches' },
+        { text: 'Office Supplies', to: '/office-supplies' },
+        { text: 'Hot Drinks', to: '/coffee' },
       ],
     },
   ];
@@ -55,15 +52,12 @@ export default function CustomDrawer({ lang, onSetLang }) {
   const accordSection = [
     {
       links: [
-        { text: "Men's Fashion", to: '/home-entertainment-systems' },
-        { text: 'Kids Fashion', to: '/wearable-technology' },
-        { text: 'Health, Beauty & Perfumes', to: '/wearable-technology' },
-        { text: 'Home, Furniture & Tools', to: '/wearable-technology' },
-        { text: 'Toys, Games & Baby', to: '/wearable-technology' },
-        { text: 'Sports, Fitness & Outdoors', to: '/wearable-technology' },
-        { text: 'Video Games', to: '/wearable-technology' },
-        { text: 'Automotive', to: '/wearable-technology' },
-        { text: 'Books', to: '/wearable-technology' },
+        { text: 'Mobiles, Tablets & Accessories', to: '/electronics' },
+        { text: 'Amazon Products', to: '/kindle' },
+        { text: 'Health & Personal Care', to: '/personal-care' },
+        { text: "Men's Fashion", to: '/watches' },
+        { text: 'Office Supplies', to: '/office-supplies' },
+        { text: 'Hot Drinks', to: '/coffee' },
       ],
     },
   ];

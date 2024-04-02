@@ -33,6 +33,7 @@ const priceRanges = [
 
 function Electronics() {
   const products = useLoaderData();
+  document.title = 'Amazon : Electronics';
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
   }, []);

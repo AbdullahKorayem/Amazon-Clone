@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 
 function NotFound() {
+  document.title = 'oops!';
   return (
     // Use flex, flex-col for vertical stacking, justify-center to center vertically, and items-center to center horizontally
     <div className="flex flex-col justify-center items-center h-screen">

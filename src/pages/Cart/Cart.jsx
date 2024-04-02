@@ -33,8 +33,9 @@ const Cart = () => {
       return {
         id: item.productId,
         quantity: item.quantity,
-        price: Number(item.productPrice.toFixed(2)),
+        price: Math.trunc(item.productPrice),
         name: item.productTitle,
+        image: item.productImage,
       };
     });
     sessionStorage.setItem('checkout', JSON.stringify(orderItems));

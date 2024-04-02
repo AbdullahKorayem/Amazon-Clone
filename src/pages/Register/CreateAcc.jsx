@@ -7,6 +7,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { doc, setDoc } from 'firebase/firestore';
 
 export default function Register() {
+  document.title = 'Amazon : Sign Up';
   const navigate = useNavigate();
   const [working, setWorking] = useState(false);
   const {

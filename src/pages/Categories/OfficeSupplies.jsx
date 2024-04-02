@@ -20,6 +20,7 @@ const priceRanges = [
 
 function OfficeSupplies() {
   const products = useLoaderData();
+  document.title = 'Amazon : Office Supplies';
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
   }, []);

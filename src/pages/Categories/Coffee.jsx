@@ -21,6 +21,7 @@ const priceRanges = [
 
 function Coffee() {
   const products = useLoaderData();
+  document.title = 'Amazon : Coffee';
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
   }, []);

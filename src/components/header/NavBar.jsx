@@ -10,11 +10,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchUser } from '../../redux/slices/User';
 import DropDownNav from '../DropDownNav/DropDownNav';
 import { cartItemsCountContext } from '../../contexts/cartItemsCount';
+import { getCartItems } from '../../firestore/firestore';
 
 const NavBar = () => {
   const navigate = useNavigate();
   const { lang, setLang } = useContext(langContext);
-  const { nums } = useContext(cartItemsCountContext);
+  const { nums, setNums } = useContext(cartItemsCountContext);
   const User = localStorage.getItem('UserUid');
   const dispatch = useDispatch();
   const stateUser = useSelector(state => state.User?.user?.UserName);
@@ -28,6 +29,14 @@ const NavBar = () => {
   }
   useEffect(() => {
     dispatch(fetchUser(User));
+    async function fetch() {
+      const cart = await getCartItems(User);
+      const cartLength = cart.reduce((acc, cur) => {
+        return acc + cur.quantity;
+      }, 0);
+      setNums(cartLength);
+    }
+    fetch();
   }, []);
 
   return (
@@ -136,8 +145,9 @@ const NavBar = () => {
 
         {/* Returns & Order */}
         <div className="hidden p-1 border border-transparent hover:border-white lg:block">
-          <p className="text-xs">Returns</p>
-          <p className="text-sm font-bold">& Order</p>
+          <p className="text-sm font-bold">
+            <Link to="/orders">Orders</Link>
+          </p>
         </div>
 
         <Badge content={nums} className=" text-yellow-400 text-lg ms-5">
@@ -175,9 +185,6 @@ const NavBar = () => {
           </li>
           <li className="hidden gap-1 p-1 border border-transparent cursor-pointer hover:border-white lg:block">
             <NavLink to="watches">Watches</NavLink>
-          </li>
-          <li className="hidden gap-1 p-1 border border-transparent cursor-pointer hover:border-white lg:block">
-            <NavLink to="checkout">chekcout</NavLink>
           </li>
         </ul>
       </div>

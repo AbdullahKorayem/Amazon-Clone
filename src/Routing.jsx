@@ -31,6 +31,9 @@ import { useSelector } from 'react-redux';
 import UserProfile from './pages/UserProfile/UserProfile';
 import Success from './pages/Stripe/Success';
 import Cancel from './pages/Stripe/Cancel';
+import Data from './pages/Stripe/data';
+import ServiceUnavailable from './pages/Service-Unavailable/ServiceUnavailable';
+import OrdersPage from './pages/OrdersPage/OrdersPage';
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
@@ -42,36 +45,65 @@ const router = createBrowserRouter([
         element: <ProtectedRoute element={<UserProfile />} />,
       },
       {
+        path: '/orders',
+        element: <OrdersPage />,
+      },
+      {
         path: '/product/:id',
         element: <ProductDestails />,
         loader: ProductLoader,
+        errorElement: <ServiceUnavailable />,
       },
       {
         path: '/electronics',
         element: <Electronics />,
         loader: electronicsLoader,
+        errorElement: <ServiceUnavailable />,
       },
-      { path: '/coffee', element: <Coffee />, loader: coffeeLoader },
-      { path: '/kindle', element: <Kindle />, loader: kindleLoader },
+      {
+        path: '/coffee',
+        element: <Coffee />,
+        loader: coffeeLoader,
+        errorElement: <ServiceUnavailable />,
+      },
+      {
+        path: '/kindle',
+        element: <Kindle />,
+        loader: kindleLoader,
+        errorElement: <ServiceUnavailable />,
+      },
       {
         path: '/office-supplies',
         element: <OfficeSupplies />,
         loader: officeSuppliesLoader,
+        errorElement: <ServiceUnavailable />,
       },
       {
         path: '/personal-care',
         element: <PersonalCare />,
         loader: personalCareLoader,
+        errorElement: <ServiceUnavailable />,
       },
-      { path: '/watches', element: <Watches />, loader: watchesLoader },
-      { path: '/search', element: <SearchResults /> },
+      {
+        path: '/watches',
+        element: <Watches />,
+        loader: watchesLoader,
+        errorElement: <ServiceUnavailable />,
+      },
+      {
+        path: '/search',
+        element: <SearchResults />,
+      },
     ],
   },
   {
     path: '/checkout',
     element: <ProtectedRoute element={<CheckoutPage />} />,
   },
-
+  {
+    path: '/data',
+    element: <Data />,
+  },
   {
     path: '/login',
     element: <SignIn />,

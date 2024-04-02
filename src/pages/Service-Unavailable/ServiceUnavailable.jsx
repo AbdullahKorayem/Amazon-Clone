@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 
 function ServiceUnavailable() {
+  document.title = 'oops!';
   return (
     <div className="flex flex-col justify-center items-center h-screen">
       <h1 className="mb-4 text-8xl font-semibold text-[#131921]">503</h1>

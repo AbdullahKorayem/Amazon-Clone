@@ -16,6 +16,7 @@ const priceRanges = [
 
 function Kindle() {
   const products = useLoaderData();
+  document.title = 'Amazon : Kindle';
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
   }, []);

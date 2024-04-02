@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 // import { ChangeUser } from '../../redux/slices/User';
 export default function SignIn() {
   // const dispatch = useDispatch();
+  document.title = 'Amazon : Sign In';
   const navigate = useNavigate();
   const [working, setWorking] = useState(false);
 

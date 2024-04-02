@@ -124,16 +124,10 @@ const ProductDetail = () => {
           <div className="flex pl-1 gap-y-2 flex-col">
             <div className="flex">
               <p className=" text-2xl">
-                <strong>{price}</strong>
+                <strong>${price}</strong>
               </p>
             </div>
             <div style={{ color: '#007185' }}>FREE Returns </div>
-            <div>
-              <span style={{ color: '#DD0042' }}>
-                This item cannot be shipped to your selected delivery location.
-                Please choose a different delivery location.
-              </span>
-            </div>
 
             <div className="flex items-center">
               <FaLocationDot />
@@ -148,11 +142,7 @@ const ProductDetail = () => {
               </span>
             </div>
             <div className=" flex  flex-col justify-center items-center">
-              <HandleQuantity
-                quantity={quantity}
-                setQuantity={setQuantity}
-                quantityInStock={product.quantityInStock}
-              />
+              <HandleQuantity quantity={quantity} setQuantity={setQuantity} />
               <div className="mt-7 flex flex-col items-center gap-3">
                 <button
                   onClick={() => {
@@ -177,16 +167,22 @@ const ProductDetail = () => {
                 <button
                   onClick={() => {
                     if (userUid) {
-                      addProductToCart(
-                        userUid,
-                        productId,
-                        product.thumbnail,
-                        product[lang].description,
-                        price,
-                        product.quantityInStock,
-                        quantity
-                      );
                       setNums(nums => nums + quantity);
+                      const orderItems = [
+                        {
+                          id: productId,
+                          quantity: quantity,
+                          price: Math.trunc(price),
+                          name: product[lang].title,
+                          image: product.thumbnail,
+                        },
+                      ];
+
+                      sessionStorage.setItem(
+                        'checkout',
+                        JSON.stringify(orderItems)
+                      );
+                      navigate('/checkout');
                     } else navigate('/login');
                   }}
                   className=" bg-[#FFA41C] hover:bg-[#FFA41C]  flex  h-7  w-52 items-center justify-center text-black duration-100 border-none "
@@ -205,23 +201,6 @@ const ProductDetail = () => {
                 <span>Amazon.eg </span>
                 <span>Amazon.eg </span>
                 <span>secure Transaction </span>
-              </div>
-            </div>
-            <div className=" flex flex-col">
-              <strong>Add a Protection Plan:</strong>
-              <div className=" flex ">
-                <input type="checkbox" />
-                <span className=" pl-2" style={{ color: '#007185' }}>
-                  1-Year Extended Warranty by Salama Care (E-mail delivery) for
-                  <span className=" text-red-500"> EGP 345.00</span>
-                </span>
-              </div>
-              <div className=" flex ">
-                <input type="checkbox" />
-                <span className=" pl-2" style={{ color: '#007185' }}>
-                  2-Year Extended Warranty by Salama Care (E-mail delivery) for
-                  <span className=" text-red-500"> EGP 577.00</span>
-                </span>
               </div>
             </div>
           </div>

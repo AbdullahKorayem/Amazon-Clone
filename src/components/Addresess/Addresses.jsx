@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import AddAddressModal from './AddAddressModel/AddAddressModal';
 import { useSelector } from 'react-redux';
 
-export default function Addresses({ setIsRender, isRender }) {
+export default function Addresses({ setInfo, info, change, setChange }) {
   const addresses = useSelector(state => state.User.user?.UserInformation);
-  useEffect(() => {}, [isRender]);
+
   return (
     <div className="flex flex-col items-center justify-center w-full  border-2 rounded-md p-4">
       <div className="border-0.5 border-black p-4 mb-4 rounded-lg w-full ">
@@ -28,6 +28,14 @@ export default function Addresses({ setIsRender, isRender }) {
                     name="address"
                     id={`address-${index}`}
                     className="mr-2"
+                    onClick={() => {
+                      setInfo(info => {
+                        return {
+                          ...info,
+                          shippingAddress: address,
+                        };
+                      });
+                    }}
                   />
                   <div className="flex flex-col">
                     <h1 className="text-lg font-semibold">
@@ -46,7 +54,7 @@ export default function Addresses({ setIsRender, isRender }) {
             <h1 className="text-lg font-semibold text-center">No Addresses</h1>
           )}
         </div>
-        <AddAddressModal setIsRender={setIsRender} />
+        <AddAddressModal change={change} setChange={setChange} />
       </div>
     </div>
   );

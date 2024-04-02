@@ -230,7 +230,7 @@ export const addProductToCart = async (
     snapshot.forEach(async cartDoc => {
       const cartItemRef = doc(firestore, 'Cart', cartDoc.id);
       await updateDoc(cartItemRef, {
-        quantity: quantity,
+        quantity: cartDoc.data().quantity + quantity,
       });
       // console.log('Product quantity updated in cart successfully');
     });
@@ -302,12 +302,12 @@ export const deleteItemFromCart = async fieldValue => {
   if (!snapshot.empty) {
     snapshot.forEach(async doc => {
       await deleteDoc(doc.ref);
-      // console.log(
-      //   `Document with ID =${fieldValue} successfully deleted from Cart.`
-      // );
+      console.log(
+        `Document with ID =${fieldValue} successfully deleted from Cart.`
+      );
     });
   } else {
-    // console.log(`No document found with ID =${fieldValue} in Cart.`);
+    console.log(`No document found with ID =${fieldValue} in Cart.`);
   }
 };
 
@@ -359,19 +359,32 @@ export const addNewUserRate = async (docId, value) => {
             obj => obj.userUid !== newValue.userUid
           );
           const updatedField = [...newArray, newValue];
+          const avgRate = updatedField.reduce((acc, cur) => {
+            return acc + cur.rating;
+          }, 0);
+          console.log(avgRate);
           await updateDoc(docRef, {
             usersRating: updatedField,
+            rating: avgRate / updatedField.length,
           });
         } else {
           const updatedField = [...currentData.usersRating, value];
+          const avgRate = updatedField.reduce((acc, cur) => {
+            return acc + cur.rating;
+          }, 0);
           await updateDoc(docRef, {
             usersRating: updatedField,
+            rating: avgRate / updatedField.length,
           });
         }
       } else {
         const updatedField = [value];
+        const avgRate = updatedField.reduce((acc, cur) => {
+          return acc + cur.rating;
+        }, 0);
         await updateDoc(docRef, {
           usersRating: updatedField,
+          rating: avgRate / updatedField.length,
         });
       }
       // console.log('New field created and set successfully');
@@ -388,4 +401,41 @@ export const updateCartItemQuantity = async (cartItemId, newQuantity) => {
     quantity: newQuantity,
   });
   // console.log('Cart item quantity updated successfully');
+};
+
+export const addOrder = async order => {
+  try {
+    const orderRef = collection(firestore, 'Orders');
+    const queryRef = query(orderRef, where('orderDate', '==', order.orderDate));
+    const snapshot = await getDocs(queryRef);
+
+    if (snapshot.empty) {
+      await addDoc(orderRef, order);
+      console.log('Order added with ID: ', order.orderDate);
+    } else {
+      console.log('Order already exists with ID: ', order.orderDate);
+    }
+  } catch (error) {
+    console.error('Error adding order: ', order.orderDate);
+  }
+};
+export const getOrderItems = async userId => {
+  let querys1 = query(
+    collection(firestore, 'Orders'),
+    where('userId', '==', userId)
+  );
+  let respose = await getDocs(querys1);
+  let Items = [];
+  respose.docs.forEach(pro => {
+    Items.push({ id: pro.id, ...pro.data() });
+  });
+  return Items;
+};
+
+export const updateOrderStatus = async orderId => {
+  const orderRef = doc(firestore, 'Orders', orderId);
+  await updateDoc(orderRef, {
+    status: 'cancelled',
+  });
+  console.log('Order updated successfully');
 };
