@@ -102,7 +102,7 @@ const NavBar = () => {
           />
           <button
             className={`bg-orange-300 flex rounded-lg  items-center p-2 cursor-pointer ${
-              dir === 'ltr' ? 'rounded-l-none' : 'rounded-r-none'
+              dir === 'rtl' ? 'rounded-r-none' : 'rounded-l-none'
             }`}
           >
             <FaSearch />

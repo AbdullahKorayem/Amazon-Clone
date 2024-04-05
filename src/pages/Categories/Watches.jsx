@@ -4,6 +4,7 @@ import ProductsList from '../../components/ProductsList/ProductsList';
 import ServiceUnavailable from '../Service-Unavailable/ServiceUnavailable';
 import { useLayoutEffect, useState } from 'react';
 import { FilterSidebar } from './FilterSidebar';
+import FilterResult from './FilterResult';
 
 const categories = [{ view: 'watches', value: 'all' }];
 const brands = [
@@ -70,7 +71,10 @@ function Watches() {
           />
         </div>
         <div className="w-[80%]">
-          <ProductsList products={filteredProducts} title="watches" />
+          {filteredProducts.length === 0 && <FilterResult />}
+          {filteredProducts.length > 0 && (
+            <ProductsList products={filteredProducts} title="watches" />
+          )}
         </div>
       </div>
     );

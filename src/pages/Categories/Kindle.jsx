@@ -4,6 +4,7 @@ import ProductsList from '../../components/ProductsList/ProductsList';
 import ServiceUnavailable from '../Service-Unavailable/ServiceUnavailable';
 import { useLayoutEffect, useState } from 'react';
 import { FilterSidebar } from './FilterSidebar';
+import FilterResult from './FilterResult';
 
 const categories = [{ view: 'kindle', value: 'all' }];
 const brands = [{ view: 'Amazon', value: 'all' }];
@@ -65,7 +66,10 @@ function Kindle() {
           />
         </div>
         <div className="w-[80%]">
-          <ProductsList products={filteredProducts} title="kindle" />
+          {filteredProducts.length === 0 && <FilterResult />}
+          {filteredProducts.length > 0 && (
+            <ProductsList products={filteredProducts} title="kindle" />
+          )}
         </div>
       </div>
     );
