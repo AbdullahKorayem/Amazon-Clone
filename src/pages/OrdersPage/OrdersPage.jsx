@@ -1,8 +1,12 @@
 import { NavLink } from 'react-router-dom';
 import SingleOrder from './SingleOrder';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { getOrderItems } from '../../firestore/firestore';
+import { useTranslation } from 'react-i18next';
+import { dirContext } from '../../contexts/direction';
 function OrdersPage() {
+  const { i18n, t } = useTranslation();
+  const { dir } = useContext(dirContext);
   const [userOrders, setUserOrders] = useState([]);
   const [filter, setFilter] = useState('all');
   const [change, setChange] = useState(false);
@@ -21,12 +25,17 @@ function OrdersPage() {
     filteredOrder = userOrders;
   }
 
-  console.log(filteredOrder);
   document.title = 'Amazon : Your Orders';
   return (
     <div className="container lg:px-32 mx-auto mt-10 min-h-screen pb-4">
       <div>
-        <h1 className="text-left text-3xl my-5">Your Orders</h1>
+        <h1
+          className={`${
+            dir === 'rtl' ? 'text-right' : 'text-left'
+          } text-3xl my-5`}
+        >
+          {t('your_order')}
+        </h1>
       </div>
       <div className="flex flex-row gap-5 pb-2 border-b-2">
         <NavLink
@@ -36,7 +45,7 @@ function OrdersPage() {
             filter === 'all' ? 'text-black font-semibold' : 'text-blue-700'
           }`}
         >
-          Orders
+          {t('orders')}
         </NavLink>
         <NavLink
           onFocus={() => setFilter('pending')}
@@ -44,7 +53,7 @@ function OrdersPage() {
             filter === 'pending' ? 'text-black font-semibold' : 'text-blue-700'
           }`}
         >
-          Not Yet Dispatched
+          {t('Not Yet Dispatched')}
         </NavLink>
         <NavLink
           onFocus={() => setFilter('delivered')}
@@ -54,7 +63,7 @@ function OrdersPage() {
               : 'text-blue-700'
           }`}
         >
-          Delivered
+          {t('delivered')}
         </NavLink>
         <NavLink
           onFocus={() => setFilter('cancelled')}
@@ -64,7 +73,7 @@ function OrdersPage() {
               : 'text-blue-700'
           }`}
         >
-          Cancelled Orders
+          {t('cancelled_orders')}
         </NavLink>
       </div>
       {filteredOrder.map(order => {

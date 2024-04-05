@@ -1,6 +1,8 @@
 import React from 'react';
-
+import { useTranslation } from 'react-i18next';
 function Footer() {
+  const { i18n, t } = useTranslation();
+  const activeLocale = i18n.resolvedLanguage;
   const handleBackToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -12,43 +14,43 @@ function Footer() {
           className="w-full py-4 font-bold text-xl border-gray-500"
           onClick={handleBackToTop}
         >
-          Back to Top
+          {t('back_to_top')}
         </button>
         <div className="max-w-6xl mx-auto px-4 py-10 md:py-12">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div>
-              <h4 className="font-bold text-lg mb-4">Get to Know Us</h4>
+              <h4 className="font-bold text-lg mb-4">{t('know_us')}</h4>
               <ul className="list-none m-0 p-0">
-                <li className="mb-2">About Amazon</li>
-                <li className="mb-2">Careers</li>
-                <li className="mb-2">Amazon Science</li>
+                <li className="mb-2">{t('about_amazon')}</li>
+                <li className="mb-2">{t('careers')}</li>
+                <li className="mb-2">{t('amazon_science')}</li>
               </ul>
             </div>
             <div>
-              <h4 className="font-bold text-lg mb-4">Shop with Us</h4>
+              <h4 className="font-bold text-lg mb-4">{t('shop_with_us')}</h4>
               <ul>
-                <li className="mb-2">Your Account</li>
-                <li className="mb-2">Your Orders</li>
-                <li className="mb-2">Your Addresses</li>
-                <li className="mb-2">Your Lists</li>
+                <li className="mb-2">{t('your_account')}</li>
+                <li className="mb-2">{t('your_order')}</li>
+                <li className="mb-2">{t('your_addresses')}</li>
+                <li className="mb-2">{t('your_list')}</li>
               </ul>
             </div>
             <div>
-              <h4 className="font-bold text-lg mb-4">Make Money with Us</h4>
+              <h4 className="font-bold text-lg mb-4">{t('money_with_us')}</h4>
               <ul>
-                <li className="mb-2">Sell on Amazon</li>
-                <li className="mb-2">Advertise Your Products</li>
-                <li className="mb-2">Fulfillment by Amazon</li>
-                <li className="mb-2">Protect and Build Your Brand</li>
+                <li className="mb-2">{t('sell_on_amazon')}</li>
+                <li className="mb-2">{t('ad_your_product')}</li>
+                <li className="mb-2">{t('fulfillment_by_amazon')}</li>
+                <li className="mb-2">{t('build_your_brand')}</li>
               </ul>
             </div>
             <div>
-              <h4 className="font-bold text-lg mb-4">Let Us Help You</h4>
+              <h4 className="font-bold text-lg mb-4">{t('let_us_help_you')}</h4>
               <ul>
-                <li className="mb-2">Help</li>
-                <li className="mb-2">Shipping & Delivery</li>
-                <li className="mb-2">Returns & Replacements</li>
-                <li className="mb-2">Amazon App Download</li>
+                <li className="mb-2">{t('help')}</li>
+                <li className="mb-2">{t('shipping_delivery')}</li>
+                <li className="mb-2">{t('returns_replacements')}</li>
+                <li className="mb-2">{t('amazon_app_download')}</li>
               </ul>
             </div>
           </div>

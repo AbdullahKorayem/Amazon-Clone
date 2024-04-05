@@ -7,13 +7,13 @@ import { FilterSidebar } from './FilterSidebar';
 import { useLayoutEffect, useState } from 'react';
 
 const categories = [
-  { view: 'All', value: 'all' },
-  { view: 'Laptops', value: '65527fafa8299445e5fe5e85' },
-  { view: 'Mobiles', value: '656e34938ab097079167133d' },
-  { view: 'Head Phones', value: '65527fdca8299445e5fe5e87' },
+  { view: 'all', value: 'all' },
+  { view: 'laptops', value: '65527fafa8299445e5fe5e85' },
+  { view: 'moblie', value: '656e34938ab097079167133d' },
+  { view: 'headphones', value: '65527fdca8299445e5fe5e87' },
 ];
 const brands = [
-  { view: 'All', value: 'all' },
+  { view: 'all', value: 'all' },
   { view: 'Dell Laptops', value: 'dell' },
   { view: 'Samsung Phones', value: 'Samsung' },
   { view: 'Apple Phones', value: 'Apple' },
@@ -23,11 +23,11 @@ const brands = [
   { view: 'Sony', value: 'sony' },
 ];
 const priceRanges = [
-  { view: 'All', value: 'all' },
+  { view: 'all', value: 'all' },
   { view: 'Up to 1000 USD', value: [0, 1000] },
-  { view: 'Up to 5000 USD', value: [1000, 5000] },
-  { view: 'Up to 10000 USD', value: [5000, 10000] },
-  { view: 'Up to 30000 USD', value: [10000, 30000] },
+  { view: '1000 to 5000 USD', value: [1000, 5000] },
+  { view: '5000 to 10000 USD', value: [5000, 10000] },
+  { view: '10000 to 30000 USD', value: [10000, 30000] },
   { view: '30000 USD & above', value: [30000, 1000000] },
 ];
 
@@ -84,7 +84,7 @@ function Electronics() {
           />
         </div>
         <div className="w-[80%]">
-          <ProductsList products={filteredProducts} title="Electronics" />
+          <ProductsList products={filteredProducts} title="electronics" />
         </div>
       </div>
     );

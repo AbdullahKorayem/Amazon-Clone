@@ -1,28 +1,34 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Drawer, Button, Accordion, ButtonToolbar } from 'rsuite';
 import { FaBars } from 'react-icons/fa';
 import { fetchUser } from '../../redux/slices/User';
 import 'rsuite/Drawer/styles/index.css';
 import 'rsuite/Button/styles/index.css';
 import 'rsuite/Accordion/styles/index.css';
-
+import { useTranslation } from 'react-i18next';
 import 'rsuite/Animation/styles/index.css';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { dirContext } from '../../contexts/direction';
 
 export default function CustomDrawer({ lang, onSetLang }) {
   const UserName = useSelector(state => state.User.user?.UserName);
+  const { dir, setDir } = useContext(dirContext);
+  const drawerDir = dir == 'rtl' ? 'right' : 'left';
   const dispatch = useDispatch();
   const User = localStorage.getItem('UserUid');
   const [size, setSize] = useState();
   const [open, setOpen] = useState(false);
-  const [placement, setPlacement] = useState('left');
+  const [placement, setPlacement] = useState(drawerDir);
   const [seeAll, setSeeAll] = useState(false);
-
+  const { i18n, t } = useTranslation();
   const handleOpen = value => {
     setSize(value);
     setOpen(true);
   };
+  useEffect(() => {
+    setPlacement(drawerDir);
+  }, [dir]);
 
   const handleClose = () => {
     setOpen(false);
@@ -30,21 +36,21 @@ export default function CustomDrawer({ lang, onSetLang }) {
 
   const sections = [
     {
-      title: 'Digital content and devices',
+      title: `${t('digital_title')}`,
       links: [
-        { text: 'Amazon Kindle E-readers', to: '/kindle' },
-        { text: 'Mobiles & Labtops', to: '/electronics' },
+        { text: `${t('amazon_kindle')}`, to: '/kindle' },
+        { text: `${t('mobiles_laptops')}`, to: '/electronics' },
       ],
     },
     {
-      title: 'Shop by Category',
+      title: `${t('category_title')}`,
       links: [
-        { text: 'Mobiles, Tablets & Accessories', to: '/electronics' },
-        { text: 'Amazon Products', to: '/kindle' },
-        { text: 'Health & Personal Care', to: '/personal-care' },
-        { text: "Men's Fashion", to: '/watches' },
-        { text: 'Office Supplies', to: '/office-supplies' },
-        { text: 'Hot Drinks', to: '/coffee' },
+        { text: `${t('mobiles_tablets')}`, to: '/electronics' },
+        { text: `${t('amazon_products')}`, to: '/kindle' },
+        { text: `${t('personal_care')}`, to: '/personal-care' },
+        { text: `${t('men_fashion')}`, to: '/watches' },
+        { text: `${t('office_supplies')}`, to: '/office-supplies' },
+        { text: `${t('hot_drinks')}`, to: '/coffee' },
       ],
     },
   ];
@@ -52,12 +58,12 @@ export default function CustomDrawer({ lang, onSetLang }) {
   const accordSection = [
     {
       links: [
-        { text: 'Mobiles, Tablets & Accessories', to: '/electronics' },
-        { text: 'Amazon Products', to: '/kindle' },
-        { text: 'Health & Personal Care', to: '/personal-care' },
-        { text: "Men's Fashion", to: '/watches' },
-        { text: 'Office Supplies', to: '/office-supplies' },
-        { text: 'Hot Drinks', to: '/coffee' },
+        { text: `${t('mobiles_tablets')}`, to: '/electronics' },
+        { text: `${t('amazon_products')}`, to: '/kindle' },
+        { text: `${t('personal_care')}`, to: '/personal-care' },
+        { text: `${t('men_fashion')}`, to: '/watches' },
+        { text: `${t('office_supplies')}`, to: '/office-supplies' },
+        { text: `${t('hot_drinks')}`, to: '/coffee' },
       ],
     },
   ];
@@ -67,10 +73,12 @@ export default function CustomDrawer({ lang, onSetLang }) {
         <Button
           className=" text-white p-1 text-base bg-transparent border-none outline-none focus:outline-none focus:bg-transparent hover:bg-transparent"
           size="xs"
-          onClick={() => handleOpen('xs')}
+          onClick={() => {
+            handleOpen('xs');
+          }}
         >
           <FaBars className="mr-2 font-bold" />
-          All
+          {t('all')}
         </Button>
       </ButtonToolbar>
 
@@ -81,7 +89,9 @@ export default function CustomDrawer({ lang, onSetLang }) {
         onClose={() => setOpen(false)}
       >
         <Drawer.Header className="bg-[#232f3e]">
-          <Drawer.Title className="text-white">Hello {UserName}</Drawer.Title>
+          <Drawer.Title className="text-white">
+            {t('hello')} {UserName}
+          </Drawer.Title>
         </Drawer.Header>
 
         <Drawer.Body>
@@ -91,7 +101,7 @@ export default function CustomDrawer({ lang, onSetLang }) {
               {section.links.map((link, linkIndex) => (
                 <div
                   key={linkIndex}
-                  className="w-full p-1 rounded-md hover:bg-[#eaeded]"
+                  className="w-full p-1 rounded-md hover:bg-[#eaeded] my-3"
                 >
                   <h3 className="font-semibold">
                     <Link
@@ -104,14 +114,14 @@ export default function CustomDrawer({ lang, onSetLang }) {
                   </h3>
                 </div>
               ))}
-              {index < sections.length - 1 && <hr />}
+              {index < sections.length - 1 && <hr className="my-3" />}
             </div>
           ))}
-          <hr />
+          <hr className="my-3" />
 
           <Accordion>
             <Accordion.Panel
-              header={seeAll ? 'See Less' : 'See All'}
+              header={seeAll ? `${t('see_less')}` : `${t('see_all')}`}
               onClick={() => setSeeAll(!seeAll)}
             >
               {accordSection[0].links.map((link, linkIndex) => (
@@ -119,7 +129,7 @@ export default function CustomDrawer({ lang, onSetLang }) {
                   key={linkIndex}
                   className="w-full p-1 rounded-md hover:bg-[#eaeded]"
                 >
-                  <h3 className="font-semibold">
+                  <h3 className="font-semibold ">
                     <Link
                       to={link.to}
                       className="block w-full ml-2 text-blue-500 no-underline hover:no-underline"
@@ -134,7 +144,7 @@ export default function CustomDrawer({ lang, onSetLang }) {
           </Accordion>
 
           <Accordion>
-            <Accordion.Panel header="Help & Settings">
+            <Accordion.Panel header={t('help_settings')}>
               <div className="w-full p-1 rounded-md hover:bg-[#eaeded]">
                 <h3 className="font-semibold">
                   <Link
@@ -142,7 +152,7 @@ export default function CustomDrawer({ lang, onSetLang }) {
                     className="block w-full ml-2 text-blue-500 no-underline hover:no-underline"
                     onClick={handleClose}
                   >
-                    Your Account
+                    {t('your_account')}
                   </Link>
                 </h3>
               </div>
@@ -162,8 +172,12 @@ export default function CustomDrawer({ lang, onSetLang }) {
                   alt="US Flag"
                 />
                 <select
+                  value={lang}
                   className="text-base font-bold bg-transparent border-none"
-                  onChange={e => onSetLang(e.target.value)}
+                  onChange={e => {
+                    onSetLang(e.target.value);
+                    i18n.changeLanguage(e.target.value);
+                  }}
                 >
                   <option className=" bg-white" value="en">
                     EN
@@ -185,14 +199,14 @@ export default function CustomDrawer({ lang, onSetLang }) {
                         dispatch(fetchUser(User));
                       }}
                     >
-                      Sigh Out
+                      {t('sign_out')}
                     </Link>
                   ) : (
                     <Link
                       className="block w-full ml-2 text-blue-500 no-underline hover:no-underline"
                       to="/login"
                     >
-                      Sign In
+                      {t('sign_in')}
                     </Link>
                   )}
                 </h3>

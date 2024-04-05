@@ -5,9 +5,12 @@ import { Toaster, toast } from 'sonner';
 import { createUSer, db } from '../../firestore/firestore';
 import { useNavigate, Link } from 'react-router-dom';
 import { doc, setDoc } from 'firebase/firestore';
+import { useTranslation } from 'react-i18next';
 
 export default function Register() {
   document.title = 'Amazon : Sign Up';
+  const { t } = useTranslation();
+
   const navigate = useNavigate();
   const [working, setWorking] = useState(false);
   const {
@@ -78,10 +81,12 @@ export default function Register() {
 
           {/* Form Container */}
           <div className="flex flex-col border border-slate border-0.5 rounded-md p-10 max-w-xs mt-8 w-full ">
-            <h1 className="mb-5 text-2xl font-semibold">Create Account</h1>
+            <h1 className="mb-5 text-2xl font-semibold">
+              {t('create_account')}
+            </h1>
             {/* UserName */}
             <label htmlFor="UserName" className="mb-2">
-              Your Name
+              {t('your_name')}
             </label>
             <input
               {...register('UserName', {
@@ -112,7 +117,7 @@ export default function Register() {
 
             {/* Email or Phone Input */}
             <label htmlFor="emailOrPhone" className="mb-2">
-              Email or mobile phone number
+              {t('Email or mobile phone number')}
             </label>
             <input
               {...register('emailOrPhone', {
@@ -123,7 +128,7 @@ export default function Register() {
               name="emailOrPhone"
               type="text"
               className="w-full px-2 py-1 mb-4 border rounded-md outline-none border-slate-500 focus:ring-blue-700 focus:ring-1"
-              placeholder="Email or mobile phone number"
+              placeholder={t('Email or mobile phone number')}
             />
             {errors.emailOrPhone && errors.emailOrPhone.type === 'required' && (
               <p className="text-xs italic text-red-500">This is Required</p>
@@ -137,7 +142,7 @@ export default function Register() {
             {/*  */}
 
             <label htmlFor="Password" className="mb-2">
-              Password
+              {t('Password')}
             </label>
             <input
               {...register('Password', {
@@ -148,7 +153,7 @@ export default function Register() {
               name="Password"
               type="password"
               className="w-full px-2 py-1 mb-4 border rounded-md outline-none border-slate-500 focus:ring-blue-700 focus:ring-1"
-              placeholder="Password"
+              placeholder={t('Password')}
             />
             {errors.emailOrPhone && errors.emailOrPhone.type === 'required' && (
               <p className="text-xs italic text-red-500">This is required.</p>
@@ -161,7 +166,7 @@ export default function Register() {
 
             {/* ReEnter Password */}
             <label htmlFor="ConfirmPassword" className="mb-2">
-              Re-Enter Password
+              {t('Re-Enter Password')}
             </label>
             <input
               {...register('ConfirmPassword', {
@@ -172,7 +177,7 @@ export default function Register() {
               name="ConfirmPassword"
               type="password"
               className="w-full px-2 py-1 mb-4 border rounded-md outline-none border-slate-500 focus:ring-blue-700 focus:ring-1"
-              placeholder="Re-enter your password"
+              placeholder={t('Re-Enter Password')}
             />
             {errors.ConfirmPassword &&
               errors.ConfirmPassword.type === 'required' && (
@@ -192,52 +197,32 @@ export default function Register() {
               type="submit"
               disabled={working}
             >
-              Continue
+              {t('Continue')}
             </button>
 
             {/* Additional Options */}
             <div className="text-xs">
               <p className="text-xs font-200">
-                By continuing, you agree to Amazon's{' '}
+                {t('By continuing, you agree to')}
                 <a
                   href="https://www.amazon.com/conditions"
                   target="_blank"
-                  rel="noopener noreferrer"
                   className="Links"
                 >
-                  Conditions of Use
-                </a>{' '}
-                and{' '}
+                  {t('Conditions of Use')}
+                </a>
+                {t('and')}
                 <a
                   href="https://www.amazon.com/privacy"
                   target="_blank"
-                  rel="noopener noreferrer"
                   className="Links"
                 >
-                  Privacy Notice
+                  {t('Privacy Notice')}
                 </a>
                 .
               </p>
-
               {/* Need Help Section */}
               <NeedHelp working={working} toggleWorking={toggleWorking} />
-
-              <hr className="my-4" />
-
-              {/* Buying for Work Section */}
-              <div>
-                <h5 className="font-semibold ">Buying for work?</h5>
-                <p>
-                  <a
-                    href="https://www.amazon.com/business"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="Links"
-                  >
-                    Shop on Amazon Business
-                  </a>
-                </p>
-              </div>
             </div>
           </div>
         </section>

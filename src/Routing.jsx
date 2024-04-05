@@ -34,6 +34,9 @@ import Cancel from './pages/Stripe/Cancel';
 import Data from './pages/Stripe/data';
 import ServiceUnavailable from './pages/Service-Unavailable/ServiceUnavailable';
 import OrdersPage from './pages/OrdersPage/OrdersPage';
+import { useContext } from 'react';
+import { isCheckoutContext } from './contexts/isCheckout';
+
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
@@ -46,7 +49,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/orders',
-        element: <OrdersPage />,
+        element: <ProtectedRoute element={<OrdersPage />} />,
       },
       {
         path: '/product/:id',
@@ -94,16 +97,19 @@ const router = createBrowserRouter([
         path: '/search',
         element: <SearchResults />,
       },
+      {
+        path: '/data',
+        element: <Data />,
+      },
     ],
   },
   {
     path: '/checkout',
-    element: <ProtectedRoute element={<CheckoutPage />} />,
+    element: (
+      <ProtectedRoute element={<GoCheckout element={<CheckoutPage />} />} />
+    ),
   },
-  {
-    path: '/data',
-    element: <Data />,
-  },
+
   {
     path: '/login',
     element: <SignIn />,
@@ -139,4 +145,10 @@ function ProtectedRoute({ element }) {
   };
 
   return isAuthenticated() ? element : <Navigate to="/login" replace />;
+}
+
+function GoCheckout({ element }) {
+  const { isChecked } = useContext(isCheckoutContext);
+
+  return isChecked ? element : <Navigate to="/" replace />;
 }

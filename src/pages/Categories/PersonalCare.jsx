@@ -6,16 +6,16 @@ import { useLayoutEffect, useState } from 'react';
 import { FilterSidebar } from './FilterSidebar';
 
 const categories = [
-  { view: 'All', value: 'all' },
+  { view: 'all', value: 'all' },
   { view: 'Skin Care', value: '65663e6987a7139093a18198' },
   { view: 'Makeup', value: '65657840e686c668a4d18920' },
 ];
 const brands = [{ view: "L'Oréal Paris", value: 'all' }];
 const priceRanges = [
-  { view: 'All', value: 'all' },
+  { view: 'all', value: 'all' },
   { view: 'Up to 200 USD', value: [0, 200] },
   { view: '201 to 500 USD', value: [200, 500] },
-  { view: '201 to 500 USD', value: [500, 100000] },
+  { view: '500 USD & above', value: [500, 100000] },
 ];
 
 function PersonalCare() {
@@ -69,10 +69,7 @@ function PersonalCare() {
           />
         </div>
         <div className="w-[80%]">
-          <ProductsList
-            products={filteredProducts}
-            title="Health & Personal Care"
-          />
+          <ProductsList products={filteredProducts} title="personal-care" />
         </div>
       </div>
     );

@@ -5,14 +5,14 @@ import { useLayoutEffect, useState } from 'react';
 import { FilterSidebar } from './FilterSidebar';
 import ServiceUnavailable from '../Service-Unavailable/ServiceUnavailable';
 
-const categories = [{ view: 'Coffee', value: 'all' }];
+const categories = [{ view: 'coffee', value: 'all' }];
 const brands = [
-  { view: 'All', value: 'all' },
+  { view: 'all', value: 'all' },
   { view: 'Abu Auf', value: 'Abu Auf' },
   { view: 'Farouk Pasha', value: 'Farouk Pasha ' },
 ];
 const priceRanges = [
-  { view: 'All', value: 'all' },
+  { view: 'all', value: 'all' },
   { view: 'Up to 50 USD', value: [0, 50] },
   { view: '51 to 100 USD', value: [50, 100] },
   { view: '101 to 150 USD', value: [100, 150] },
@@ -71,7 +71,7 @@ function Coffee() {
           />
         </div>
         <div className="w-[80%]">
-          <ProductsList products={filteredProducts} title="Coffee" />
+          <ProductsList products={filteredProducts} title="coffee" />
         </div>
       </div>
     );

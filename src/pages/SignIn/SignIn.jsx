@@ -4,13 +4,15 @@ import { Toaster, toast } from 'sonner';
 import NeedHelp from './NeedHelp';
 import { Link, useNavigate } from 'react-router-dom';
 import { signInWithE_PW } from '../../firestore/firestore';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 // import { ChangeUser } from '../../redux/slices/User';
 export default function SignIn() {
   // const dispatch = useDispatch();
   document.title = 'Amazon : Sign In';
   const navigate = useNavigate();
   const [working, setWorking] = useState(false);
+  const { t } = useTranslation();
 
   const stateUser = useSelector(state => state.User.User);
   const {
@@ -32,8 +34,6 @@ export default function SignIn() {
         );
         toast.success('Sign In Successful');
         navigate('/');
-        // console.log(userCredential.user.uid);
-
         localStorage.setItem('UserUid', userCredential.user.uid);
       } catch (error) {
         if (error.code) {
@@ -61,10 +61,10 @@ export default function SignIn() {
 
           {/* Form Container */}
           <div className="flex flex-col border border-slate border-0.5 rounded-md p-10 max-w-xs mt-8 w-full ">
-            <h1 className="mb-5 text-2xl font-semibold">Sign In</h1>
+            <h1 className="mb-5 text-2xl font-semibold">{t('sign_in')}</h1>
             {/* Email or Phone Input */}
             <label htmlFor="emailOrPhone" className="mb-2">
-              Email or mobile phone number
+              {t('Email or mobile phone number')}
             </label>
             <input
               {...register('emailOrPhone', {
@@ -83,7 +83,7 @@ export default function SignIn() {
               name="emailOrPhone"
               type="text"
               className="w-full px-2 py-1 mb-4 border rounded-md outline-none border-slate-500 focus:ring-blue-700 focus:ring-1"
-              placeholder="Email or mobile phone number"
+              placeholder={t('Email or mobile phone number')}
             />
             <Toaster position="top-center" richColors />
             {errors.emailOrPhone && (
@@ -94,7 +94,7 @@ export default function SignIn() {
 
             {/* Password */}
             <label htmlFor="Password" className="mb-2">
-              Password
+              {t('Password')}
             </label>
             <input
               {...register('Password', {
@@ -109,7 +109,7 @@ export default function SignIn() {
               name="Password"
               type="password"
               className="w-full px-2 py-1 mb-4 border rounded-md outline-none border-slate-500 focus:ring-blue-700 focus:ring-1"
-              placeholder="Password"
+              placeholder={t('Password')}
             />
             {errors.Password && (
               <p className="text-xs italic text-red-500">
@@ -119,55 +119,39 @@ export default function SignIn() {
 
             {/* Continue Button */}
             <button className="bg-[#ffd814] hover:bg-[#ffc300] px-20 border-none mb-4">
-              Continue
+              {t('Continue')}
             </button>
 
             {/* Additional Options */}
             <div className="text-xs">
               <p className="text-xs font-200">
-                By continuing, you agree to Amazon's{' '}
+                {t('By continuing, you agree to')}
                 <a
                   href="https://www.amazon.com/conditions"
                   target="_blank"
                   className="Links"
                 >
-                  Conditions of Use
-                </a>{' '}
-                and{' '}
+                  {t('Conditions of Use')}
+                </a>
+                {t('and')}
                 <a
                   href="https://www.amazon.com/privacy"
                   target="_blank"
                   className="Links"
                 >
-                  Privacy Notice
+                  {t('Privacy Notice')}
                 </a>
                 .
               </p>
 
               {/* Need Help Section */}
               <NeedHelp working={working} toggleWorking={toggleWorking} />
-
-              <hr className="my-4" />
-
-              {/* Buying for Work Section */}
-              <div>
-                <h5 className="font-semibold ">Buying for work?</h5>
-                <p>
-                  <a
-                    href="https://www.amazon.com/business"
-                    target="_blank"
-                    className="Links"
-                  >
-                    Shop on Amazon Business
-                  </a>
-                </p>
-              </div>
             </div>
           </div>
         </section>
 
         <section className="flex flex-col items-center mt-5">
-          <p className="text-[#767676] text-sm mb-2">New to Amazon ?</p>
+          <p className="text-[#767676] text-sm mb-2">{t('new_to_amazon')}</p>
           <button
             onClick={() => {
               navigate('/register');
@@ -175,7 +159,7 @@ export default function SignIn() {
             type="button"
             className="p-1 shadow-lg w-64 bg-white text-sm hover:bg-[#f7fafa] rounded-md duration-300"
           >
-            Create Your Amazon Account
+            {t('Create Your Amazon Account')}
           </button>
         </section>
       </form>

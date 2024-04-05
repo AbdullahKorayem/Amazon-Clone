@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Available from '../Available/Available';
 import {
   deleteItemFromCart,
   updateCartItemQuantity,
 } from '../../firestore/firestore';
 import { Link } from 'react-router-dom';
+import { dirContext } from '../../contexts/direction';
+import { useTranslation } from 'react-i18next';
 
 function CartCard({ item }) {
   const {
@@ -18,6 +20,8 @@ function CartCard({ item }) {
     quantity,
   } = item;
   const [Quantity, setQuantity] = useState(quantity);
+  const { t } = useTranslation();
+  const { dir } = useContext(dirContext);
   const availability = quantityInStock > 0;
   async function handleQuantityChange(e) {
     setQuantity(+e.target.value);
@@ -28,19 +32,25 @@ function CartCard({ item }) {
     <div className="w-full border-t-2 border-slate-300 rounded-md p-4 flex  justify-between">
       <div className="flex items-center">
         <div className="w-30 h-30">
-          <img className="w-16 mr-16" src={productImage} alt="" />
+          <img
+            className={`w-16 ${dir === 'rtl' ? 'ml-16' : 'mr-16'} `}
+            src={productImage}
+            alt=""
+          />
         </div>
         <div className="flex flex-col gap-3">
           <Link to={`/product/${productId}`}>
             <h3 className="font-semibold w-[90%]">{productDescription}</h3>
           </Link>
 
-          <Available availability={availability} size="xs" />
+          <Available availability={availability} size="md" />
 
-          <p className="text-gray-500 text-xs">Eligible for FREE delivery</p>
+          <p className="text-gray-500 text-xs">
+            {t('Eligible for FREE delivery')}
+          </p>
           <div className="flex items-center">
             <select
-              className="bg-gray-200 border-none outline-none py-1 rounded-xl mr-2"
+              className="bg-gray-200 border-none outline-none py-1 rounded-xl mr-2 w-20"
               name="Quantity"
               value={Quantity}
               id=""
@@ -59,12 +69,12 @@ function CartCard({ item }) {
               }}
               className="  text-sm border-none text-sky-800 cursor-pointer"
             >
-              Delete
+              {t('delete')}
             </button>
 
             <div className="border-r  border-gray-400 mx-1 h-4"></div>
             <button className="border-none text-sm text-sky-800  cursor-pointer">
-              Share
+              {t('share')}
             </button>
           </div>
         </div>

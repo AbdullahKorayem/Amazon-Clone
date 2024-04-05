@@ -11,8 +11,12 @@ import { ProductCard } from './../Cards/ProductCard';
 import { useContext } from 'react';
 import { langContext } from '../../contexts/lang';
 import { allProductsContext } from '../../contexts/allProducts';
+import { useTranslation } from 'react-i18next';
+import { Spinner } from 'flowbite-react';
 
 const ProductSlider = ({ subCategoryId, title }) => {
+  const { i18n, t } = useTranslation();
+  const activeLocale = i18n.resolvedLanguage;
   const { allProducts } = useContext(allProductsContext);
   const { lang } = useContext(langContext);
   const result = allProducts.filter(
@@ -21,7 +25,7 @@ const ProductSlider = ({ subCategoryId, title }) => {
 
   return (
     <>
-      <Slider title={title}>
+      <Slider title={t(title)}>
         <Swiper
           modules={[Navigation]}
           spaceBetween={0}

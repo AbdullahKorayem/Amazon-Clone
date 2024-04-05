@@ -7,7 +7,6 @@ function Success() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const order = JSON.parse(sessionStorage.getItem('order'));
-  console.log(order);
   useEffect(() => {
     setIsLoading(true);
     async function setorder() {
@@ -21,6 +20,8 @@ function Success() {
     order.item.forEach(async ele => {
       const res = await deleteItemFromCart(ele.id);
     });
+    sessionStorage.removeItem('checkout');
+    sessionStorage.removeItem('order');
     navigate('/');
   }
   return (

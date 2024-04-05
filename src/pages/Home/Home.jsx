@@ -14,10 +14,14 @@ import { useContext, useEffect, useState } from 'react';
 import { allCategoriesContext } from '../../contexts/allCategories';
 import { getAllCategories } from '../../firestore/firestore';
 import { Spinner } from 'flowbite-react';
+import { useTranslation } from 'react-i18next';
+import ServiceUnavailable from './../Service-Unavailable/ServiceUnavailable';
+
 const Home = () => {
   const { categories, setCategories } = useContext(allCategoriesContext);
   const [isLoading, setIsLoading] = useState(true);
-
+  const { i18n, t } = useTranslation();
+  const activeLocale = i18n.resolvedLanguage;
   useEffect(() => {
     document.title = 'Amazon : Home';
     setIsLoading(true);
@@ -25,9 +29,16 @@ const Home = () => {
       try {
         if (categories.length === 0) {
           const Allcategries = await getAllCategories();
+
           setCategories(Allcategries);
+          if (Allcategries.length === 0) {
+            setTimeout(() => {
+              setIsLoading(false);
+            }, 1000);
+          }
+        } else {
+          setIsLoading(false);
         }
-        setIsLoading(false);
       } catch (e) {
         console.log(e);
       }
@@ -47,7 +58,7 @@ const Home = () => {
           <div className="  pl-4 md:pl-7 pr-4 md:pr-7">
             <div className=" grid gap-5 lg:grid-cols-3 xl:grid-cols-4 md:grid-cols-2 min-[400px]:grid-cols-1  -mt-80">
               <Link to={`/${categories[0]?.link}`}>
-                <HomeCardOneImage title={categories[0]?.name}>
+                <HomeCardOneImage title={categories[0]?.link}>
                   {!categories[0] && (
                     <div className="flex justify-center items-center">
                       <Spinner color="failure" />
@@ -63,7 +74,7 @@ const Home = () => {
                 </HomeCardOneImage>
               </Link>
               <Link to={`/${categories[1]?.link}`}>
-                <HomeCardOneImage title={categories[1]?.name}>
+                <HomeCardOneImage title={categories[1]?.link}>
                   {!categories[1] && (
                     <div className="flex justify-center items-center">
                       <Spinner color="failure" />
@@ -73,13 +84,13 @@ const Home = () => {
                     <img
                       className=" h-72 w-72"
                       src={categories[1]?.thumbnails}
-                      alt={categories[1]?.name}
+                      alt={categories[1]?.link}
                     />
                   )}
                 </HomeCardOneImage>
               </Link>
               <Link to={`/${categories[2]?.link}`}>
-                <HomeCardOneImage title={categories[2]?.name}>
+                <HomeCardOneImage title={categories[2]?.link}>
                   {!categories[2] && (
                     <div className="flex justify-center items-center">
                       <Spinner color="failure" />
@@ -89,7 +100,7 @@ const Home = () => {
                     <img
                       className=" h-72 w-72"
                       src={categories[2]?.thumbnails}
-                      alt={categories[2]?.name}
+                      alt={categories[2]?.link}
                     />
                   )}
                 </HomeCardOneImage>
@@ -98,7 +109,7 @@ const Home = () => {
                 to={`/${categories[3]?.link}`}
                 className="lg:hidden xl:block"
               >
-                <HomeCardOneImage title={categories[3]?.name}>
+                <HomeCardOneImage title={categories[3]?.link}>
                   {!categories[3] && (
                     <div className="flex justify-center items-center">
                       <Spinner color="failure" />
@@ -108,7 +119,7 @@ const Home = () => {
                     <img
                       className=" h-72 w-72"
                       src={categories[3]?.thumbnails}
-                      alt={categories[3]?.name}
+                      alt={categories[3]?.link}
                     />
                   )}
                 </HomeCardOneImage>
@@ -116,7 +127,7 @@ const Home = () => {
             </div>
             <div className=" grid gap-5 lg:grid-cols-3 xl:grid-cols-4 md:grid-cols-2 min-[400px]:grid-cols-1  ">
               <Link to={`/${categories[4]?.link}`}>
-                <HomeCardOneImage title={categories[4]?.name}>
+                <HomeCardOneImage title="laptops">
                   {!categories[4] && (
                     <div className="flex justify-center items-center">
                       <Spinner color="failure" />
@@ -126,13 +137,13 @@ const Home = () => {
                     <img
                       className=" h-72 w-72"
                       src={categories[4]?.thumbnails}
-                      alt={categories[4]?.name}
+                      alt={categories[4]?.link}
                     />
                   )}
                 </HomeCardOneImage>
               </Link>
               <Link to={`/${categories[5]?.link}`}>
-                <HomeCardOneImage title={categories[5]?.name}>
+                <HomeCardOneImage title="headphones">
                   {!categories[5] && (
                     <div className="flex justify-center items-center">
                       <Spinner color="failure" />
@@ -142,32 +153,13 @@ const Home = () => {
                     <img
                       className=" h-72 w-72"
                       src={categories[5]?.thumbnails}
-                      alt={categories[5]?.name}
+                      alt={categories[5]?.link}
                     />
                   )}
                 </HomeCardOneImage>
               </Link>
-              <Link to={`/${categories[6]?.link}`}>
-                <HomeCardOneImage title={categories[6]?.name}>
-                  {!categories[6] && (
-                    <div className="flex justify-center items-center">
-                      <Spinner color="failure" />
-                    </div>
-                  )}
-                  {categories[6] && (
-                    <img
-                      className=" h-72 w-72"
-                      src={categories[6]?.thumbnails}
-                      alt={categories[6]?.name}
-                    />
-                  )}
-                </HomeCardOneImage>
-              </Link>
-              <Link
-                to={`/${categories[7]?.link}`}
-                className="lg:hidden xl:block"
-              >
-                <HomeCardOneImage title={categories[7]?.name}>
+              <Link to={`/${categories[7]?.link}`}>
+                <HomeCardOneImage title={categories[7]?.link}>
                   {!categories[7] && (
                     <div className="flex justify-center items-center">
                       <Spinner color="failure" />
@@ -177,13 +169,32 @@ const Home = () => {
                     <img
                       className=" h-72 w-72"
                       src={categories[7]?.thumbnails}
-                      alt={categories[7]?.name}
+                      alt={categories[7]?.link}
+                    />
+                  )}
+                </HomeCardOneImage>
+              </Link>
+              <Link
+                to={`/${categories[7]?.link}`}
+                className="lg:hidden xl:block"
+              >
+                <HomeCardOneImage title={categories[7]?.link}>
+                  {!categories[7] && (
+                    <div className="flex justify-center items-center">
+                      <Spinner color="failure" />
+                    </div>
+                  )}
+                  {categories[7] && (
+                    <img
+                      className=" h-72 w-72"
+                      src={categories[7]?.thumbnails}
+                      alt={categories[7]?.link}
                     />
                   )}
                 </HomeCardOneImage>
               </Link>
             </div>
-            <Slider title="Discover Amazon">
+            <Slider title="discover_amazon">
               <Swiper
                 className="mx-6"
                 // slidesPerView={4}
@@ -293,19 +304,19 @@ const Home = () => {
 
             <ProductSliderVthree
               CategoryId={'6562f3891cf9fca552f8c5ac'}
-              title={'shop Top Pickes in office supplies'}
+              title={'shop_office_supplies'}
               link={'/office-supplies'}
             />
 
             <ProductSliderVthree
               CategoryId={'65527c8c376a52ea210d970a'}
-              title={' Personal Care essentials '}
+              title={'personal_care_essentials'}
               link={'/personal-care'}
             />
 
             <div className=" grid gap-5 lg:grid-cols-3 xl:grid-cols-4 md:grid-cols-2 min-[400px]:grid-cols-2 sm:grid-cols-1 ">
               <Link to={`/${categories[8]?.link}`}>
-                <HomeCardOneImage title={categories[8]?.name}>
+                <HomeCardOneImage title="moblie">
                   {!categories[8] && (
                     <div className="flex justify-center items-center">
                       <Spinner color="failure" />
@@ -315,13 +326,13 @@ const Home = () => {
                     <img
                       className=" h-72 w-72"
                       src={categories[8]?.thumbnails}
-                      alt={categories[8]?.name}
+                      alt={categories[8]?.link}
                     />
                   )}
                 </HomeCardOneImage>
               </Link>
               <Link to={`/${categories[1]?.link}`}>
-                <HomeCardOneImage title={categories[1]?.name}>
+                <HomeCardOneImage title={categories[1]?.link}>
                   {!categories[1] && (
                     <div className="flex justify-center items-center">
                       <Spinner color="failure" />
@@ -331,13 +342,13 @@ const Home = () => {
                     <img
                       className=" h-72 w-72"
                       src={categories[1]?.thumbnails}
-                      alt={categories[1]?.name}
+                      alt={categories[1]?.link}
                     />
                   )}
                 </HomeCardOneImage>
               </Link>
               <Link to={`/${categories[6]?.link}`}>
-                <HomeCardOneImage title={categories[6]?.name}>
+                <HomeCardOneImage title={categories[6]?.link}>
                   {!categories[6] && (
                     <div className="flex justify-center items-center">
                       <Spinner color="failure" />
@@ -347,7 +358,7 @@ const Home = () => {
                     <img
                       className=" h-72 w-72"
                       src={categories[6]?.thumbnails}
-                      alt={categories[6]?.name}
+                      alt={categories[6]?.link}
                     />
                   )}
                 </HomeCardOneImage>
@@ -356,7 +367,7 @@ const Home = () => {
                 to={`/${categories[5]?.link}`}
                 className="lg:hidden xl:block"
               >
-                <HomeCardOneImage title={categories[5]?.name}>
+                <HomeCardOneImage title="headphones">
                   {!categories[5] && (
                     <div className="flex justify-center items-center">
                       <Spinner color="failure" />
@@ -366,13 +377,13 @@ const Home = () => {
                     <img
                       className=" h-72 w-72"
                       src={categories[5]?.thumbnails}
-                      alt={categories[5]?.name}
+                      alt={categories[5]?.link}
                     />
                   )}
                 </HomeCardOneImage>
               </Link>
             </div>
-            <Slider title="Shop by Category">
+            <Slider title="category_title">
               <Swiper
                 className="mx-6"
                 modules={[Navigation]}
@@ -427,15 +438,15 @@ const Home = () => {
 
             <ProductSlider
               subCategoryId="656e34938ab097079167133d"
-              title="Moblie"
+              title="moblie"
             />
             <ProductSlider
               subCategoryId="65527fdca8299445e5fe5e87"
-              title="Headphones"
+              title="headphones"
             />
             <ProductSlider
               subCategoryId="65694e7b244db28213810d49"
-              title="Amazon products"
+              title="amazon_products"
             />
           </div>
         </>

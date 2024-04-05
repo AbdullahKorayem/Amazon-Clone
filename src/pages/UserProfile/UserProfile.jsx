@@ -5,7 +5,9 @@ const UserProfile = () => {
   document.title = 'Amazon : Your Profile';
   return (
     <>
-      <div className="text-2xl xl:text-3xl  ml-64 mt-4 -mb-5">Your Account</div>
+      <div className="text-2xl xl:text-3xl text-center mt-4 -mb-5">
+        Your Account
+      </div>
       <div className="flex flex-col items-center ">
         <div className="grid  lg:grid-cols-3  md:grid-cols-2 sm:grid-cols-1 md:gap-x-6 pt-4 items-center">
           <Link to="/orders">

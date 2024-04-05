@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import AddAddressModal from './AddAddressModel/AddAddressModal';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 export default function Addresses({ setInfo, info, change, setChange }) {
   const addresses = useSelector(state => state.User.user?.UserInformation);
+  const { i18n, t } = useTranslation();
 
   return (
     <div className="flex flex-col items-center justify-center w-full  border-2 rounded-md p-4">
       <div className="border-0.5 border-black p-4 mb-4 rounded-lg w-full ">
         <div>
           <h1 className="text-xl font-medium text-gray-900 dark:text-white mb-5">
-            Your Addresses
+            {t('your_addresses')}
           </h1>
           <hr className="mb-5" />
         </div>
@@ -27,7 +29,7 @@ export default function Addresses({ setInfo, info, change, setChange }) {
                     type="radio"
                     name="address"
                     id={`address-${index}`}
-                    className="mr-2"
+                    className="mx-2"
                     onClick={() => {
                       setInfo(info => {
                         return {
@@ -51,7 +53,9 @@ export default function Addresses({ setInfo, info, change, setChange }) {
               </label>
             ))
           ) : (
-            <h1 className="text-lg font-semibold text-center">No Addresses</h1>
+            <h1 className="text-lg font-semibold text-center">
+              {'no_addresses'}
+            </h1>
           )}
         </div>
         <AddAddressModal change={change} setChange={setChange} />

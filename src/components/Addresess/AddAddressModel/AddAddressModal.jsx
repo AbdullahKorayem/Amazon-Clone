@@ -7,9 +7,11 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import { AddUserData } from './../../../firestore/firestore';
+import { useTranslation } from 'react-i18next';
 
 export default function AddAddressModal({ change, setChange }) {
   const navigate = useNavigate();
+  const { i18n, t } = useTranslation();
 
   const [country, setCountry] = useState([]);
 
@@ -94,7 +96,7 @@ export default function AddAddressModal({ change, setChange }) {
         className="bg-[#ffd814]   hover:bg-[#ffc300] border-none"
         onClick={() => setOpenModal(true)}
       >
-        Add New Address
+        {t('add_new_address')}
       </Button>
       <Modal
         show={openModal}
@@ -106,7 +108,7 @@ export default function AddAddressModal({ change, setChange }) {
         <Modal.Body className="w-full">
           <section className="flex flex-col items-center justify-center h-5 p-10 mb-5 bg-gray-200 rounded-md">
             <h3 className="text-xl font-medium text-gray-900 dark:text-white">
-              Enter a new shipping address
+              {t('Enter a new shipping address')}
             </h3>
           </section>
           <section className="block w-full mb-2 ">
@@ -114,11 +116,11 @@ export default function AddAddressModal({ change, setChange }) {
               onSubmit={handleSubmit(onSubmit)}
               className="flex flex-col w-full gap-4"
             >
-              <h1 className="text-xl font-medium">Add a new address</h1>
+              <h1 className="text-xl font-medium">{t('add_new_address')}</h1>
 
               <div>
                 <label htmlFor="Country" className="ModalLabel">
-                  Country
+                  {t('Country')}
                 </label>
                 <select
                   name="Country"
@@ -139,7 +141,7 @@ export default function AddAddressModal({ change, setChange }) {
 
               <div>
                 <label htmlFor="Full-name" className="ModalLabel">
-                  Full name
+                  {t('full_name')}
                 </label>
                 <input
                   type="text"
@@ -152,7 +154,7 @@ export default function AddAddressModal({ change, setChange }) {
 
               <div>
                 <label htmlFor="Phone" className="ModalLabel">
-                  Phone Number
+                  {t('phone_number')}
                 </label>
                 <input
                   type="text"
@@ -165,7 +167,7 @@ export default function AddAddressModal({ change, setChange }) {
 
               <div>
                 <label htmlFor="StreetAddress" className="ModalLabel">
-                  Street address
+                  {t('street_address')}
                 </label>
                 <input
                   type="text"
@@ -188,7 +190,7 @@ export default function AddAddressModal({ change, setChange }) {
               <section className="flex flex-row justify-between">
                 <div>
                   <label htmlFor="City" className="ModalLabel">
-                    City
+                    {t('City')}
                   </label>
                   <input
                     type="text"
@@ -200,7 +202,7 @@ export default function AddAddressModal({ change, setChange }) {
                 </div>
                 <div>
                   <label htmlFor="State" className="ModalLabel">
-                    State
+                    {t('State')}
                   </label>
                   <input
                     type="text"
@@ -212,7 +214,7 @@ export default function AddAddressModal({ change, setChange }) {
                 </div>
                 <div>
                   <label htmlFor="Zip" className="ModalLabel">
-                    Zip
+                    {t('Zip')}
                   </label>
                   <input
                     type="text"
@@ -230,17 +232,17 @@ export default function AddAddressModal({ change, setChange }) {
                   className="rounded-md outline-none"
                   {...register('useAsDefault')}
                 />
-                <label htmlFor="">Use as my default address.</label>
+                <label htmlFor="">{t('Use as my default address')}.</label>
               </div>
 
-              <p className="text-xs">May be used to assist delivery</p>
+              <p className="text-xs">{t('May be used to assist delivery')}</p>
 
               <Button
                 color="white"
                 className="bg-[#ffd814]   hover:bg-[#ffc300] border-none"
                 type="submit"
               >
-                Add Address
+                {t('add_address')}
               </Button>
               <Toaster position="top-center" richColors />
             </form>

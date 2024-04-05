@@ -4,14 +4,14 @@ import OrderCardItems from './OrderCardItems';
 import { Button } from 'flowbite-react';
 import { useNavigate } from 'react-router-dom';
 import { addOrder, deleteItemFromCart } from '../../../firestore/firestore';
+import { useTranslation } from 'react-i18next';
 
 export default function OrderCard({ totalQuantity, totalPrice, info }) {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const orderSummary = [
     { label: 'Items', value: totalQuantity },
-    { label: 'Shipping & handling', value: 'Free' },
-    { label: 'Total before tax', value: totalPrice.toFixed(2) },
-    { label: 'Estimated tax to be collected', value: totalPrice.toFixed(2) },
+    { label: 'shipping_handling', value: 'Free' },
   ];
 
   let checkoutItem = JSON.parse(sessionStorage.getItem('checkout'));
@@ -20,6 +20,9 @@ export default function OrderCard({ totalQuantity, totalPrice, info }) {
     info.item.forEach(async ele => {
       const res = await deleteItemFromCart(ele.id);
     });
+    sessionStorage.removeItem('checkout');
+    sessionStorage.removeItem('order');
+
     navigate('/');
   };
 
@@ -54,7 +57,7 @@ export default function OrderCard({ totalQuantity, totalPrice, info }) {
                 color="white"
                 className="mx-auto w-full mb-4 bg-[#ffd814] hover:bg-[#ffc300] border-none "
               >
-                Place your order
+                {t('Place your order')}
               </Button>
             )}
           {info.paymentMethod &&
@@ -66,7 +69,7 @@ export default function OrderCard({ totalQuantity, totalPrice, info }) {
                 color="white"
                 className="mx-auto w-full mb-4 bg-[#ffd814] hover:bg-[#ffc300] border-none "
               >
-                Use this payment method
+                {t('Use this payment method')}
               </Button>
             )}
           {info.paymentMethod !== '' ||
@@ -77,28 +80,26 @@ export default function OrderCard({ totalQuantity, totalPrice, info }) {
                 color="white"
                 className="mx-auto w-full mb-4 bg-[#ffd814] hover:bg-[#ffc300] border-none "
               >
-                Use this payment method
+                {t('Use this payment method')}
               </Button>
             ))}
 
           <p className="text-sm font-semibold text-center ">
-            Choose a payment method to continue checking out. You'll still have
-            a chance to review and edit your order before it's final.
+            {t('oredr_card_description')}
           </p>
         </div>
         <hr />
-        <section className="flex-col">
-          <h1 className="mb-5 text-xl font-medium text-gray-900 dark:text-white">
-            Order Summary
+        <section className="flex-col w-11/12">
+          <h1 className="mb-5 text-xl font-medium text-gray-900 dark:text-white ">
+            {t('order_summary')}
           </h1>
           <hr />
-          <ul>
+          <ul className="border-b-2">
             <OrderCardItems items={orderSummary} />
           </ul>
         </section>
-        <hr />
-        <h1 className="mb-5 text-xl font-medium  dark:text-white text-[#b12704]">
-          Order total: {totalPrice.toFixed(2)}
+        <h1 className="mb-5 text-xl font-medium  dark:text-white   text-[#b12704]">
+          {t('order_total')}: {totalPrice.toFixed(2)}
         </h1>
       </section>
     </>

@@ -5,17 +5,17 @@ import ServiceUnavailable from '../Service-Unavailable/ServiceUnavailable';
 import { useLayoutEffect, useState } from 'react';
 import { FilterSidebar } from './FilterSidebar';
 
-const categories = [{ view: 'Watches', value: 'all' }];
+const categories = [{ view: 'watches', value: 'all' }];
 const brands = [
-  { view: 'All', value: 'all' },
+  { view: 'all', value: 'all' },
   { view: 'Casio', value: 'Casio' },
   { view: 'Swiss', value: 'swiss' },
   { view: 'Alba', value: 'Alba' },
 ];
 const priceRanges = [
-  { view: 'All', value: 'all' },
+  { view: 'all', value: 'all' },
   { view: 'Up to 1000 USD', value: [0, 1000] },
-  { view: '1001 to 2000 USD', value: [1000, 2000] },
+  { view: '1000 to 2000 USD', value: [1000, 2000] },
   { view: '2000 USD & above', value: [2000, 100000] },
 ];
 
@@ -70,7 +70,7 @@ function Watches() {
           />
         </div>
         <div className="w-[80%]">
-          <ProductsList products={filteredProducts} title="Watches" />
+          <ProductsList products={filteredProducts} title="watches" />
         </div>
       </div>
     );

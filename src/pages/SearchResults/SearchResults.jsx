@@ -15,14 +15,15 @@ export default function SearchResults() {
       : true;
 
     const productMatch = product
-      ? productObj &&
-        productObj.en &&
-        Object.values(productObj.en).some(value =>
-          value.toLowerCase().includes(product.toLowerCase())
-        )
+      ? (productObj &&
+          productObj.en &&
+          Object.values(productObj.en).some(value =>
+            value.toLowerCase().includes(product.toLowerCase())
+          )) ||
+        Object.values(productObj.ar).some(value => value.includes(product))
       : true;
     return categoryMatch && productMatch;
   });
   if (filteredProducts.length === 0) return <NoResult result={product} />;
-  else return <ProductsList products={filteredProducts} title="Results" />;
+  else return <ProductsList products={filteredProducts} title="results" />;
 }

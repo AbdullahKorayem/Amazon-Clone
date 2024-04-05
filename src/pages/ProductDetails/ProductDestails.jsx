@@ -18,8 +18,12 @@ import ProductsList from './../../components/ProductsList/ProductsList';
 import ProductSliderV2 from './../../components/productSlider/ProductSliderV2';
 import { FaLocationDot } from 'react-icons/fa6';
 import SetRating from '../../components/SetRating/SetRating';
+import { useTranslation } from 'react-i18next';
+import { isCheckoutContext } from '../../contexts/isCheckout';
 
 const ProductDetail = () => {
+  const { i18n, t } = useTranslation();
+  const activeLocale = i18n.resolvedLanguage;
   const userUid = useSelector(state => state.User.user?.uid);
   const { id: productId } = useParams();
   const product = useLoaderData();
@@ -28,6 +32,8 @@ const ProductDetail = () => {
   const [quantity, setQuantity] = useState(1);
   const { nums, setNums } = useContext(cartItemsCountContext);
   const [relatedProduct, setRelatedProduct] = useState([]);
+  const { setIsChecked } = useContext(isCheckoutContext);
+
   let price;
   let availability;
   let images = [];
@@ -89,8 +95,14 @@ const ProductDetail = () => {
             <div className="my-3 font-bold">
               <Available availability={availability} size="xl" />
             </div>
-            <ProductData name="Brand Name" description={product[lang].brand} />
-            <ProductData name="Model Name" description={product[lang].title} />
+            <ProductData
+              name={t('Brand Name')}
+              description={product[lang].brand}
+            />
+            <ProductData
+              name={t('Model Name')}
+              description={product[lang].title}
+            />
 
             <div className="mt-7 flex lg:hidden md:hidden flex-col items-center gap-3">
               <HandleQuantity
@@ -115,7 +127,7 @@ const ProductDetail = () => {
                 }}
                 className=" bg-[#ffd814] hover:bg-[#ffc300]  flex  h-12  w-52 items-center justify-center text-black duration-100 border-none "
               >
-                Add to cart
+                {t('add_to_cart')}
               </button>
             </div>
           </div>
@@ -127,19 +139,14 @@ const ProductDetail = () => {
                 <strong>${price}</strong>
               </p>
             </div>
-            <div style={{ color: '#007185' }}>FREE Returns </div>
+            <div style={{ color: '#007185' }}>{t('FREE Returns')} </div>
 
             <div className="flex items-center">
               <FaLocationDot />
-              <p style={{ color: '#007185' }}>Diliver to Egypt</p>
+              <p style={{ color: '#007185' }}>{t('deliver_to')} Egypt</p>
             </div>
-            <div>
-              <span
-                className=" text-xl  font-bold "
-                style={{ color: '#057A55' }}
-              >
-                In Stock
-              </span>
+            <div className="my-3 font-bold">
+              <Available availability={availability} size="xl" />
             </div>
             <div className=" flex  flex-col justify-center items-center">
               <HandleQuantity quantity={quantity} setQuantity={setQuantity} />
@@ -156,17 +163,19 @@ const ProductDetail = () => {
                         price,
                         product.quantityInStock,
                         quantity
+                        //sellerId
                       );
                       setNums(nums => nums + quantity);
                     } else navigate('/login');
                   }}
                   className=" bg-[#ffd814] hover:bg-[#ffc300]  flex  h-7  w-52 items-center justify-center text-black duration-100 border-none "
                 >
-                  Add to cart
+                  {t('add_to_cart')}
                 </button>
                 <button
                   onClick={() => {
                     if (userUid) {
+                      setIsChecked(true);
                       setNums(nums => nums + quantity);
                       const orderItems = [
                         {
@@ -187,29 +196,29 @@ const ProductDetail = () => {
                   }}
                   className=" bg-[#FFA41C] hover:bg-[#FFA41C]  flex  h-7  w-52 items-center justify-center text-black duration-100 border-none "
                 >
-                  Buy Now
+                  {t('buy_now')}
                 </button>
               </div>
             </div>
-            <div className=" flex gap-8">
+            <div className=" flex gap-8 text-xs">
               <div className=" flex flex-col">
-                <span>ships From </span>
-                <span>Sold by </span>
-                <span>Payment </span>
+                <span>{t('ships_from')} </span>
+                <span>{t('sold_by')} </span>
+                <span>{t('payment')} </span>
               </div>
               <div className=" flex flex-col">
                 <span>Amazon.eg </span>
                 <span>Amazon.eg </span>
-                <span>secure Transaction </span>
+                <span>{t('secure_transaction')} </span>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <ProductSliderV2 data={relatedProduct} title="Suggested Products" />
+      <ProductSliderV2 data={relatedProduct} title={t('suggested_products')} />
       <section className="container my-20 border-t-2 border-gray-200">
         <div className="ms-5 text-3xl my-10 font-semibold">
-          Related products
+          {t('related_products')}
         </div>
         <ProductsList products={relatedProduct} />
       </section>

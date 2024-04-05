@@ -1,44 +1,23 @@
-function Data() {
-  const checkout = async () => {
-    try {
-      const res = await fetch('http://localhost:8000/checkout', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        mode: 'cors',
-        body: JSON.stringify({
-          // items: checkoutItem,
-          items: [
-            {
-              id: 1,
-              name: 'Item 1',
-              price: 100,
-              quantity: 1,
-              image:
-                'https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?auto=compress&cs=tinysrgb&w=600',
-            },
-            {
-              id: 1,
-              name: 'Item 1',
-              price: 100,
-              quantity: 1,
-              image:
-                'https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?auto=compress&cs=tinysrgb&w=600',
-            },
-          ],
-        }),
-      });
+// src/App.tsx
 
-      const data = await res.json();
-      window.location = data.url;
-    } catch (error) {}
-  };
+// React hook that ensures components are
+// re-rendered when locale changes.
+import { useTranslation } from 'react-i18next';
+
+function Local() {
+  // The `t()` function gives us
+  // access to the active locale's
+  // translations.
+  const { t } = useTranslation();
+
   return (
-    <div>
-      <button onClick={() => checkout()}>Checkout</button>
+    <div className="...">
+      {/* We pass the key we provided under
+          `resources.translation` in 
+          src/i18n/config.ts */}
+      <h2>{t('hello_world')}</h2>
     </div>
   );
 }
 
-export default Data;
+export default Local;

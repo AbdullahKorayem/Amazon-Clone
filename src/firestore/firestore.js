@@ -202,6 +202,7 @@ export const addProductToCart = async (
   productPrice,
   quantityInStock,
   quantity
+  //sellerId
 ) => {
   const cartRef = collection(firestore, 'Cart');
   const queryRef = query(
@@ -302,12 +303,12 @@ export const deleteItemFromCart = async fieldValue => {
   if (!snapshot.empty) {
     snapshot.forEach(async doc => {
       await deleteDoc(doc.ref);
-      console.log(
-        `Document with ID =${fieldValue} successfully deleted from Cart.`
-      );
+      // console.log(
+      //   `Document with ID =${fieldValue} successfully deleted from Cart.`
+      // );
     });
   } else {
-    console.log(`No document found with ID =${fieldValue} in Cart.`);
+    // console.log(`No document found with ID =${fieldValue} in Cart.`);
   }
 };
 
@@ -336,7 +337,7 @@ export const searchForProduct = async (searchChar = '', Ctgid = '') => {
 
     return products;
   } catch (err) {
-    // console.log(err);
+    console.log(err);
     return [];
   }
 };
@@ -362,7 +363,7 @@ export const addNewUserRate = async (docId, value) => {
           const avgRate = updatedField.reduce((acc, cur) => {
             return acc + cur.rating;
           }, 0);
-          console.log(avgRate);
+
           await updateDoc(docRef, {
             usersRating: updatedField,
             rating: avgRate / updatedField.length,
@@ -411,9 +412,9 @@ export const addOrder = async order => {
 
     if (snapshot.empty) {
       await addDoc(orderRef, order);
-      console.log('Order added with ID: ', order.orderDate);
+      // console.log('Order added with ID: ', order.orderDate);
     } else {
-      console.log('Order already exists with ID: ', order.orderDate);
+      // console.log('Order already exists with ID: ', order.orderDate);
     }
   } catch (error) {
     console.error('Error adding order: ', order.orderDate);
@@ -437,5 +438,5 @@ export const updateOrderStatus = async orderId => {
   await updateDoc(orderRef, {
     status: 'cancelled',
   });
-  console.log('Order updated successfully');
+  // console.log('Order updated successfully');
 };

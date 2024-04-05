@@ -5,14 +5,14 @@ import ServiceUnavailable from '../Service-Unavailable/ServiceUnavailable';
 import { useLayoutEffect, useState } from 'react';
 import { FilterSidebar } from './FilterSidebar';
 
-const categories = [{ view: 'Office Supplies', value: 'all' }];
+const categories = [{ view: 'office_supplies', value: 'all' }];
 const brands = [
-  { view: 'All', value: 'all' },
+  { view: 'all', value: 'all' },
   { view: 'JODO', value: 'UIXJODO' },
   { view: 'Amanple', value: 'Amanple' },
 ];
 const priceRanges = [
-  { view: 'All', value: 'all' },
+  { view: 'all', value: 'all' },
   { view: 'Up to 100 USD', value: [0, 100] },
   { view: '101 to 200 USD', value: [100, 200] },
   { view: '200 USD & above', value: [200, 100000] },
@@ -69,7 +69,7 @@ function OfficeSupplies() {
           />
         </div>
         <div className="w-[80%]">
-          <ProductsList products={filteredProducts} title="Office Supplies" />
+          <ProductsList products={filteredProducts} title="office-supplies" />
         </div>
       </div>
     );

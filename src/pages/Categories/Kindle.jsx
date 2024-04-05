@@ -5,10 +5,10 @@ import ServiceUnavailable from '../Service-Unavailable/ServiceUnavailable';
 import { useLayoutEffect, useState } from 'react';
 import { FilterSidebar } from './FilterSidebar';
 
-const categories = [{ view: 'Kindle', value: 'all' }];
+const categories = [{ view: 'kindle', value: 'all' }];
 const brands = [{ view: 'Amazon', value: 'all' }];
 const priceRanges = [
-  { view: 'All', value: 'all' },
+  { view: 'all', value: 'all' },
   { view: 'Up to 2000 USD', value: [0, 2000] },
   { view: '2001 to 3000 USD', value: [2000, 3000] },
   { view: '3000 USD & above', value: [3000, 100000] },
@@ -65,7 +65,7 @@ function Kindle() {
           />
         </div>
         <div className="w-[80%]">
-          <ProductsList products={filteredProducts} title="Kindle" />
+          <ProductsList products={filteredProducts} title="kindle" />
         </div>
       </div>
     );

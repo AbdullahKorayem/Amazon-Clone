@@ -1,5 +1,7 @@
 'use client';
 import { Card } from 'flowbite-react';
+import { useTranslation } from 'react-i18next';
+
 export const HomeCardFourImage = ({ children, title, link }) => {
   return (
     <Card className="mt-6 h-96 mx-auto">
@@ -15,6 +17,8 @@ export const HomeCardFourImage = ({ children, title, link }) => {
 };
 
 export function HomeCardOneImage({ children, title, link }) {
+  const { i18n, t } = useTranslation();
+  const activeLocale = i18n.resolvedLanguage;
   return (
     <>
       <Card className="mt-6 h-96 relative">
@@ -22,7 +26,7 @@ export function HomeCardOneImage({ children, title, link }) {
           <div color="blue-gray" className=" font-bold">
             {title && (
               <h1 className=" absolute text-xl top-7 text-gray-800">
-                {title} | see more
+                {t(title)} | {t('see_more')}
               </h1>
             )}
           </div>
