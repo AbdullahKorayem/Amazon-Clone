@@ -33,7 +33,7 @@ function CartCard({ item }) {
       <div className="flex items-center">
         <div className="w-30 h-30">
           <img
-            className={`w-16 ${dir === 'rtl' ? 'ml-16' : 'mr-16'} `}
+            className={`w-40 ${dir === 'rtl' ? 'ml-16' : 'mr-16'} `}
             src={productImage}
             alt=""
           />

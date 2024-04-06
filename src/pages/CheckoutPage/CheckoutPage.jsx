@@ -62,6 +62,28 @@ export default function CheckoutPage() {
           </div>
         </div>
       )}
+      {dir === '' && (
+        <div className="bg-[#f3f3f3] justify-around h-20 grid grid-cols-2 md:grid-cols-10 items-center">
+          <div className="col-span-1 md:col-span-4">
+            <Link to="/">
+              <img
+                src="amazon-icon/Amazon_logo_dark.webp"
+                alt=""
+                className="ml-4 md:ml-20 w-20 md:w-28"
+              />
+            </Link>
+          </div>
+          <div className="col-span-1 md:col-span-6">
+            <h1 className="text-xl md:text-4xl text-center md:text-left">
+              {t('checkout')}(
+              <span className="text-[#007185]">
+                {totalQuantity} {t('Items')}
+              </span>
+              )
+            </h1>
+          </div>
+        </div>
+      )}
       {dir === 'rtl' && (
         <div className="bg-[#f3f3f3] justify-around h-20 grid grid-cols-2 md:grid-cols-10 items-center">
           <div className="col-span-1 md:col-span-4">

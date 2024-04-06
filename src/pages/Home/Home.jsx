@@ -16,20 +16,24 @@ import { getAllCategories } from '../../firestore/firestore';
 import { Spinner } from 'flowbite-react';
 import { useTranslation } from 'react-i18next';
 import ServiceUnavailable from './../Service-Unavailable/ServiceUnavailable';
+import { useDispatch } from 'react-redux';
+import { fetchUser } from '../../redux/slices/User';
 
 const Home = () => {
   const { categories, setCategories } = useContext(allCategoriesContext);
   const [isLoading, setIsLoading] = useState(true);
   const { i18n, t } = useTranslation();
   const activeLocale = i18n.resolvedLanguage;
+  const dispatch = useDispatch();
+  const User = localStorage.getItem('UserUid');
   useEffect(() => {
+    dispatch(fetchUser(User));
     document.title = 'Amazon : Home';
     setIsLoading(true);
     async function fetch() {
       try {
         if (categories.length === 0) {
           const Allcategries = await getAllCategories();
-
           setCategories(Allcategries);
           if (Allcategries.length === 0) {
             setTimeout(() => {

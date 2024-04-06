@@ -201,8 +201,8 @@ export const addProductToCart = async (
   productTitle,
   productPrice,
   quantityInStock,
-  quantity
-  //sellerId
+  quantity,
+  SellerUid
 ) => {
   const cartRef = collection(firestore, 'Cart');
   const queryRef = query(
@@ -223,6 +223,7 @@ export const addProductToCart = async (
       productPrice,
       quantityInStock,
       quantity,
+      SellerUid,
     };
     await addDoc(cartRef, newCartItem);
     // console.log('Product added to cart successfully');
@@ -440,3 +441,53 @@ export const updateOrderStatus = async orderId => {
   });
   // console.log('Order updated successfully');
 };
+
+// // Import necessary functions from Firestore
+
+// // Function to add seller IDs to products based on specified limits
+// async function addSellerIdsToProducts() {
+//   try {
+//     // Get Firestore instance
+
+//     // Reference to the products collection
+//     const productsRef = collection(firestore, 'Products');
+
+//     // Query all products
+//     const querySnapshot = await getDocs(productsRef);
+
+//     // Initialize a batch write
+
+//     // Counter for seller IDs
+//     let count = 0;
+
+//     // Iterate through query snapshot
+//     querySnapshot.forEach(docu => {
+//       // Determine seller ID based on count
+//       let SellerUid;
+//       if (count < 30) {
+//         SellerUid = 'oAUtsDiTo7Mvpy4JzzMpyDPnXR82';
+//       } else if (count < 60) {
+//         SellerUid = 'eY2koINt3mg5JxWeivBp2WOfIWI3';
+//       } else if (count < 90) {
+//         SellerUid = 'SvCaer1sWQR4ZA62SEYmYSjJqEC2';
+//       } else {
+//         SellerUid = 'xqfhASOPfxXYMGtn5tbVOpiA9O33';
+//       }
+
+//       // Add seller ID to product
+//       const productRef = doc(firestore, 'Products', docu.id);
+//       updateDoc(productRef, { SellerUid: SellerUid });
+
+//       count++;
+//     });
+
+//     // Commit the batch
+
+//     console.log('Seller IDs added to products successfully.');
+//   } catch (error) {
+//     console.error('Error adding seller IDs: ', error);
+//   }
+// }
+
+// // Call the function to add seller IDs to products
+// addSellerIdsToProducts();

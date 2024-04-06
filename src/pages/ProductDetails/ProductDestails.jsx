@@ -120,7 +120,8 @@ const ProductDetail = () => {
                       product[lang].description,
                       price,
                       product.quantityInStock,
-                      quantity
+                      quantity,
+                      product.SellerUid
                     );
                     setNums(nums => nums + quantity);
                   } else navigate('/login');
@@ -162,8 +163,8 @@ const ProductDetail = () => {
                         product[lang].title,
                         price,
                         product.quantityInStock,
-                        quantity
-                        //sellerId
+                        quantity,
+                        product.SellerUid
                       );
                       setNums(nums => nums + quantity);
                     } else navigate('/login');
@@ -184,6 +185,7 @@ const ProductDetail = () => {
                           price: Math.trunc(price),
                           name: product[lang].title,
                           image: product.thumbnail,
+                          SellerUid: product.SellerUid,
                         },
                       ];
 

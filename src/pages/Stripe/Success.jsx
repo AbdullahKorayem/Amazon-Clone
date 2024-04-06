@@ -48,9 +48,9 @@ function Success() {
                 Payment Success
               </h3>
               <p className="text-gray-600 my-2">
-                Sorry Your payment has been canceled.
+                Thank you for completing your secure online payment.{' '}
               </p>
-              <p>Please try agian later</p>
+              <p>Have a great day!</p>
               <div className="py-10 text-center">
                 <Link
                   onClick={removeItems}

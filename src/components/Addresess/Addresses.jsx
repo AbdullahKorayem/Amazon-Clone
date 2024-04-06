@@ -54,7 +54,7 @@ export default function Addresses({ setInfo, info, change, setChange }) {
             ))
           ) : (
             <h1 className="text-lg font-semibold text-center">
-              {'no_addresses'}
+              {t('no_addresses')}
             </h1>
           )}
         </div>

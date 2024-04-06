@@ -15,6 +15,15 @@ export default function OrderCard({ totalQuantity, totalPrice, info }) {
   ];
 
   let checkoutItem = JSON.parse(sessionStorage.getItem('checkout'));
+  const checkItems = checkoutItem.map(item => {
+    return {
+      id: item.id,
+      name: item.name,
+      image: item.image,
+      price: item.price,
+      quantity: item.quantity,
+    };
+  });
   const cashMethod = async () => {
     const res = await addOrder(info);
     info.item.forEach(async ele => {
@@ -36,7 +45,7 @@ export default function OrderCard({ totalQuantity, totalPrice, info }) {
         },
         mode: 'cors',
         body: JSON.stringify({
-          items: checkoutItem,
+          items: checkItems,
         }),
       });
 
@@ -48,42 +57,35 @@ export default function OrderCard({ totalQuantity, totalPrice, info }) {
     <>
       <section className="flex flex-col items-center justify-center border-2 rounded-md">
         <div className="flex-col border-0.5 border-black p-4 mb-4 rounded-lg w-full">
-          {info.paymentMethod &&
-            info.shippingAddress &&
-            info.paymentMethod === 'cash' && (
-              <Button
-                // disabled
-                onClick={cashMethod}
-                color="white"
-                className="mx-auto w-full mb-4 bg-[#ffd814] hover:bg-[#ffc300] border-none "
-              >
-                {t('Place your order')}
-              </Button>
-            )}
-          {info.paymentMethod &&
-            info.shippingAddress &&
-            info.paymentMethod === 'card' && (
-              <Button
-                // disabled
-                onClick={checkout}
-                color="white"
-                className="mx-auto w-full mb-4 bg-[#ffd814] hover:bg-[#ffc300] border-none "
-              >
-                {t('Use this payment method')}
-              </Button>
-            )}
-          {info.paymentMethod !== '' ||
-            (info.shippingAddress !== '' && (
-              <Button
-                disabled
-                onClick={checkout}
-                color="white"
-                className="mx-auto w-full mb-4 bg-[#ffd814] hover:bg-[#ffc300] border-none "
-              >
-                {t('Use this payment method')}
-              </Button>
-            ))}
-
+          {info.paymentMethod === 'cash' && (
+            <Button
+              disabled={!info.shippingAddress.fullName}
+              onClick={cashMethod}
+              color="white"
+              className="mx-auto w-full mb-4 bg-[#ffd814] hover:bg-[#ffc300] border-none "
+            >
+              {t('Place your order')}
+            </Button>
+          )}
+          {info.paymentMethod === 'card' && (
+            <Button
+              disabled={!info.shippingAddress.fullName}
+              onClick={checkout}
+              color="white"
+              className="mx-auto w-full mb-4 bg-[#ffd814] hover:bg-[#ffc300] border-none "
+            >
+              {t('Use this payment method')}
+            </Button>
+          )}
+          {info.paymentMethod === '' && (
+            <Button
+              disabled
+              color="white"
+              className="mx-auto w-full mb-4 bg-[#ffd814] hover:bg-[#ffc300] border-none "
+            >
+              {t('Use this payment method')}
+            </Button>
+          )}
           <p className="text-sm font-semibold text-center ">
             {t('oredr_card_description')}
           </p>

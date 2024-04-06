@@ -52,6 +52,7 @@ const Cart = () => {
         price: Math.trunc(item.productPrice),
         name: item.productTitle,
         image: item.productImage,
+        SellerUid: item.SellerUid,
       };
     });
     sessionStorage.setItem('checkout', JSON.stringify(orderItems));
