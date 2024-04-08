@@ -25,6 +25,7 @@ const ProductSliderVthree = ({ CategoryId, title, link }) => {
           modules={[Navigation]}
           spaceBetween={0}
           navigation={true}
+          dir="ltr"
           breakpoints={{
             640: {
               slidesPerView: 2,

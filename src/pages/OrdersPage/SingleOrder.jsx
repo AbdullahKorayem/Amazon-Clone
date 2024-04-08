@@ -32,7 +32,7 @@ function SingleOrder({ order, setChange, change }) {
           <span>$ {order.totalPrice}</span>
         </div>
         <div className="flex flex-col ">
-          <span>{t('SHIP TO')}</span>{' '}
+          <span>{t('SHIP TO')}</span>
           <span>{order.shippingAddress.fullName}</span>
         </div>
         <div
@@ -41,19 +41,31 @@ function SingleOrder({ order, setChange, change }) {
           }`}
         >
           <span>ORDER # {order.id}</span>
-          {order.status !== 'cancelled' && order.status !== 'delivered' && (
-            <span
-              onClick={cancelOrder}
-              className="text-red-600 text-base cursor-pointer font-semibold w-fit "
-            >
-              {t('cancel_order')}
-            </span>
-          )}
+          {order.status !== 'cancelled' &&
+            order.status !== 'shipping' &&
+            order.status !== 'delivered' && (
+              <span
+                onClick={cancelOrder}
+                className="text-red-600 text-base cursor-pointer font-semibold w-fit "
+              >
+                {t('cancel_order')}
+              </span>
+            )}
         </div>
       </div>
       {order.status === 'cancelled' && (
         <div className="text-red-600 font-bold text-xl ms-5 my-3">
           {t('cancelled')}
+        </div>
+      )}
+      {order.status === 'shipping' && (
+        <div className="text-sky-700 font-bold text-xl ms-5 my-3">
+          {t('shipping')}
+        </div>
+      )}
+      {order.status === 'delivered' && (
+        <div className="text-green-600 font-bold text-xl ms-5 my-3">
+          {t('deliver')}
         </div>
       )}
 

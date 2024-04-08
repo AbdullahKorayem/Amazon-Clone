@@ -32,7 +32,7 @@ export default function OrderCard({ totalQuantity, totalPrice, info }) {
     sessionStorage.removeItem('checkout');
     sessionStorage.removeItem('order');
 
-    navigate('/');
+    navigate('/orders');
   };
 
   const checkout = async () => {

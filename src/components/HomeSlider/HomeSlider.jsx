@@ -16,6 +16,7 @@ const HomeSlider = () => {
         loop={true}
         pagination={false}
         navigation={true}
+        dir="ltr"
         modules={[Navigation]}
         className="lg:h-96 w-[100%] "
       >

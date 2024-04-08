@@ -18,9 +18,11 @@ import { useTranslation } from 'react-i18next';
 import ServiceUnavailable from './../Service-Unavailable/ServiceUnavailable';
 import { useDispatch } from 'react-redux';
 import { fetchUser } from '../../redux/slices/User';
+import { dirContext } from '../../contexts/direction';
 
 const Home = () => {
   const { categories, setCategories } = useContext(allCategoriesContext);
+  const { dir } = useContext(dirContext);
   const [isLoading, setIsLoading] = useState(true);
   const { i18n, t } = useTranslation();
   const activeLocale = i18n.resolvedLanguage;
@@ -205,6 +207,7 @@ const Home = () => {
                 modules={[Navigation]}
                 spaceBetween={0}
                 navigation={true}
+                dir="rtl"
                 breakpoints={{
                   400: {
                     slidesPerView: 2,

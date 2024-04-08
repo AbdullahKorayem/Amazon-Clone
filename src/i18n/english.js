@@ -185,4 +185,6 @@ export const englishData = {
   'Eligible for FREE delivery': 'Eligible for FREE delivery',
   delete: 'Delete',
   share: 'Share',
+  shipping: 'Shipping',
+  deliver: 'delivered',
 };

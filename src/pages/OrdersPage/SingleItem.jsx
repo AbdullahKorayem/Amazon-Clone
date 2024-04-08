@@ -19,7 +19,7 @@ function SingleItem({ item }) {
         </div>
         <div className="flex flex-col gap-3">
           <div>
-            <h3 className="font-semibold w-[90%]">{item.name}</h3>
+            <h3 className="font-semibold w-[100%]">{item.name}</h3>
           </div>
 
           <div className="flex items-center gap-1">

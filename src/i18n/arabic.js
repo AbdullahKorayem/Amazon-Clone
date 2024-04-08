@@ -184,4 +184,6 @@ export const arabicData = {
   'Eligible for FREE delivery': 'مؤهل للتسليم المجاني',
   delete: 'حذف',
   share: 'مشاركه',
+  shipping: 'تم الشحن',
+  deliver: 'تم التوصيل',
 };

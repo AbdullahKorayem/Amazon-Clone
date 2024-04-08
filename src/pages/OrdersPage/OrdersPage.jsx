@@ -76,16 +76,18 @@ function OrdersPage() {
           {t('cancelled_orders')}
         </NavLink>
       </div>
-      {filteredOrder.map(order => {
-        return (
-          <SingleOrder
-            setChange={setChange}
-            change={change}
-            key={order.id}
-            order={order}
-          />
-        );
-      })}
+      {filteredOrder
+        .sort((a, b) => b.orderDate - a.orderDate)
+        .map(order => {
+          return (
+            <SingleOrder
+              setChange={setChange}
+              change={change}
+              key={order.id}
+              order={order}
+            />
+          );
+        })}
     </div>
   );
 }

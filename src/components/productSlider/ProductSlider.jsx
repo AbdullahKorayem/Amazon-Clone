@@ -30,6 +30,7 @@ const ProductSlider = ({ subCategoryId, title }) => {
           modules={[Navigation]}
           spaceBetween={0}
           navigation={true}
+          dir="ltr"
           breakpoints={{
             640: {
               slidesPerView: 2,
