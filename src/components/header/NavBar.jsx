@@ -173,7 +173,12 @@ const NavBar = () => {
           </p>
         </div>
 
-        <Badge content={nums} className=" text-yellow-400 text-lg ms-5">
+        <Badge
+          content={nums}
+          className={`text-yellow-400 text-lg ${
+            dir === 'rtl' ? 'ms-3' : 'ms-5'
+          }`}
+        >
           <Link to="/cart">
             <div className="border border-transparent p-1 hover:border-white flex items-center">
               <BiCart className="text-5xl mt-2" />

@@ -4,16 +4,16 @@ import { Toaster, toast } from 'sonner';
 import NeedHelp from './NeedHelp';
 import { Link, useNavigate } from 'react-router-dom';
 import { signInWithE_PW } from '../../firestore/firestore';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-// import { ChangeUser } from '../../redux/slices/User';
 export default function SignIn() {
-  // const dispatch = useDispatch();
   document.title = 'Amazon : Sign In';
   const navigate = useNavigate();
   const [working, setWorking] = useState(false);
   const { t } = useTranslation();
-
+  const [show, setShow] = useState(false);
   const stateUser = useSelector(state => state.User.User);
   const {
     register,
@@ -36,12 +36,7 @@ export default function SignIn() {
         navigate('/');
         localStorage.setItem('UserUid', userCredential.user.uid);
       } catch (error) {
-        if (error.code) {
-          const errorMessage = handleFirebaseError(error.code);
-          toast.error(errorMessage);
-        } else {
-          toast.error('An error occurred. Please try again later.');
-        }
+        toast.error('incorrect email or password');
       }
     }
   };
@@ -49,7 +44,7 @@ export default function SignIn() {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <section className="flex flex-col items-center">
+        <section className="flex flex-col items-center ">
           {/* Amazon Logo */}
           <Link to="/">
             <img
@@ -60,7 +55,7 @@ export default function SignIn() {
           </Link>
 
           {/* Form Container */}
-          <div className="flex flex-col border border-slate border-0.5 rounded-md p-10 max-w-xs mt-8 w-full ">
+          <div className="flex flex-col border border-slate border-0.5 rounded-md p-10 max-w-sm mt-8 w-full ">
             <h1 className="mb-5 text-2xl font-semibold">{t('sign_in')}</h1>
             {/* Email or Phone Input */}
             <label htmlFor="emailOrPhone" className="mb-2">
@@ -93,29 +88,44 @@ export default function SignIn() {
             )}
 
             {/* Password */}
-            <label htmlFor="Password" className="mb-2">
-              {t('Password')}
-            </label>
-            <input
-              {...register('Password', {
-                required: 'Password is required',
-                pattern: {
-                  value: /^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*$/,
-                  message:
-                    'Password must contain 8 characters and one special character',
-                },
-              })}
-              id="Password"
-              name="Password"
-              type="password"
-              className="w-full px-2 py-1 mb-4 border rounded-md outline-none border-slate-500 focus:ring-blue-700 focus:ring-1"
-              placeholder={t('Password')}
-            />
-            {errors.Password && (
-              <p className="text-xs italic text-red-500">
-                {errors.Password.message}
-              </p>
-            )}
+            <div className=" relative">
+              <label htmlFor="Password" className="mb-2 ">
+                {t('Password')}
+              </label>
+              <div className=" cursor-pointer absolute end-3 top-10">
+                {!show ? (
+                  <FaEye onClick={() => setShow(true)} />
+                ) : (
+                  <FaEyeSlash onClick={() => setShow(false)} />
+                )}
+              </div>
+              <input
+                {...register('Password', {
+                  required: 'Password is required',
+                  pattern: {
+                    value: /^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*$/,
+                    message:
+                      'Password must contain 8 characters and one special character',
+                  },
+                })}
+                id="Password"
+                name="Password"
+                type={!show ? 'password' : 'text'}
+                className="w-full px-2 py-1 mt-2 mb-4 border rounded-md outline-none border-slate-500 focus:ring-blue-700 focus:ring-1"
+                placeholder={t('Password')}
+              />
+              {errors.Password && (
+                <p className="text-xs italic text-red-500">
+                  {errors.Password.message}
+                </p>
+              )}
+            </div>
+            <Link
+              to="/reset"
+              className="text-sm mb-3 text-end hover:underline hover:text-red-800 text-blue-700"
+            >
+              {t('forgot_password')}
+            </Link>
 
             {/* Continue Button */}
             <button className="bg-[#ffd814] hover:bg-[#ffc300] px-20 border-none mb-4">
@@ -150,7 +160,7 @@ export default function SignIn() {
           </div>
         </section>
 
-        <section className="flex flex-col items-center mt-5">
+        <section className="flex flex-col items-center my-5">
           <p className="text-[#767676] text-sm mb-2">{t('new_to_amazon')}</p>
           <button
             onClick={() => {

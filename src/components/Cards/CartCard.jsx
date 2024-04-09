@@ -7,6 +7,7 @@ import {
 import { Link } from 'react-router-dom';
 import { dirContext } from '../../contexts/direction';
 import { useTranslation } from 'react-i18next';
+import ShareButton from '../ShareButton/ShareButton';
 
 function CartCard({ item }) {
   const {
@@ -73,9 +74,10 @@ function CartCard({ item }) {
             </button>
 
             <div className="border-r  border-gray-400 mx-1 h-4"></div>
-            <button className="border-none text-sm text-sky-800  cursor-pointer">
-              {t('share')}
-            </button>
+            {/* <button className="border-none text-sm text-sky-800  cursor-pointer"></button> */}
+            <ShareButton
+              shareUrl={`http://localhost:5173/product/${productId}`}
+            />
           </div>
         </div>
       </div>

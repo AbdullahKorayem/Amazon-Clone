@@ -36,6 +36,8 @@ import ServiceUnavailable from './pages/Service-Unavailable/ServiceUnavailable';
 import OrdersPage from './pages/OrdersPage/OrdersPage';
 import { useContext } from 'react';
 import { isCheckoutContext } from './contexts/isCheckout';
+import ResetPassword from './pages/SignIn/ResetPassword';
+import Security from './pages/UserProfile/Security';
 
 const router = createBrowserRouter([
   {
@@ -50,6 +52,10 @@ const router = createBrowserRouter([
       {
         path: '/orders',
         element: <ProtectedRoute element={<OrdersPage />} />,
+      },
+      {
+        path: '/editProfile',
+        element: <ProtectedRoute element={<Security />} />,
       },
       {
         path: '/product/:id',
@@ -115,6 +121,10 @@ const router = createBrowserRouter([
     element: <SignIn />,
   },
   ,
+  {
+    path: '/reset',
+    element: <ResetPassword />,
+  },
   {
     path: '/register',
     element: <Register />,

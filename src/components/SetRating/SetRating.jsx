@@ -4,9 +4,11 @@ import StarRating from '../StarRating/StarRating';
 import UserRating from './../../components/UserRating/UserRating';
 import { addNewUserRate } from '../../firestore/firestore';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export default function SetRating({ product, productId, userUid }) {
   const [openModal, setOpenModal] = useState(false);
+  const { t } = useTranslation();
   const [rating, setRating] = useState(0);
   const navigate = useNavigate();
   const totalRating = product.usersRating?.reduce((acc, avg) => {
@@ -51,14 +53,14 @@ export default function SetRating({ product, productId, userUid }) {
         <Modal.Body>
           <div className="text-center">
             <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-              please enter your Rating
+              {t('please enter your Rating')}
             </h3>
             <div className="flex justify-center mb-5">
               <UserRating rating={rating} onSetRating={setRating} />
             </div>
             <div className="flex justify-center gap-4">
               <Button color="warning" onClick={handleRating}>
-                finish Rating
+                {t('save_rating')}
               </Button>
             </div>
           </div>

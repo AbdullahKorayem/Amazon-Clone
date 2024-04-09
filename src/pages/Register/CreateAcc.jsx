@@ -6,6 +6,7 @@ import { createUSer, db } from '../../firestore/firestore';
 import { useNavigate, Link } from 'react-router-dom';
 import { doc, setDoc } from 'firebase/firestore';
 import { useTranslation } from 'react-i18next';
+import { FaEye, FaEyeSlash } from 'react-icons/fa6';
 
 export default function Register() {
   document.title = 'Amazon : Sign Up';
@@ -19,6 +20,7 @@ export default function Register() {
     formState: { errors },
     getValues,
   } = useForm();
+  const [show, setShow] = useState(false);
 
   const toggleWorking = () => {
     setWorking(!working);
@@ -80,7 +82,7 @@ export default function Register() {
           </Link>
 
           {/* Form Container */}
-          <div className="flex flex-col border border-slate border-0.5 rounded-md p-10 max-w-xs mt-8 w-full ">
+          <div className="flex flex-col border border-slate border-0.5 rounded-md p-10 max-w-sm mt-8 w-full ">
             <h1 className="mb-5 text-2xl font-semibold">
               {t('create_account')}
             </h1>
@@ -140,58 +142,77 @@ export default function Register() {
             )}
 
             {/*  */}
-
-            <label htmlFor="Password" className="mb-2">
-              {t('Password')}
-            </label>
-            <input
-              {...register('Password', {
-                required: true,
-                pattern: /^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*$/,
-              })}
-              id="Password"
-              name="Password"
-              type="password"
-              className="w-full px-2 py-1 mb-4 border rounded-md outline-none border-slate-500 focus:ring-blue-700 focus:ring-1"
-              placeholder={t('Password')}
-            />
-            {errors.emailOrPhone && errors.emailOrPhone.type === 'required' && (
-              <p className="text-xs italic text-red-500">This is required.</p>
-            )}
-            {errors.emailOrPhone && errors.emailOrPhone.type === 'pattern' && (
-              <p className="text-xs italic text-red-500">
-                Please enter a valid email or mobile phone number.
-              </p>
-            )}
-
+            <div className="relative">
+              <label htmlFor="Password" className="mb-2">
+                {t('Password')}
+              </label>
+              <div className=" cursor-pointer absolute end-3 top-10">
+                {!show ? (
+                  <FaEye onClick={() => setShow(true)} />
+                ) : (
+                  <FaEyeSlash onClick={() => setShow(false)} />
+                )}
+              </div>
+              <input
+                {...register('Password', {
+                  required: true,
+                  pattern: /^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*$/,
+                })}
+                id="Password"
+                name="Password"
+                type={!show ? 'password' : 'text'}
+                className="w-full px-2 mt-2 py-1 mb-4 border rounded-md outline-none border-slate-500 focus:ring-blue-700 focus:ring-1"
+                placeholder={t('Password')}
+              />
+              {errors.emailOrPhone &&
+                errors.emailOrPhone.type === 'required' && (
+                  <p className="text-xs italic text-red-500">
+                    This is required.
+                  </p>
+                )}
+              {errors.emailOrPhone &&
+                errors.emailOrPhone.type === 'pattern' && (
+                  <p className="text-xs italic text-red-500">
+                    Please enter a valid email or mobile phone number.
+                  </p>
+                )}
+            </div>
             {/* ReEnter Password */}
-            <label htmlFor="ConfirmPassword" className="mb-2">
-              {t('Re-Enter Password')}
-            </label>
-            <input
-              {...register('ConfirmPassword', {
-                required: true,
-                validate: PasswordValidation,
-              })}
-              id="ConfirmPassword"
-              name="ConfirmPassword"
-              type="password"
-              className="w-full px-2 py-1 mb-4 border rounded-md outline-none border-slate-500 focus:ring-blue-700 focus:ring-1"
-              placeholder={t('Re-Enter Password')}
-            />
-            {errors.ConfirmPassword &&
-              errors.ConfirmPassword.type === 'required' && (
-                <p className="text-xs italic text-red-500">
-                  Please fill out this field.
-                </p>
-              )}
-            {errors.ConfirmPassword &&
-              errors.ConfirmPassword.type === 'validate' && (
-                <p className="text-xs italic text-red-500">
-                  Passwords must match.
-                </p>
-              )}
-
+            <div className="relative">
+              <label htmlFor="ConfirmPassword" className="mb-2">
+                {t('Re-Enter Password')}
+              </label>
+              <div className=" cursor-pointer absolute end-3 top-10">
+                {!show ? (
+                  <FaEye onClick={() => setShow(true)} />
+                ) : (
+                  <FaEyeSlash onClick={() => setShow(false)} />
+                )}
+              </div>
+              <input
+                {...register('ConfirmPassword', {
+                  required: true,
+                  validate: PasswordValidation,
+                })}
+                id="ConfirmPassword"
+                name="ConfirmPassword"
+                type={!show ? 'password' : 'text'}
+                className="w-full px-2 mt-2 py-1 mb-4 border rounded-md outline-none border-slate-500 focus:ring-blue-700 focus:ring-1"
+                placeholder={t('Re-Enter Password')}
+              />
+              {errors.ConfirmPassword &&
+                errors.ConfirmPassword.type === 'required' && (
+                  <p className="text-xs italic text-red-500">
+                    Please fill out this field.
+                  </p>
+                )}
+              {errors.ConfirmPassword &&
+                errors.ConfirmPassword.type === 'validate' && (
+                  <p className="text-xs italic text-red-500">
+                    Passwords must match.
+                  </p>
+                )}
+            </div>
             <button
               className="bg-[#ffd814] hover:bg-[#ffc300] px-20 border-none mb-4"
               type="submit"
@@ -199,7 +220,15 @@ export default function Register() {
             >
               {t('Continue')}
             </button>
-
+            <div className="text-sm mb-3">
+              already have an account
+              <Link
+                to="/login"
+                className="ms-2 text-blue-700 hover:underline hover:text-red-800"
+              >
+                Sign In
+              </Link>
+            </div>
             {/* Additional Options */}
             <div className="text-xs">
               <p className="text-xs font-200">
