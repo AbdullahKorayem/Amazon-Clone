@@ -38,6 +38,7 @@ import { useContext } from 'react';
 import { isCheckoutContext } from './contexts/isCheckout';
 import ResetPassword from './pages/SignIn/ResetPassword';
 import Security from './pages/UserProfile/Security';
+import UserAddresses from './pages/UserProfile/UserAddresses';
 
 const router = createBrowserRouter([
   {
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
       {
         path: '/editProfile',
         element: <ProtectedRoute element={<Security />} />,
+      },
+      {
+        path: '/address',
+        element: <ProtectedRoute element={<UserAddresses />} />,
       },
       {
         path: '/product/:id',

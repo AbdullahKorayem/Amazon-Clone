@@ -268,4 +268,5 @@ export const englishData = {
   'Change Mobile Phone Number': 'Change Mobile Phone Number',
   'Old mobile phone number:': 'Old mobile phone number:',
   new_number: 'New mobile number',
+  remove: 'Remove',
 };

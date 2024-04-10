@@ -126,7 +126,10 @@ const UserProfile = () => {
               </div>
             </div>
           </div>
-          <div className="relative flex items-center mt-6 cursor-pointer  hover:bg-gray-200 text-gray-700 bg-white  shadow-sm border rounded-xl w-80 p-4">
+          <Link
+            to="/address"
+            className="relative flex items-center mt-6 cursor-pointer  hover:bg-gray-200 text-gray-700 bg-white  shadow-sm border rounded-xl w-80 p-4"
+          >
             <img
               src="https://m.media-amazon.com/images/G/42/x-locale/cs/help/images/gateway/self-service/YA_icon_address_01._CB657836742_.png"
               className="w-[20%]"
@@ -141,7 +144,7 @@ const UserProfile = () => {
                 <span>{t('your_addresses_description')}</span>
               </div>
             </div>
-          </div>
+          </Link>
           <div className="relative flex items-center mt-6 cursor-pointer  hover:bg-gray-200 text-gray-700 bg-white  shadow-sm border rounded-xl w-80 p-4">
             <img
               src="https://m.media-amazon.com/images/G/42/x-locale/cs/help/images/gateway/self-service/fshub/Gateway_icon_YA_Installment_Plan_01._CB628728316_.png"

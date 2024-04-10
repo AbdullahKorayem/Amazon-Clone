@@ -75,7 +75,7 @@ function Electronics() {
   else
     return (
       <div className="flex ">
-        <div className="w-[20%] min-w-44">
+        <div className="w-[20%] min-w-44 ">
           <FilterSidebar
             priceRanges={priceRanges}
             brands={brands}

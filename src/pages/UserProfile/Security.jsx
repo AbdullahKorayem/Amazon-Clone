@@ -1,15 +1,16 @@
 import { useTranslation } from 'react-i18next';
 import { fetchUser } from '../../redux/slices/User';
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import {
   getCurrentUser,
   updateUserEmail,
   updateUserName,
   updateUserPhoneNumber,
 } from '../../firestore/firestore';
-import { Button, Modal } from 'flowbite-react';
+import { Button, Modal, ModalHeader } from 'flowbite-react';
 import { useNavigate } from 'react-router-dom';
+import { dirContext } from './../../contexts/direction';
 
 function Security() {
   const { t } = useTranslation();
@@ -85,7 +86,7 @@ function SecCard({ title, value, children }) {
 
 function UpdateName({ id, render, setRender }) {
   const { t } = useTranslation();
-
+  const { dir } = useContext(dirContext);
   const [openModal, setOpenModal] = useState(false);
   const [newName, setNewName] = useState('');
   async function updateName() {
@@ -105,7 +106,11 @@ function UpdateName({ id, render, setRender }) {
         {t('edit')}
       </Button>
       <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
-        <Modal.Header>{t('Change your name')}</Modal.Header>
+        <Modal.Header>
+          <div className={dir === 'rtl' ? 'xl:me-[460px]' : ''}>
+            {t('Change your name')}
+          </div>
+        </Modal.Header>
         <Modal.Body>
           <div className="space-y-6">
             <p className="text-base leading-relaxed text-black ">
@@ -134,7 +139,7 @@ function UpdateName({ id, render, setRender }) {
 function UpdateEmail({ render, setRender, email }) {
   const navigate = useNavigate();
   const { t } = useTranslation();
-
+  const { dir } = useContext(dirContext);
   const [openModal, setOpenModal] = useState(false);
   const [newEmail, setNewEmail] = useState('');
   async function updateEmail() {
@@ -156,7 +161,11 @@ function UpdateEmail({ render, setRender, email }) {
         {t('edit')}
       </Button>
       <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
-        <Modal.Header>{t('Change your email address')}</Modal.Header>
+        <Modal.Header>
+          <div className={dir === 'rtl' ? 'xl:me-[320px]' : ''}>
+            {t('Change your email address')}
+          </div>
+        </Modal.Header>
         <Modal.Body>
           <div className="space-y-6">
             <p className="text-base leading-relaxed text-black ">
@@ -188,6 +197,7 @@ function UpdateEmail({ render, setRender, email }) {
 
 function UpdatePhoneNumber({ id, render, setRender, phoneNumber }) {
   const { t } = useTranslation();
+  const { dir } = useContext(dirContext);
   console.log(id);
   const [openModal, setOpenModal] = useState(false);
   const [newNumber, setNewNumber] = useState('');
@@ -209,7 +219,11 @@ function UpdatePhoneNumber({ id, render, setRender, phoneNumber }) {
         {t('edit')}
       </Button>
       <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
-        <Modal.Header>{t('Change Mobile Phone Number')}</Modal.Header>
+        <Modal.Header>
+          <div className={dir === 'rtl' ? 'xl:me-[410px]' : ''}>
+            {t('Change Mobile Phone Number')}
+          </div>
+        </Modal.Header>
         <Modal.Body>
           <div className="space-y-6">
             <p className="text-base leading-relaxed text-black ">

@@ -267,4 +267,5 @@ export const arabicData = {
   'Change Mobile Phone Number': 'تغيير رقم الموبايل',
   'Old mobile phone number:': 'رقم الموبايل القديم:',
   new_number: 'رقم الموبايل الجديد',
+  remove: 'حذف',
 };

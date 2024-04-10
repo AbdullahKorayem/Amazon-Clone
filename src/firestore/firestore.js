@@ -555,4 +555,85 @@ export const updateUserPhoneNumber = async (uId, value) => {
     console.error('Error updating phoneNumber:', error);
   }
 };
-// updateUserPhoneNumber('4djnetdQJSc9Begn5PhkpQVjP6G2', '5555');
+
+export const deleteAddress = async (uId, indexToDelete) => {
+  try {
+    const UsersRef = doc(firestore, 'Users', uId);
+    const userDoc = await getDoc(UsersRef);
+
+    if (userDoc.exists()) {
+      const userData = userDoc.data();
+
+      // Assuming 'UserInformation' is an array
+      if (
+        userData.UserInformation &&
+        userData.UserInformation.length > indexToDelete
+      ) {
+        // Delete the object with the specified index from 'UserInformation'
+        userData.UserInformation.splice(indexToDelete, 1);
+      } else {
+        console.error('Index out of range or UserInformation is not an array');
+        return;
+      }
+
+      await updateDoc(UsersRef, userData);
+      console.log(
+        'Object at index',
+        indexToDelete,
+        'deleted successfully from UserInformation'
+      );
+    } else {
+      console.error('User document does not exist');
+    }
+  } catch (error) {
+    console.error(
+      'Error deleting object at index',
+      indexToDelete,
+      'from UserInformation:',
+      error
+    );
+  }
+};
+
+export const updateUserInformationAtIndex = async (
+  uId,
+  indexToUpdate,
+  updatedObject
+) => {
+  try {
+    const UsersRef = doc(firestore, 'Users', uId);
+    const userDoc = await getDoc(UsersRef);
+
+    if (userDoc.exists()) {
+      const userData = userDoc.data();
+      console.log(userData.UserInformation);
+      // Assuming 'UserInformation' is an array
+      if (
+        userData.UserInformation &&
+        userData.UserInformation.length > indexToUpdate
+      ) {
+        // Update the object at the specified index in 'UserInformation' array
+        userData.UserInformation[indexToUpdate] = updatedObject;
+      } else {
+        console.error('Index out of range or UserInformation is not an array');
+        return;
+      }
+
+      await updateDoc(UsersRef, userData);
+      console.log(
+        'Object at index',
+        indexToUpdate,
+        'updated successfully in UserInformation'
+      );
+    } else {
+      console.error('User document does not exist');
+    }
+  } catch (error) {
+    console.error(
+      'Error updating object at index',
+      indexToUpdate,
+      'in UserInformation:',
+      error
+    );
+  }
+};
