@@ -76,7 +76,7 @@ function CartCard({ item }) {
             <div className="border-r  border-gray-400 mx-1 h-4"></div>
             {/* <button className="border-none text-sm text-sky-800  cursor-pointer"></button> */}
             <ShareButton
-              shareUrl={`http://localhost:5173/product/${productId}`}
+              shareUrl={`amazon-clone-amber-psi.vercel.app/${productId}`}
             />
           </div>
         </div>
