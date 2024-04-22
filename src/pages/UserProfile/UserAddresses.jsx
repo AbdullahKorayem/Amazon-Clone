@@ -32,35 +32,34 @@ function UserAddresses() {
             <AddNewAddress change={change} setChange={setChange} />
           </div>
         </div>
-        {UserInfo[0].address &&
-          UserInfo.map((user, index) => (
-            <div className="relative rounded-md w-80 h-60 border-2 border-gray-300 p-5 ">
-              <div key={user.uid} index={index} className="font-semibold">
-                {user.fullName}
-              </div>
-              <div>{user.address.streetAddress}</div>
-              <div>{user.address.state}</div>
-              <div>{user.address.city}</div>
-              <div>{user.address.country}</div>
-              <div>Phone number: {user.phoneNumber}</div>
-              <div className=" flex items-center absolute bottom-5">
-                <EditAddress
-                  change={change}
-                  setChange={setChange}
-                  index={index}
-                />
-                <div className="border-r h-4 border-gray-800 "></div>
-                <button
-                  onClick={() => {
-                    removeAddress(index);
-                  }}
-                  className="text-sm border-none text-sky-800 cursor-pointer px-3"
-                >
-                  {t('remove')}
-                </button>
-              </div>
+        {UserInfo.map((user, index) => (
+          <div className="relative rounded-md w-80 h-60 border-2 border-gray-300 p-5 ">
+            <div key={user.uid} index={index} className="font-semibold">
+              {user.fullName}
             </div>
-          ))}
+            <div>{user.address.streetAddress}</div>
+            <div>{user.address.state}</div>
+            <div>{user.address.city}</div>
+            <div>{user.address.country}</div>
+            <div>Phone number: {user.phoneNumber}</div>
+            <div className=" flex items-center absolute bottom-5">
+              <EditAddress
+                change={change}
+                setChange={setChange}
+                index={index}
+              />
+              <div className="border-r h-4 border-gray-800 "></div>
+              <button
+                onClick={() => {
+                  removeAddress(index);
+                }}
+                className="text-sm border-none text-sky-800 cursor-pointer px-3"
+              >
+                {t('remove')}
+              </button>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
