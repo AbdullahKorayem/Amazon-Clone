@@ -6,7 +6,7 @@ import PagePlaceholder from './../../components/Placeholder/PagePlaceholder';
 
 function Success() {
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const order = JSON.parse(sessionStorage.getItem('order'));
   useEffect(() => {
     async function setorder() {
@@ -14,7 +14,7 @@ function Success() {
     }
     setorder();
     setIsLoading(is => is === false);
-  }, [order]);
+  }, [order, isLoading]);
 
   function removeItems() {
     order.item.forEach(async ele => {
