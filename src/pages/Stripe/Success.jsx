@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { addOrder, deleteItemFromCart } from '../../firestore/firestore';
 import { Spinner } from 'flowbite-react';
+import PagePlaceholder from './../../components/Placeholder/PagePlaceholder';
 
 function Success() {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ function Success() {
     <>
       {isLoading && (
         <div className="flex justify-center items-center">
-          <Spinner color="gray" />
+          <PagePlaceholder />
         </div>
       )}
       {!isLoading && (
