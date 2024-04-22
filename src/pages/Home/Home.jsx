@@ -181,20 +181,20 @@ const Home = () => {
                 </HomeCardOneImage>
               </Link>
               <Link
-                to={`/${categories[7]?.link}`}
+                to={`/${categories[6]?.link}`}
                 className="lg:hidden xl:block"
               >
-                <HomeCardOneImage title={categories[7]?.link}>
-                  {!categories[7] && (
+                <HomeCardOneImage title={categories[6]?.link}>
+                  {!categories[6] && (
                     <div className="flex justify-center items-center">
                       <Spinner color="failure" />
                     </div>
                   )}
-                  {categories[7] && (
+                  {categories[6] && (
                     <img
                       className=" h-72 w-72"
-                      src={categories[7]?.thumbnails}
-                      alt={categories[7]?.link}
+                      src={categories[6]?.thumbnails}
+                      alt={categories[6]?.link}
                     />
                   )}
                 </HomeCardOneImage>
