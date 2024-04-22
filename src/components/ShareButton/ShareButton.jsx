@@ -11,6 +11,8 @@ import {
   TwitterShareButton,
   WhatsappIcon,
   WhatsappShareButton,
+  FacebookShareButton,
+  FacebookIcon,
 } from 'react-share';
 
 export default function ShareButton({ shareUrl }) {
@@ -38,6 +40,9 @@ export default function ShareButton({ shareUrl }) {
           </h1>
           <div className="text-center my-10">
             <h3 className=" flex justify-center gap-3 mx-auto mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+              <FacebookShareButton url={shareUrl}>
+                <FacebookIcon size={42} round={true} />
+              </FacebookShareButton>
               <WhatsappShareButton url={shareUrl}>
                 <WhatsappIcon size={42} round={true} />
               </WhatsappShareButton>

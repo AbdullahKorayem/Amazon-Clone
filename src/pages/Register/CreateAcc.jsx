@@ -39,6 +39,7 @@ export default function Register() {
         UserName: data.UserName,
         UserInformation: [],
         PaymentCards: [],
+        phoneNumber: '',
       });
 
       navigate('/login');

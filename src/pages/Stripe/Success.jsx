@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { addOrder, deleteItemFromCart } from '../../firestore/firestore';
 import { Spinner } from 'flowbite-react';
+import PagePlaceholder from './../../components/Placeholder/PagePlaceholder';
 
 function Success() {
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const order = JSON.parse(sessionStorage.getItem('order'));
   useEffect(() => {
     setIsLoading(true);
@@ -14,7 +15,7 @@ function Success() {
     }
     setorder();
     setIsLoading(false);
-  }, [order]);
+  }, []);
 
   function removeItems() {
     order.item.forEach(async ele => {
@@ -26,12 +27,11 @@ function Success() {
   }
   return (
     <>
-      {isLoading && (
+      {isLoading ? (
         <div className="flex justify-center items-center">
-          <Spinner color="gray" />
+          <PagePlaceholder />
         </div>
-      )}
-      {!isLoading && (
+      ) : (
         <div className="h-screen flex items-center justify-center">
           <div className="bg-white p-6 md:mx-auto">
             <svg

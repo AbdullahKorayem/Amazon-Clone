@@ -118,6 +118,7 @@ const ProductDetail = () => {
                       productId,
                       product.thumbnail,
                       product[lang].description,
+                      product[lang].title,
                       price,
                       product.quantityInStock,
                       quantity,
@@ -126,7 +127,7 @@ const ProductDetail = () => {
                     setNums(nums => nums + quantity);
                   } else navigate('/login');
                 }}
-                className=" bg-[#ffd814] hover:bg-[#ffc300]  flex  h-12  w-52 items-center justify-center text-black duration-100 border-none "
+                className=" bg-[#ffd814] hover:bg-[#ffc300]  flex  h-7  w-52 items-center justify-center text-black duration-100 border-none "
               >
                 {t('add_to_cart')}
               </button>
