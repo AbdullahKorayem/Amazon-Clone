@@ -9,12 +9,13 @@ function Success() {
   const [isLoading, setIsLoading] = useState(true);
   const order = JSON.parse(sessionStorage.getItem('order'));
   useEffect(() => {
+    setIsLoading(true);
     async function setorder() {
       const res = await addOrder(order);
     }
     setorder();
-    setIsLoading(is => is === false);
-  }, [order, isLoading]);
+    setIsLoading(false);
+  }, []);
 
   function removeItems() {
     order.item.forEach(async ele => {
