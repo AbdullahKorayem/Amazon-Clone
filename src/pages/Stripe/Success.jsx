@@ -9,12 +9,11 @@ function Success() {
   const [isLoading, setIsLoading] = useState(false);
   const order = JSON.parse(sessionStorage.getItem('order'));
   useEffect(() => {
-    setIsLoading(true);
     async function setorder() {
       const res = await addOrder(order);
-      setIsLoading(false);
     }
     setorder();
+    setIsLoading(is => is === false);
   }, [order]);
 
   function removeItems() {
@@ -27,12 +26,11 @@ function Success() {
   }
   return (
     <>
-      {isLoading && (
+      {isLoading ? (
         <div className="flex justify-center items-center">
           <PagePlaceholder />
         </div>
-      )}
-      {!isLoading && (
+      ) : (
         <div className="h-screen flex items-center justify-center">
           <div className="bg-white p-6 md:mx-auto">
             <svg
@@ -53,14 +51,12 @@ function Success() {
               </p>
               <p>Have a great day!</p>
               <div className="py-10 text-center">
-                {!isLoading && (
-                  <Link
-                    onClick={removeItems}
-                    className="px-12 bg-slate-800 hover:bg-[#131921] text-white font-semibold rounded-2xl py-3"
-                  >
-                    continue Shopping
-                  </Link>
-                )}
+                <Link
+                  onClick={removeItems}
+                  className="px-12 bg-slate-800 hover:bg-[#131921] text-white font-semibold rounded-2xl py-3"
+                >
+                  continue Shopping
+                </Link>
               </div>
             </div>
           </div>
