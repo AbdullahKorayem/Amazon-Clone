@@ -19,7 +19,7 @@ function Security() {
 
   const [email, setEmail] = useState('');
   const [id, setId] = useState('');
-  const { phoneNumber } = stateUser?.UserInformation[0];
+  const phoneNumber = stateUser?.UserInformation[0]?.phoneNumber;
   const [render, setRender] = useState(true);
   console.log(stateUser);
   useEffect(() => {
