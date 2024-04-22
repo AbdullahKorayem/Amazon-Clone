@@ -535,22 +535,25 @@ export const updateUserEmail = async email => {
 
 export const updateUserPhoneNumber = async (uId, value) => {
   try {
-    const UsersRef = doc(firestore, 'Users', uId);
-    const userDoc = await getDoc(UsersRef);
+    // const UsersRef = doc(firestore, 'Users', uId);
+    // const userDoc = await getDoc(UsersRef);
 
-    if (userDoc.exists()) {
-      const userData = userDoc.data();
+    // if (userDoc.exists()) {
+    //   const userData = userDoc.data();
 
-      // Assuming 'UserInformation' is an array and we want to update the first element
-      if (userData.UserInformation && userData.UserInformation.length > 0) {
-        userData.UserInformation[0].phoneNumber = value;
-      }
-
-      await updateDoc(UsersRef, userData);
-      console.log('Phone number updated successfully');
-    } else {
-      console.error('User document does not exist');
-    }
+    //   if (userData.UserInformation && userData.UserInformation.length > 0) {
+    //     userData.UserInformation[0].phoneNumber = value;
+    //   }
+    const userRef = doc(firestore, 'Users', uId);
+    await updateDoc(userRef, {
+      phoneNumber: value,
+    });
+    console.log('phoneNumber updated successfully');
+    // await updateDoc(UsersRef, userData);
+    // console.log('Phone number updated successfully');
+    //   } else {
+    //     console.error('User document does not exist');
+    //   }
   } catch (error) {
     console.error('Error updating phoneNumber:', error);
   }
