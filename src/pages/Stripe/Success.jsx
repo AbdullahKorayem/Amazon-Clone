@@ -11,9 +11,9 @@ function Success() {
     setIsLoading(true);
     async function setorder() {
       const res = await addOrder(order);
+      setIsLoading(false);
     }
     setorder();
-    setIsLoading(false);
   }, [order]);
 
   function removeItems() {
@@ -52,12 +52,14 @@ function Success() {
               </p>
               <p>Have a great day!</p>
               <div className="py-10 text-center">
-                <Link
-                  onClick={removeItems}
-                  className="px-12 bg-slate-800 hover:bg-[#131921] text-white font-semibold rounded-2xl py-3"
-                >
-                  continue Shopping
-                </Link>
+                {!isLoading && (
+                  <Link
+                    onClick={removeItems}
+                    className="px-12 bg-slate-800 hover:bg-[#131921] text-white font-semibold rounded-2xl py-3"
+                  >
+                    continue Shopping
+                  </Link>
+                )}
               </div>
             </div>
           </div>
